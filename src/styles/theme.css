@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+:root {
+  /* GitHub Dark Theme Colors */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-elevated: #1c2128;
+
+  /* Borders & Lines */
+  --border-default: #30363d;
+  --border-muted: #21262d;
+  --border-active: #388bfd;
+
+  /* Text Colors */
+  --text-primary: #e6edf3;
+  --text-secondary: #7d8590;
+  --text-muted: #484f58;
+
+  /* Accent Colors */
+  --accent-blue: #58a6ff;
+  --accent-green: #3fb950;
+  --accent-purple: #bc8cff;
+  --accent-red: #f85149;
+  --accent-yellow: #d29922;
+  --accent-orange: #f97316;
+  --accent-cyan: #39c5cf;
+  --accent-pink: #ff7b72;
+  --accent-indigo: #7c86ff;
+  --accent-teal: #2ea8a8;
+  --accent-lime: #7ee787;
+  --accent-slate: #8b949e;
+
+
+  /* Syntax Highlighting */
+  --syntax-keyword: #ff7b72;
+  --syntax-string: #a5d6ff;
+  --syntax-function: #d2a8ff;
+  --syntax-variable: #ffa657;
+  --syntax-comment: #8b949e;
+
+  /* Interactive States */
+  --hover-overlay: rgba(177, 186, 196, 0.12);
+  --selected-overlay: rgba(56, 139, 253, 0.15);
+
+  /* Grid */
+  --grid-color: rgba(48, 54, 61, 0.5);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Selection */
+::selection {
+  background: var(--selected-overlay);
+  color: var(--accent-blue);
+}
+
+/* Code font */
+code,
+pre,
+.code-font {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+/* Headings - using system defaults, no custom sizing */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+}
+
+/* Links */
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+}
+
+.glow-green {
+  box-shadow: 0 0 20px rgba(63, 185, 80, 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(188, 140, 255, 0.3);
+}
