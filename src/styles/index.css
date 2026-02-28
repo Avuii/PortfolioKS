@@ -1,10 +1,25 @@
-@import './fonts.css';
-@import './tailwind.css';
-@import './theme.css';
+@import "./fonts.css";
+@import "./tailwind.css";
+@import "./theme.css";
 @media (hover: hover) and (pointer: fine) {
   html,
   body,
   * {
     cursor: none !important;
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  .terminal-window,
+  .glass-card,
+  .panel,
+  .card {
+    width: calc(100vw - 24px) !important;
+    max-width: 100% !important;
   }
 }
