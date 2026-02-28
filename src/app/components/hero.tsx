@@ -273,25 +273,56 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
 
               {/* Code content */}
-              <div className="p-4 sm:p-6 min-h-[240px] sm:min-h-[320px] code-font text-xs sm:text-sm">
-                <pre className="text-[var(--text-primary)] overflow-x-auto">
-                  {typedText.split('\n').map((line, index) => (
-                    <div key={index} className="flex">
-                      <span className="text-[var(--text-muted)] mr-3 select-none w-5 text-right">
-                        {index + 1}
-                      </span>
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: highlightSyntax(line),
-                        }}
-                      />
-                    </div>
-                  ))}
-                  {showCursor && (
-                    <span className="inline-block w-2 h-4 sm:h-5 bg-[var(--accent-blue)] animate-pulse" />
-                  )}
-                </pre>
-              </div>
+<div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3">
+  <div
+    className="
+      rounded-md
+      bg-transparent
+      code-font
+      text-[11px] sm:text-sm
+      leading-[1.35]
+      min-h-[180px]
+      h-[clamp(180px,28svh,320px)]
+      overflow-hidden
+    "
+  >
+    <pre className="h-full overflow-auto pr-2">
+      {typedText.split('\n').map((line, index) => (
+        <div key={index} className="flex min-w-max">
+          <span className="text-[var(--text-muted)] mr-3 select-none w-5 text-right shrink-0">
+            {index + 1}
+          </span>
+          <span
+            className="whitespace-pre"
+            dangerouslySetInnerHTML={{ __html: highlightSyntax(line) }}
+          />
+        </div>
+      ))}
+      {showCursor && (
+        <span className="inline-block w-2 h-4 bg-[var(--accent-blue)] animate-pulse" />
+      )}
+    </pre>
+  </div>
+</div>
+
+{/* Action buttons */}
+<div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col gap-3">
+  <button
+    onClick={handleViewProjects}
+    className="w-full flex items-center justify-center gap-2 px-3 py-3 text-sm bg-[var(--accent-green)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
+  >
+    <Play className="w-3.5 h-3.5" />
+    {ui.runProfile}
+  </button>
+
+  <button
+    onClick={handleViewProjects}
+    className="w-full flex items-center justify-center gap-2 px-3 py-3 text-sm bg-[var(--accent-blue)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
+  >
+    <FolderGit2 className="w-3.5 h-3.5" />
+    {ui.viewProjects}
+  </button>
+</div>
 
               {/* Action buttons */}
               <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col sm:flex-row gap-3">
