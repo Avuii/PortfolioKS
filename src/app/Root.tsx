@@ -46,6 +46,7 @@ export default function Root() {
   };
 
   return (
+    <div className="min-h-screen w-full overflow-x-hidden">
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <CustomCursor />
       <GridBackground />
@@ -92,6 +93,7 @@ export default function Root() {
           <Contact language={language} playClickSound={playClickSound} />
         </section>
       </main>
+    </div>
     </div>
   );
 }
