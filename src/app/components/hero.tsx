@@ -272,32 +272,35 @@ export function Hero({ language, playClickSound }: HeroProps) {
                 <div className="w-12" />
               </div>
 
-              {/* Code content */}
+{/* Code content */}
 <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3">
   <div
     className="
-      rounded-md
-      bg-transparent
       code-font
       text-[11px] sm:text-sm
-      leading-[1.35]
-      min-h-[180px]
-      h-[clamp(180px,28svh,320px)]
+      leading-[1.4]
       overflow-hidden
     "
+    style={{
+      height: 'calc(1.4em * 14)', // dokładnie 14 linii
+    }}
   >
-    <pre className="h-full overflow-auto pr-2">
+    <pre className="h-full overflow-x-auto overflow-y-hidden pr-2">
       {typedText.split('\n').map((line, index) => (
         <div key={index} className="flex min-w-max">
-          <span className="text-[var(--text-muted)] mr-3 select-none w-5 text-right shrink-0">
+          <span className="text-[var(--text-muted)] mr-3 select-none w-6 text-right shrink-0">
             {index + 1}
           </span>
+
           <span
             className="whitespace-pre"
-            dangerouslySetInnerHTML={{ __html: highlightSyntax(line) }}
+            dangerouslySetInnerHTML={{
+              __html: highlightSyntax(line),
+            }}
           />
         </div>
       ))}
+
       {showCursor && (
         <span className="inline-block w-2 h-4 bg-[var(--accent-blue)] animate-pulse" />
       )}
