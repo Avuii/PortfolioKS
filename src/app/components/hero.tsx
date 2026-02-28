@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'motion/react';
 import {
   Download,
@@ -157,7 +157,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-16 px-8">
+    <div className="min-h-[100svh] pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Left side - Hero content */}
@@ -165,28 +165,28 @@ export function Hero({ language, playClickSound }: HeroProps) {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="pt-12"
+            className="pt-8 sm:pt-12"
           >
             {/* Status badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-tertiary)] border border-[var(--accent-green)] mb-6">
               <div className="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-pulse shadow-[0_0_10px_var(--accent-green)]" />
-              <span className="text-sm code-font text-[var(--accent-green)]">
+              <span className="text-xs sm:text-sm code-font text-[var(--accent-green)]">
                 SYSTEM.KERNEL :: v2.5.0 ONLINE
               </span>
             </div>
 
             {/* Main heading */}
             <h1 className="mb-4 leading-none">
-              <div className="text-5xl lg:text-6xl text-[var(--text-primary)]">
+              <div className="text-4xl sm:text-5xl lg:text-6xl text-[var(--text-primary)]">
                 {ui.greeting}
               </div>
-              <div className="mt-2 text-6xl lg:text-7xl bg-gradient-to-r from-[var(--accent-blue)] via-[var(--accent-purple)] to-[var(--accent-blue)] bg-clip-text text-transparent">
+              <div className="mt-2 text-5xl sm:text-6xl lg:text-7xl bg-gradient-to-r from-[var(--accent-blue)] via-[var(--accent-purple)] to-[var(--accent-blue)] bg-clip-text text-transparent leading-[1.05]">
                 Katarzyna Stańczyk
               </div>
             </h1>
 
             {/* Role line */}
-            <div className="text-lg text-[var(--text-secondary)] mb-6 code-font">
+            <div className="text-base sm:text-lg text-[var(--text-secondary)] mb-6 code-font leading-relaxed">
               <span className="text-[var(--accent-blue)]">&lt;Developer /&gt;</span>{' '}
               {ui.roleText}
             </div>
@@ -202,8 +202,8 @@ export function Hero({ language, playClickSound }: HeroProps) {
                     key={module}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="px-3 py-1 bg-[var(--bg-tertiary)] border border-[var(--accent-blue)] text-[var(--accent-blue)] text-sm rounded code-font"
+                    transition={{ delay: index * 0.08 }}
+                    className="px-2.5 py-1 bg-[var(--bg-tertiary)] border border-[var(--accent-blue)] text-[var(--accent-blue)] text-xs sm:text-sm rounded code-font"
                   >
                     {module}
                   </motion.span>
@@ -212,9 +212,9 @@ export function Hero({ language, playClickSound }: HeroProps) {
             </div>
 
             {/* Export CV card */}
-            <div className="mt-6 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
+            <div className="mt-6 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
+              <div className="flex items-start justify-between mb-4 gap-4">
+                <div className="min-w-0">
                   <h3 className="code-font text-[var(--text-primary)] mb-1">
                     {ui.exportFile}
                   </h3>
@@ -224,7 +224,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
                   </div>
                 </div>
 
-                <span className="px-2 py-1 bg-[var(--accent-green)]/20 border border-[var(--accent-green)] text-white text-xs rounded code-font">
+                <span className="shrink-0 px-2 py-1 bg-[var(--accent-green)]/20 border border-[var(--accent-green)] text-white text-xs rounded code-font">
                   {ui.ready}
                 </span>
               </div>
@@ -243,7 +243,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
             </div>
 
             {/* Easter egg code */}
-            <div className="mt-8 code-font text-sm text-[var(--accent-green)]">
+            <div className="mt-8 code-font text-xs sm:text-sm text-[var(--accent-green)] break-words">
               while(caffeine {'>'} 0) {'{'} ship(); {'}'}
             </div>
           </motion.div>
@@ -264,7 +264,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
                   <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
                 </div>
 
-                <div className="flex items-center gap-2 text-sm code-font text-[var(--text-secondary)]">
+                <div className="flex items-center gap-2 text-xs sm:text-sm code-font text-[var(--text-secondary)]">
                   <Code2 className="w-4 h-4 text-[var(--accent-blue)]" />
                   portfolio.tsx
                 </div>
@@ -273,11 +273,11 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
 
               {/* Code content */}
-              <div className="p-6 min-h-[320px] code-font text-sm">
-                <pre className="text-[var(--text-primary)]">
+              <div className="p-4 sm:p-6 min-h-[240px] sm:min-h-[320px] code-font text-xs sm:text-sm">
+                <pre className="text-[var(--text-primary)] overflow-x-auto">
                   {typedText.split('\n').map((line, index) => (
                     <div key={index} className="flex">
-                      <span className="text-[var(--text-muted)] mr-4 select-none w-6 text-right">
+                      <span className="text-[var(--text-muted)] mr-3 select-none w-5 text-right">
                         {index + 1}
                       </span>
                       <span
@@ -288,13 +288,13 @@ export function Hero({ language, playClickSound }: HeroProps) {
                     </div>
                   ))}
                   {showCursor && (
-                    <span className="inline-block w-2 h-5 bg-[var(--accent-blue)] animate-pulse" />
+                    <span className="inline-block w-2 h-4 sm:h-5 bg-[var(--accent-blue)] animate-pulse" />
                   )}
                 </pre>
               </div>
 
               {/* Action buttons */}
-              <div className="px-6 pb-6 flex gap-3">
+              <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={handleViewProjects}
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-[var(--accent-green)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
@@ -314,15 +314,17 @@ export function Hero({ language, playClickSound }: HeroProps) {
             </div>
 
             {/* GitHub card */}
-            <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-6">
+            <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Github className="w-8 h-8 text-[var(--text-primary)]" />
-                  <div>
+                <div className="flex items-center gap-3 min-w-0">
+                  <Github className="w-8 h-8 text-[var(--text-primary)] shrink-0" />
+                  <div className="min-w-0">
                     <div className="code-font text-sm text-[var(--text-secondary)]">
                       {ui.checkOut}
                     </div>
-                    <div className="code-font text-[var(--text-primary)]">{ui.github}</div>
+                    <div className="code-font text-[var(--text-primary)] truncate">
+                      {ui.github}
+                    </div>
                   </div>
                 </div>
 
@@ -331,7 +333,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playClickSound}
-                  className="p-2 hover:bg-[var(--hover-overlay)] rounded transition-colors"
+                  className="p-2 hover:bg-[var(--hover-overlay)] rounded transition-colors shrink-0"
                 >
                   <ExternalLink className="w-5 h-5 text-[var(--accent-blue)]" />
                 </a>
@@ -339,15 +341,17 @@ export function Hero({ language, playClickSound }: HeroProps) {
             </div>
 
             {/* LinkedIn card */}
-            <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-6">
+            <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Linkedin className="w-8 h-8 text-[var(--text-primary)]" />
-                  <div>
+                <div className="flex items-center gap-3 min-w-0">
+                  <Linkedin className="w-8 h-8 text-[var(--text-primary)] shrink-0" />
+                  <div className="min-w-0">
                     <div className="code-font text-sm text-[var(--text-secondary)]">
                       {ui.checkOut}
                     </div>
-                    <div className="code-font text-[var(--text-primary)]">{ui.linkedin}</div>
+                    <div className="code-font text-[var(--text-primary)] truncate">
+                      {ui.linkedin}
+                    </div>
                   </div>
                 </div>
 
@@ -356,7 +360,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playClickSound}
-                  className="p-2 hover:bg-[var(--hover-overlay)] rounded transition-colors"
+                  className="p-2 hover:bg-[var(--hover-overlay)] rounded transition-colors shrink-0"
                 >
                   <ExternalLink className="w-5 h-5 text-[var(--accent-blue)]" />
                 </a>
