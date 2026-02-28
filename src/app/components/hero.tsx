@@ -308,11 +308,13 @@ export function Hero({ language, playClickSound }: HeroProps) {
   </div>
 </div>
 
+
+
 {/* Action buttons */}
-<div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col gap-3">
+<div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col sm:flex-row gap-3">
   <button
     onClick={handleViewProjects}
-    className="w-full flex items-center justify-center gap-2 px-3 py-3 text-sm bg-[var(--accent-green)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
+    className="w-full sm:flex-1 flex items-center justify-center gap-2 px-3 py-3 text-sm bg-[var(--accent-green)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
   >
     <Play className="w-3.5 h-3.5" />
     {ui.runProfile}
@@ -320,33 +322,12 @@ export function Hero({ language, playClickSound }: HeroProps) {
 
   <button
     onClick={handleViewProjects}
-    className="w-full flex items-center justify-center gap-2 px-3 py-3 text-sm bg-[var(--accent-blue)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
+    className="w-full sm:flex-1 flex items-center justify-center gap-2 px-3 py-3 text-sm bg-[var(--accent-blue)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
   >
     <FolderGit2 className="w-3.5 h-3.5" />
     {ui.viewProjects}
   </button>
 </div>
-
-              {/* Action buttons */}
-              <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={handleViewProjects}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-[var(--accent-green)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
-                >
-                  <Play className="w-3.5 h-3.5" />
-                  {ui.runProfile}
-                </button>
-
-                <button
-                  onClick={handleViewProjects}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-[var(--accent-blue)] text-white rounded-lg hover:bg-opacity-80 transition-all code-font"
-                >
-                  <FolderGit2 className="w-3.5 h-3.5" />
-                  {ui.viewProjects}
-                </button>
-              </div>
-            </div>
-
             {/* GitHub card */}
             <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
               <div className="flex items-center justify-between">
