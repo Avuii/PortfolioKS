@@ -1,12 +1,13 @@
 import { motion } from 'motion/react';
-import { GitBranch, Calendar, FileCode } from 'lucide-react';
+import { Calendar, FileCode, GitBranch } from 'lucide-react';
 
 interface ExperienceProps {
   language: 'en' | 'pl';
 }
 
 const experiences = [
-  {  id: 'a1b2ca3',
+  {
+    id: 'a1b2ca3',
     branch: 'HEAD → ambassador',
     company: 'Commerzbank',
     title: {
@@ -88,21 +89,23 @@ export function Experience({ language }: ExperienceProps) {
   return (
     <div className="min-h-[100svh] overflow-x-hidden px-4 py-16 pb-[calc(env(safe-area-inset-bottom)+120px)] sm:px-8 sm:py-20 sm:pb-20">
       <div className="mx-auto max-w-5xl">
-<motion.div
-  initial={{ opacity: 0, y: 18 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  className="mb-10 sm:mb-12"
->
-  <div className="flex items-start gap-3">
-    <GitBranch className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-orange)] sm:h-6 sm:w-6" />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10 sm:mb-12"
+        >
+          <div className="flex items-start gap-3">
+            <GitBranch className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-orange)] sm:h-6 sm:w-6" />
 
-    <h2 className="min-w-0 code-font text-[clamp(18px,5.6vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl sm:whitespace-nowrap">
-      <span className="block sm:inline">$ git log --stat</span>
-      <span className="block sm:inline sm:ml-2">--oneline</span>
-    </h2>
-  </div>
-</motion.div>
+            {/* mobile: two lines, desktop: single line */}
+            <h2 className="min-w-0 code-font text-[clamp(18px,5.6vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl sm:whitespace-nowrap">
+              <span className="block sm:inline">$ git log --stat</span>
+              <span className="block sm:ml-2 sm:inline">--oneline</span>
+            </h2>
+          </div>
+        </motion.div>
 
         {/* Timeline wrapper */}
         <div className="relative">
@@ -127,12 +130,12 @@ export function Experience({ language }: ExperienceProps) {
                     <div className="h-4 w-4 rounded-full border-4 border-[var(--bg-primary)] bg-[var(--accent-blue)] shadow-[0_0_18px_var(--accent-blue)]" />
                   </div>
 
-                  {/* date */}
-                  <div className="pt-2">
-                    <div className="ml-10 max-w-[calc(100%-2.5rem)] lg:absolute lg:left-1/2 lg:top-0 lgml-0 lg:max-w-none lg:-translate-x-1/2">
-                      <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[var(--accent-blue)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs code-font text-[var(--accent-blue)] sm:px-4 sm:py-1.5">
+                  {/* date (fixed alignment: mobile offset, desktop centered) */}
+                  <div className="pt-2 lg:pt-0">
+                    <div className="ml-10 flex max-w-[calc(100%-2.5rem)] lg:absolute lg:left-1/2 lg:top-0 lg:ml-0 lg:max-w-none lg:w-max lg:-translate-x-1/2">
+                      <div className="inline-flex w-fit items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[var(--accent-blue)] bg-[var(--bg-tertiary)] px-3 py-1 text-[11px] code-font text-[var(--accent-blue)] shadow-[0_0_18px_rgba(88,166,255,0.08)] sm:px-4 sm:py-1.5 sm:text-xs lg:min-w-[220px]">
                         <Calendar className="h-3 w-3 shrink-0" />
-                        <span className="truncate">{exp.period[language]}</span>
+                        <span>{exp.period[language]}</span>
                       </div>
                     </div>
                   </div>
@@ -197,19 +200,16 @@ export function Experience({ language }: ExperienceProps) {
                           <div className="flex items-center gap-1">
                             <FileCode className="h-3 w-3 shrink-0" />
                             <span>
-                              {exp.filesChanged}{' '}
-                              {language === 'en' ? 'files changed' : 'pliki zmienione'}
+                              {exp.filesChanged} {language === 'en' ? 'files changed' : 'pliki zmienione'}
                             </span>
                           </div>
 
                           <span className="text-[var(--accent-green)]">
-                            +{exp.insertions}{' '}
-                            {language === 'en' ? 'insertions' : 'wstawienia'}
+                            +{exp.insertions} {language === 'en' ? 'insertions' : 'wstawienia'}
                           </span>
 
                           <span className="text-[var(--accent-red)]">
-                            -{exp.deletions}{' '}
-                            {language === 'en' ? 'deletions' : 'usunięcia'}
+                            -{exp.deletions} {language === 'en' ? 'deletions' : 'usunięcia'}
                           </span>
                         </div>
                       </div>
@@ -233,9 +233,7 @@ export function Experience({ language }: ExperienceProps) {
               <div className="mt-6 pl-10 lg:flex lg:justify-center lg:pl-0">
                 <div className="inline-flex rounded-full border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-5 py-3 text-sm code-font text-[var(--text-secondary)]">
                   <span className="mr-2 text-[var(--accent-green)]">➜</span>
-                  {language === 'en'
-                    ? 'Initial Commit'
-                    : 'Initial Commit '}
+                  {language === 'en' ? 'Initial Commit' : 'Initial Commit'}
                 </div>
               </div>
             </motion.div>
