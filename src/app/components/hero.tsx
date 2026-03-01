@@ -79,7 +79,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
           '    <Developer',
           '      name="Katarzyna Stańczyk"',
           '      role="Full-Stack Developer"',
-          '      passion="Buduję praktyczne oprogramowanie"',
+          '      passion="Buduję sensowne rozwiązania"',
           '    />',
           '  );',
           '};',
