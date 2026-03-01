@@ -69,7 +69,7 @@ const modules: SkillModule[] = [
     shortLabel: { en: 'Backend', pl: 'Backend' },
     score: 10,
     icon: Layers3,
-    colorClass: 'text-[var(--accent-slate)]',
+    colorClass: 'text-[var(--accent-cyan)]',
     glowClass: 'shadow-[0_0_24px_rgba(34,211,238,0.14)]',
     accentClass: 'border-[var(--accent-cyan)]/50',
     items: ['C#', '.NET', 'ASP.NET Core', 'Entity Framework Core', 'REST API', 'Swagger / OpenAPI', 'FastAPI'],
@@ -278,7 +278,7 @@ export function Skills({ language }: SkillsProps) {
           className="mb-8 sm:mb-10"
         >
           <div className="mb-3 flex items-center gap-3">
-            <Settings className="h-5 w-5 text-[var(--accent-blue)] sm:h-6 sm:w-6" />
+            <Settings className="h-5 w-5 text-[var(--accent-slate)] sm:h-6 sm:w-6" />
             <h2 className="code-font text-2xl text-[var(--text-primary)] sm:text-3xl">{ui.sectionTitle}</h2>
           </div>
         </motion.div>
