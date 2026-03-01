@@ -15,7 +15,7 @@ interface HeroProps {
   playClickSound: () => void;
 }
 
-const modules = ['C#', '.NET', 'C++', 'Blazor', 'Angular', 'Python', 'SQL', 'ML', 'AI'];
+const modules = ['C#', '.NET', 'C++', 'Blazor', 'Angular', 'Python', 'SQL'];
 
 export function Hero({ language, playClickSound }: HeroProps) {
   const [typedText, setTypedText] = useState('');
@@ -28,7 +28,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
       en: {
         greeting: "Hello, I'm",
         roleText:
-          'Computer Science Student · .NET Developer Intern · Full-Stack Development · Algorithms · ML / AI',
+          'Computer Science Student · .NET Developer Intern · Full-Stack Development · ML / AI',
         loadedModules: 'LOADED_MODULES:',
         exportFile: 'Export CV.pdf',
         generating: '> generating file',
