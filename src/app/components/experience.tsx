@@ -211,7 +211,7 @@ export function Experience({ language }: ExperienceProps) {
                   <span className="mr-2 text-[var(--accent-green)]">➜</span>
                   {language === 'en'
                     ? 'Initial Commit'
-                    : 'Początkowy Commit (Hello World)'}
+                    : 'Initial Commit '}
                 </div>
               </div>
             </motion.div>
