@@ -23,7 +23,7 @@ const features = [
       en: 'I focus on software that is useful, maintainable, and built for real needs.',
       pl: 'Skupiam się na oprogramowaniu, które jest użyteczne, łatwe w utrzymaniu i budowane dla rzeczywistych potrzeb.'
     },
-    icon: Target
+    icon: Target,
     iconColor: 'text-[var(--accent-red)]'
   },
   {
@@ -35,7 +35,7 @@ const features = [
       en: "I'm comfortable moving between backend logic, data models, APIs, and frontend interfaces.",
       pl: 'Swobodnie poruszam się między logiką backendu, modelami danych, API i interfejsami frontend.'
     },
-    icon: Workflow
+    icon: Workflow,
     iconColor: 'text-[var(--accent-cyan)]'
   },
   {
@@ -47,7 +47,7 @@ const features = [
       en: 'My academic background helps me understand algorithms, data structures, and problem-solving deeply.',
       pl: 'Moje wykształcenie akademickie pomaga mi głęboko rozumieć algorytmy, struktury danych i rozwiązywanie problemów.'
     },
-    icon: Brain
+    icon: Brain,
     iconColor: 'text-[var(--accent-pink)]'
   },
   {
@@ -59,7 +59,7 @@ const features = [
       en: 'I like learning by building — from business applications to machine learning experiments and interactive tools.',
       pl: 'Lubię uczyć się przez tworzenie — od aplikacji biznesowych po eksperymenty z machine learningiem i interaktywne narzędzia.'
     },
-    icon: Zap
+    icon: Zap,
     iconColor: 'text-[var(--accent-yellow)]'
   }
 ] as const;
