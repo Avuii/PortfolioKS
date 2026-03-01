@@ -9,7 +9,7 @@ interface AboutProps {
 export function About({ language }: AboutProps) {
   const ui = {
     en: {
-      sectionTitle: '#About.system',
+      sectionTitle: '# About.system',
       operator: 'OPERATOR',
       role: 'ROLE',
       location: 'LOCATION',
@@ -31,7 +31,7 @@ export function About({ language }: AboutProps) {
       expValue: '1+ yr',
     },
     pl: {
-      sectionTitle: '#O_mnie.system',
+      sectionTitle: '# O_mnie.system',
       operator: 'OPERATOR',
       role: 'ROLA',
       location: 'LOKALIZACJA',
