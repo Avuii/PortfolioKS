@@ -31,13 +31,13 @@ type Section = {
 };
 
 const SECTIONS: Section[] = [
-  { id: 'home', label: { en: 'Home', pl: 'Start' }, Icon: Home },
-  { id: 'about', label: { en: 'About', pl: 'O mnie' }, Icon: User },
-  { id: 'skills', label: { en: 'Skills', pl: 'Umiejętności' }, Icon: Settings },
-  { id: 'experience', label: { en: 'Experience', pl: 'Doświadczenie' }, Icon: GitBranch },
-  { id: 'projects', label: { en: 'Projects', pl: 'Projekty' }, Icon: FolderGit2 },
-  { id: 'why', label: { en: 'Why Me', pl: 'Dlaczego ja' }, Icon: Sparkles },
-  { id: 'contact', label: { en: 'Contact', pl: 'Kontakt' }, Icon: Mail },
+  { id: 'home', Icon: Home },
+  { id: 'about', Icon: User },
+  { id: 'skills', Icon: Settings },
+  { id: 'experience', Icon: GitBranch },
+  { id: 'projects', Icon: FolderGit2 },
+  { id: 'why', Icon: Sparkles },
+  { id: 'contact', Icon: Mail },
 ];
 
 export function NavigationRail({
