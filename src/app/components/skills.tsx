@@ -69,7 +69,7 @@ const modules: SkillModule[] = [
     shortLabel: { en: 'Backend', pl: 'Backend' },
     score: 10,
     icon: Layers3,
-    colorClass: 'text-[var(--accent-cyan)]',
+    colorClass: 'text-[var(--accent-slate)]',
     glowClass: 'shadow-[0_0_24px_rgba(34,211,238,0.14)]',
     accentClass: 'border-[var(--accent-cyan)]/50',
     items: ['C#', '.NET', 'ASP.NET Core', 'Entity Framework Core', 'REST API', 'Swagger / OpenAPI', 'FastAPI'],
