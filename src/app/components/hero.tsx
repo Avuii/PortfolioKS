@@ -247,7 +247,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
             </div>
 
             <div className="mt-8 code-font text-xs sm:text-sm text-[var(--accent-green)] break-words">
-              while(caffeine {'>'} 0) {'{'} ship(); {'}'}
+              while (caffeine {'>'} 0) {'{'} ship(); {'}'}
             </div>
           </motion.div>
 
