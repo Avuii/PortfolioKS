@@ -24,6 +24,7 @@ const features = [
       pl: 'Skupiam się na oprogramowaniu, które jest użyteczne, łatwe w utrzymaniu i budowane dla rzeczywistych potrzeb.'
     },
     icon: Target
+    iconColor: 'text-[var(--accent-red)]'
   },
   {
     title: {
@@ -35,6 +36,7 @@ const features = [
       pl: 'Swobodnie poruszam się między logiką backendu, modelami danych, API i interfejsami frontend.'
     },
     icon: Workflow
+    iconColor: 'text-[var(--accent-cyan)]'
   },
   {
     title: {
@@ -46,6 +48,7 @@ const features = [
       pl: 'Moje wykształcenie akademickie pomaga mi głęboko rozumieć algorytmy, struktury danych i rozwiązywanie problemów.'
     },
     icon: Brain
+    iconColor: 'text-[var(--accent-pink)]'
   },
   {
     title: {
@@ -57,6 +60,7 @@ const features = [
       pl: 'Lubię uczyć się przez tworzenie — od aplikacji biznesowych po eksperymenty z machine learningiem i interaktywne narzędzia.'
     },
     icon: Zap
+    iconColor: 'text-[var(--accent-yellow)]'
   }
 ] as const;
 
@@ -64,7 +68,7 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
   const fileName =
     language === 'en'
       ? 'WHY_WORK_WITH_ME.md'
-      : 'DLACZEGO_WARTO_ZE_MNA_WSPOLPRACOWAC.md';
+      : 'DLACZEGO_JA.md';
 
   return (
     <section className="min-h-screen overflow-x-hidden px-4 py-16 pb-[calc(env(safe-area-inset-bottom)+120px)] sm:px-6 sm:py-20 sm:pb-16 lg:px-8">
@@ -118,7 +122,7 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
 
                       <div className="min-w-0 flex-1">
                         <div className="mb-2 flex items-start gap-2">
-                          <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent-blue)] sm:h-5 sm:w-5" />
+                          <Icon className={`mt-0.5 h-4 w-4 shrink-0 sm:h-5 sm:w-5 ${feature.iconColor}`} />
                           <h3 className="break-words text-[15px] leading-snug code-font text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-blue)] sm:text-base lg:text-lg">
                             {feature.title[language]}
                           </h3>
