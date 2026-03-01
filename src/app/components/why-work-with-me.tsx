@@ -81,7 +81,7 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
           className="mb-8 sm:mb-12"
         >
           <div className="mb-4 flex items-start gap-3">
-            <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-blue)] sm:h-6 sm:w-6" />
+            <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-yellow)] sm:h-6 sm:w-6" />
 
             <h2 className="min-w-0 code-font text-[clamp(18px,5.7vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl">
               <span className="block">$ cat</span>
