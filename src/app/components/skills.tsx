@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView } from 'motion/react';
-import { Database, Layers3, MonitorSmartphone, Settings } from 'lucide-react';
+import {
+  BrainCircuit,
+  Database,
+  Layers3,
+  MonitorSmartphone,
+  Palette,
+  Settings,
+  type LucideIcon
+} from 'lucide-react';
 
 interface SkillsProps {
   language: 'en' | 'pl';
@@ -11,14 +19,14 @@ type UsedInItem = {
   href?: string;
 };
 
-type ModuleKey = 'backend' | 'frontend' | 'ml' | 'databases';
+type ModuleKey = 'backend' | 'frontend' | 'ml' | 'databases' | 'creative';
 
 type SkillModule = {
   key: ModuleKey;
   label: { en: string; pl: string };
   shortLabel: { en: string; pl: string };
   score: number;
-  icon: typeof Settings;
+  icon: LucideIcon;
   colorClass: string;
   glowClass: string;
   accentClass: string;
@@ -59,78 +67,138 @@ const projects = {
   som: {
     label: { en: 'SOM WTA/WTM', pl: 'SOM WTA/WTM' },
     href: 'https://github.com/Avuii/SOM-WTA-WTM-PyTorch'
+  },
+  portfolio: {
+    label: { en: 'Portfolio Website', pl: 'Portfolio Website' },
+    href: 'https://avuii.github.io/KatarzynaStanczyk/'
   }
 } as const;
+
+const deheusWork: UsedInItem = {
+  label: { en: 'De Heus internal apps', pl: 'Aplikacje wewnętrzne De Heus' }
+};
 
 const modules: SkillModule[] = [
   {
     key: 'backend',
-    label: { en: 'Backend Engineering', pl: 'Backend Engineering' },
+    label: { en: 'Backend & APIs', pl: 'Backend i API' },
     shortLabel: { en: 'Backend', pl: 'Backend' },
     score: 10,
     icon: Layers3,
     colorClass: 'text-[var(--accent-cyan)]',
-    glowClass: 'shadow-[0_0_24px_rgba(34,211,238,0.14)]',
+    glowClass: 'shadow-[0_0_24px_rgba(57,197,207,0.18)]',
     accentClass: 'border-[var(--accent-cyan)]/50',
-    items: ['C#', '.NET', 'ASP.NET Core', 'Entity Framework Core', 'REST API', 'Swagger / OpenAPI', 'FastAPI'],
-    usedIn: [projects.conway, projects.documind, projects.eurpln, projects.asteroid],
+    items: [
+      'C#',
+      '.NET',
+      'ASP.NET Core',
+      'Entity Framework Core',
+      'REST API',
+      'Swagger / OpenAPI',
+      'FastAPI',
+      'ONNX Runtime (.NET)'
+    ],
+    usedIn: [projects.conway, projects.documind, projects.eurpln, projects.asteroid, deheusWork],
     description: {
-      en: 'I build backend logic for full-stack applications, APIs, data access layers, and service integrations in .NET and Python-based projects.',
-      pl: 'Tworzę backend do aplikacji full-stack, API, warstwy dostępu do danych oraz integracje usług w projektach opartych o .NET i Pythona.'
+      en: 'I build APIs, backend logic, data access layers, DTO-based flows, and service integrations for full-stack applications and internal business tools.',
+      pl: 'Tworzę API, logikę backendową, warstwy dostępu do danych, przepływy oparte o DTO oraz integracje usług dla aplikacji full-stack i narzędzi biznesowych.'
     }
   },
   {
     key: 'frontend',
-    label: { en: 'Frontend Development', pl: 'Frontend Development' },
+    label: { en: 'Frontend & UI', pl: 'Frontend i UI' },
     shortLabel: { en: 'Frontend', pl: 'Frontend' },
-    score: 8,
+    score: 9,
     icon: MonitorSmartphone,
     colorClass: 'text-[var(--accent-pink)]',
-    glowClass: 'shadow-[0_0_24px_rgba(244,114,182,0.14)]',
+    glowClass: 'shadow-[0_0_24px_rgba(255,123,114,0.18)]',
     accentClass: 'border-[var(--accent-pink)]/50',
-    items: ['React', 'TypeScript', 'Angular', 'Blazor', 'Vite', 'Tailwind CSS', 'Framer Motion'],
-    usedIn: [projects.eurpln, projects.asteroid, projects.documind, projects.conway],
+    items: [
+      'React',
+      'TypeScript',
+      'Angular',
+      'Blazor',
+      'Vite',
+      'Tailwind CSS',
+      'Framer Motion',
+      'HTML5 / CSS3'
+    ],
+    usedIn: [projects.eurpln, projects.asteroid, projects.documind, projects.conway, projects.portfolio],
     description: {
-      en: 'I create modern interfaces, portfolio sections, dashboards, and responsive app views with a focus on clean structure and interaction.',
-      pl: 'Tworzę nowoczesne interfejsy, sekcje portfolio, dashboardy i responsywne widoki aplikacji z naciskiem na czystą strukturę i interakcję.'
+      en: 'I create responsive interfaces, dashboards, portfolio sections, and polished application views with a strong focus on clarity, structure, and interaction.',
+      pl: 'Tworzę responsywne interfejsy, dashboardy, sekcje portfolio oraz dopracowane widoki aplikacji z naciskiem na czytelność, strukturę i interakcję.'
     }
   },
   {
     key: 'ml',
-    label: { en: 'Machine Learning', pl: 'Machine Learning' },
-    shortLabel: { en: 'ML / Data', pl: 'ML / Data' },
-    score: 7,
-    icon: Settings,
+    label: { en: 'Data / ML / Analysis', pl: 'Data / ML / Analiza' },
+    shortLabel: { en: 'Data / ML', pl: 'Data / ML' },
+    score: 8,
+    icon: BrainCircuit,
     colorClass: 'text-[var(--accent-orange)]',
-    glowClass: 'shadow-[0_0_24px_rgba(251,146,60,0.14)]',
+    glowClass: 'shadow-[0_0_24px_rgba(249,115,22,0.18)]',
     accentClass: 'border-[var(--accent-orange)]/50',
-    items: ['Python', 'NumPy', 'Pandas', 'Scikit-learn', 'PyTorch', 'statsmodels', 'Forecasting'],
-    usedIn: [projects.eurpln, projects.banknote, projects.iris, projects.som, projects.social],
+    items: [
+      'Python',
+      'NumPy',
+      'Pandas',
+      'Scikit-learn',
+      'PyTorch',
+      'statsmodels',
+      'Forecasting',
+      'Matplotlib'
+    ],
+    usedIn: [projects.eurpln, projects.banknote, projects.iris, projects.som, projects.social, projects.asteroid],
     description: {
-      en: 'I work on ML experiments, time-series forecasting, classification tasks, and data workflows used in both university and portfolio projects.',
-      pl: 'Pracuję nad eksperymentami ML, prognozowaniem szeregów czasowych, klasyfikacją oraz workflow danych w projektach uczelnianych i portfolio.'
+      en: 'I work on forecasting, classification, experiments, and data workflows used in university projects as well as portfolio applications.',
+      pl: 'Pracuję nad prognozowaniem, klasyfikacją, eksperymentami ML oraz workflow danych wykorzystywanymi w projektach uczelnianych i portfolio.'
     }
   },
   {
     key: 'databases',
-    label: { en: 'Databases', pl: 'Databases' },
+    label: { en: 'Databases & Storage', pl: 'Bazy danych i storage' },
     shortLabel: { en: 'Databases', pl: 'Bazy danych' },
     score: 8,
     icon: Database,
     colorClass: 'text-[var(--accent-green)]',
-    glowClass: 'shadow-[0_0_24px_rgba(74,222,128,0.14)]',
+    glowClass: 'shadow-[0_0_24px_rgba(63,185,80,0.18)]',
     accentClass: 'border-[var(--accent-green)]/50',
-    items: ['SQL', 'Microsoft SQL Server', 'PostgreSQL', 'LINQ', 'Queries', 'Relational Modeling'],
-    usedIn: [projects.conway, projects.documind, projects.eurpln],
+    items: [
+      'SQL',
+      'Microsoft SQL Server',
+      'PostgreSQL',
+      'LINQ',
+      'Queries',
+      'Relational Modeling',
+      'EF Migrations'
+    ],
+    usedIn: [projects.conway, projects.documind, projects.eurpln, deheusWork],
     description: {
-      en: 'I use relational databases for persistence, querying, entity modeling, and application data flows in web and desktop-style systems.',
-      pl: 'Korzystam z relacyjnych baz danych do persystencji, zapytań, modelowania encji oraz przepływu danych w systemach webowych i desktopowych.'
+      en: 'I use relational databases for persistence, querying, entity modeling, and application data flows in both web systems and internal tools.',
+      pl: 'Korzystam z relacyjnych baz danych do persystencji, zapytań, modelowania encji oraz przepływu danych zarówno w systemach webowych, jak i narzędziach wewnętrznych.'
+    }
+  },
+  {
+    key: 'creative',
+    label: { en: 'Creative / Design / 3D', pl: 'Creative / Design / 3D' },
+    shortLabel: { en: 'Creative', pl: 'Creative' },
+    score: 7,
+    icon: Palette,
+    colorClass: 'text-[var(--accent-purple)]',
+    glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
+    accentClass: 'border-[var(--accent-purple)]/50',
+    items: ['Figma', 'Canva', 'UI/UX Design', '3ds Max', 'AutoCAD', 'Aseprite', 'Godot'],
+    usedIn: [projects.portfolio],
+    description: {
+      en: 'I use creative tools for UI concepts, portfolio visuals, prototyping, and selected 3D or game-oriented work supporting my technical projects.',
+      pl: 'Korzystam z narzędzi kreatywnych do konceptów UI, wizualizacji portfolio, prototypowania oraz wybranych prac 3D i game-dev, które uzupełniają moje projekty techniczne.'
     }
   }
 ];
 
 const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
-const randomBetween = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randomBetween = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 function buildBar(value: number, max = 10) {
   const safe = Math.max(0, Math.min(value, max));
@@ -279,7 +347,9 @@ export function Skills({ language }: SkillsProps) {
         >
           <div className="mb-3 flex items-center gap-3">
             <Settings className="h-5 w-5 text-[var(--accent-slate)] sm:h-6 sm:w-6" />
-            <h2 className="code-font text-2xl text-[var(--text-primary)] sm:text-3xl">{ui.sectionTitle}</h2>
+            <h2 className="code-font text-2xl text-[var(--text-primary)] sm:text-3xl">
+              {ui.sectionTitle}
+            </h2>
           </div>
         </motion.div>
 
@@ -292,9 +362,11 @@ export function Skills({ language }: SkillsProps) {
           >
             <div className="flex items-center gap-2 border-b border-[var(--border-default)] bg-[var(--bg-tertiary)] px-4 py-3 sm:px-5">
               <span className="h-3 w-3 rounded-full bg-[var(--accent-red)]" />
-              <span className="h-3 w-3 rounded-full bg-[var(--accent-orange)]" />
+              <span className="h-3 w-3 rounded-full bg-[var(--accent-yellow)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-green)]" />
-              <span className="ml-2 text-xs text-[var(--text-secondary)] sm:text-sm code-font">{ui.terminalFile}</span>
+              <span className="ml-2 text-xs text-[var(--text-secondary)] sm:text-sm code-font">
+                {ui.terminalFile}
+              </span>
             </div>
 
             <div className="p-4 sm:p-5 md:p-6">
@@ -340,10 +412,12 @@ export function Skills({ language }: SkillsProps) {
                       >
                         <div className="hidden items-center gap-3 sm:flex">
                           <Icon className={`h-4 w-4 ${module.colorClass}`} />
-                          <span className="code-font text-sm text-[var(--text-primary)] whitespace-pre">
+                          <span className="code-font whitespace-pre text-sm text-[var(--text-primary)]">
                             {buildBar(currentScore)}
                           </span>
-                          <span className="code-font text-sm text-[var(--text-primary)]">{module.label[language]}</span>
+                          <span className="code-font text-sm text-[var(--text-primary)]">
+                            {module.label[language]}
+                          </span>
                           <span className="ml-auto code-font text-xs text-[var(--text-secondary)]">
                             {currentScore}/10
                           </span>
@@ -353,9 +427,13 @@ export function Skills({ language }: SkillsProps) {
                           <div className="mb-2 flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
                               <Icon className={`h-4 w-4 ${module.colorClass}`} />
-                              <span className="code-font text-xs text-[var(--text-primary)]">{module.label[language]}</span>
+                              <span className="code-font text-xs text-[var(--text-primary)]">
+                                {module.label[language]}
+                              </span>
                             </div>
-                            <span className="code-font text-[10px] text-[var(--text-secondary)]">{currentScore}/10</span>
+                            <span className="code-font text-[10px] text-[var(--text-secondary)]">
+                              {currentScore}/10
+                            </span>
                           </div>
                           <div className="overflow-x-auto">
                             <div className="min-w-max code-font text-xs text-[var(--text-primary)]">
@@ -386,7 +464,9 @@ export function Skills({ language }: SkillsProps) {
             className="overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)]"
           >
             <div className="border-b border-[var(--border-default)] bg-[var(--bg-tertiary)] px-4 py-3 sm:px-5">
-              <div className="code-font text-xs text-[var(--text-secondary)] sm:text-sm">{ui.selectedLabel}</div>
+              <div className="code-font text-xs text-[var(--text-secondary)] sm:text-sm">
+                {ui.selectedLabel}
+              </div>
             </div>
 
             <AnimatePresence mode="wait">
@@ -399,7 +479,9 @@ export function Skills({ language }: SkillsProps) {
                 className="p-4 sm:p-5 md:p-6"
               >
                 <div className="mb-5 flex items-start gap-3">
-                  <div className={`rounded-xl border border-[var(--border-default)] bg-[var(--bg-tertiary)] p-3 ${selectedModule.glowClass}`}>
+                  <div
+                    className={`rounded-xl border border-[var(--border-default)] bg-[var(--bg-tertiary)] p-3 ${selectedModule.glowClass}`}
+                  >
                     <selectedModule.icon className={`h-5 w-5 ${selectedModule.colorClass}`} />
                   </div>
                   <div>
@@ -407,7 +489,8 @@ export function Skills({ language }: SkillsProps) {
                       {selectedModule.label[language]}
                     </h3>
                     <div className="mt-1 code-font text-xs text-[var(--text-secondary)] sm:text-sm">
-                      {buildBar(selectedModule.score)} <span className="ml-2">{selectedModule.score}/10</span>
+                      {buildBar(selectedModule.score)}{' '}
+                      <span className="ml-2">{selectedModule.score}/10</span>
                     </div>
                   </div>
                 </div>
@@ -447,10 +530,11 @@ export function Skills({ language }: SkillsProps) {
                       <span className="hidden sm:inline">{ui.clickHint}</span>
                     </div>
                   </div>
+
                   <div className="flex flex-wrap gap-2">
                     {selectedModule.usedIn.map((project) => {
                       const chip = (
-                        <span className="inline-flex items-center rounded-full border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-3 py-1.5 text-xs text-[var(--text-primary)] transition-all hover:border-[var(--border-strong)] hover:bg-[var(--hover-overlay)] sm:text-sm">
+                        <span className="inline-flex items-center rounded-full border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-3 py-1.5 text-xs text-[var(--text-primary)] transition-all hover:border-[var(--border-active)] hover:bg-[var(--hover-overlay)] sm:text-sm">
                           {project.label[language]}
                         </span>
                       );
