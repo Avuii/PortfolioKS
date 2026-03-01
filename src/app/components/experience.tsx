@@ -132,14 +132,21 @@ export function Experience({ language }: ExperienceProps) {
 
                   {/* date (fixed alignment: mobile offset, desktop centered) */}
                   <div className="pt-2 lg:pt-0">
-                    <div className="ml-10 flex max-w-[calc(100%-2.5rem)] lg:absolute lg:left-1/2 lg:top-0 lg:ml-0 lg:max-w-none lg:w-max lg:-translate-x-1/2">
-                      <div className="inline-flex w-fit items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[var(--accent-blue)] bg-[var(--bg-tertiary)] px-3 py-1 text-[11px] code-font text-[var(--accent-blue)] shadow-[0_0_18px_rgba(88,166,255,0.08)] sm:px-4 sm:py-1.5 sm:text-xs lg:min-w-[220px]">
-                        <Calendar className="h-3 w-3 shrink-0" />
-                        <span>{exp.period[language]}</span>
-                      </div>
-                    </div>
-                  </div>
-
+  <div
+    className={[
+      'ml-10 max-w-[calc(100%-2.5rem)]',
+      'lg:absolute lg:top-0 lg:ml-0 lg:max-w-none',
+      isLeftOnDesktop
+        ? 'lg:left-[calc(50%+2rem)]'
+        : 'lg:right-[calc(50%+2rem)]'
+    ].join(' ')}
+  >
+    <div className="inline-flex w-fit items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[var(--accent-blue)] bg-[var(--bg-tertiary)] px-3 py-1 text-[11px] code-font text-[var(--accent-blue)] shadow-[0_0_18px_rgba(88,166,255,0.08)] sm:px-4 sm:py-1.5 sm:text-xs">
+      <Calendar className="h-3 w-3 shrink-0" />
+      <span>{exp.period[language]}</span>
+    </div>
+  </div>
+</div>
                   {/* card */}
                   <div
                     className={[
