@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView } from 'motion/react';
 import {
   BrainCircuit,
+  Code2,
   Database,
   Layers3,
   MonitorSmartphone,
@@ -19,7 +20,13 @@ type UsedInItem = {
   href?: string;
 };
 
-type ModuleKey = 'backend' | 'frontend' | 'ml' | 'databases' | 'creative';
+type ModuleKey =
+  | 'backend'
+  | 'frontend'
+  | 'ml'
+  | 'databases'
+  | 'algorithms'
+  | 'creative';
 
 type SkillModule = {
   key: ModuleKey;
@@ -68,9 +75,69 @@ const projects = {
     label: { en: 'SOM WTA/WTM', pl: 'SOM WTA/WTM' },
     href: 'https://github.com/Avuii/SOM-WTA-WTM-PyTorch'
   },
-  portfolio: {
-    label: { en: 'Portfolio Website', pl: 'Portfolio Website' },
-    href: 'https://avuii.github.io/KatarzynaStanczyk/'
+  fourier: {
+    label: { en: 'Fourier Transform', pl: 'Transformata Fouriera' },
+    href: 'https://github.com/Avuii/Fourier-Transform-Signal-Processing'
+  },
+  fuzzy: {
+    label: { en: 'Fuzzy Logic', pl: 'Logika rozmyta' },
+    href: 'https://github.com/Avuii/Fuzzy-Logic'
+  },
+  traffic: {
+    label: { en: 'Urban Traffic Simulator', pl: 'Urban Traffic Simulator' },
+    href: 'https://github.com/Avuii/Urban-Traffic-Simulator'
+  },
+  grib: {
+    label: { en: 'GRIB1 Decoder', pl: 'Dekoder GRIB1' },
+    href: 'https://github.com/Avuii/GRIB1-388-Decoder'
+  },
+  lz77: {
+    label: { en: 'LZ77', pl: 'LZ77' },
+    href: 'https://github.com/Avuii/LZ77'
+  },
+  huffman: {
+    label: { en: 'Huffman Compression', pl: 'Kompresja Huffmana' },
+    href: 'https://github.com/Avuii/Huffman-text-compression'
+  },
+  plane: {
+    label: { en: 'Plane & Wind Simulator', pl: 'Plane & Wind Simulator' },
+    href: 'https://github.com/Avuii/PlaneAndWindSimulator'
+  },
+  snow: {
+    label: { en: 'SnowGlobe', pl: 'SnowGlobe' },
+    href: 'https://github.com/Avuii/SnowGlobe'
+  },
+  coffecrime: {
+    label: { en: 'CoffeCrime', pl: 'CoffeCrime' },
+    href: 'https://github.com/Avuii/CoffeCrime'
+  },
+  xor: {
+    label: { en: 'XOR Classification', pl: 'Klasyfikacja XOR' },
+    href: 'https://github.com/Avuii/XOR-Classification-with-MLP'
+  },
+  ac: {
+    label: { en: 'AC Letter Recognition', pl: 'Rozpoznawanie liter A/C' },
+    href: 'https://github.com/Avuii/AC-letter-recognition'
+  },
+  demon: {
+    label: { en: 'DemonCreutz Ising2D', pl: 'DemonCreutz Ising2D' },
+    href: 'https://github.com/Avuii/DemonCreutz-Ising2D'
+  },
+  algorithmsRepo: {
+    label: { en: 'Algorithms', pl: 'Algorytmy' },
+    href: 'https://github.com/Avuii/Algorithms'
+  },
+  portfolioKs: {
+    label: { en: 'PortfolioKS', pl: 'PortfolioKS' },
+    href: 'https://github.com/Avuii/PortfolioKS'
+  },
+  portfolioMain: {
+    label: { en: 'KatarzynaStanczyk', pl: 'KatarzynaStanczyk' },
+    href: 'https://github.com/Avuii/KatarzynaStanczyk'
+  },
+  portfolioOld: {
+    label: { en: 'portfolio', pl: 'portfolio' },
+    href: 'https://github.com/Avuii/portfolio'
   }
 } as const;
 
@@ -100,8 +167,8 @@ const modules: SkillModule[] = [
     ],
     usedIn: [projects.conway, projects.documind, projects.eurpln, projects.asteroid, deheusWork],
     description: {
-      en: 'I build APIs, backend logic, data access layers, DTO-based flows, and service integrations for full-stack applications and internal business tools.',
-      pl: 'Tworzę API, logikę backendową, warstwy dostępu do danych, przepływy oparte o DTO oraz integracje usług dla aplikacji full-stack i narzędzi biznesowych.'
+      en: 'I build APIs, backend logic, DTO-based data flows, service integrations, and business-oriented application backends in .NET and Python.',
+      pl: 'Tworzę API, logikę backendową, przepływy danych oparte o DTO, integracje usług oraz backendy aplikacji biznesowych w .NET i Pythonie.'
     }
   },
   {
@@ -123,10 +190,18 @@ const modules: SkillModule[] = [
       'Framer Motion',
       'HTML5 / CSS3'
     ],
-    usedIn: [projects.eurpln, projects.asteroid, projects.documind, projects.conway, projects.portfolio],
+    usedIn: [
+      projects.eurpln,
+      projects.asteroid,
+      projects.documind,
+      projects.conway,
+      projects.portfolioKs,
+      projects.portfolioMain,
+      projects.portfolioOld
+    ],
     description: {
-      en: 'I create responsive interfaces, dashboards, portfolio sections, and polished application views with a strong focus on clarity, structure, and interaction.',
-      pl: 'Tworzę responsywne interfejsy, dashboardy, sekcje portfolio oraz dopracowane widoki aplikacji z naciskiem na czytelność, strukturę i interakcję.'
+      en: 'I create responsive interfaces, dashboards, portfolio sections, and polished app views with a focus on clarity, interaction, and visual structure.',
+      pl: 'Tworzę responsywne interfejsy, dashboardy, sekcje portfolio oraz dopracowane widoki aplikacji z naciskiem na czytelność, interakcję i dobrą strukturę wizualną.'
     }
   },
   {
@@ -145,13 +220,26 @@ const modules: SkillModule[] = [
       'Scikit-learn',
       'PyTorch',
       'statsmodels',
-      'Forecasting',
-      'Matplotlib'
+      'NetworkX',
+      'Forecasting'
     ],
-    usedIn: [projects.eurpln, projects.banknote, projects.iris, projects.som, projects.social, projects.asteroid],
+    usedIn: [
+      projects.eurpln,
+      projects.asteroid,
+      projects.banknote,
+      projects.iris,
+      projects.som,
+      projects.social,
+      projects.fourier,
+      projects.xor,
+      projects.ac,
+      projects.demon,
+      projects.traffic,
+      projects.plane
+    ],
     description: {
-      en: 'I work on forecasting, classification, experiments, and data workflows used in university projects as well as portfolio applications.',
-      pl: 'Pracuję nad prognozowaniem, klasyfikacją, eksperymentami ML oraz workflow danych wykorzystywanymi w projektach uczelnianych i portfolio.'
+      en: 'I work on forecasting, classification, neural networks, graph analysis, and experiment-driven data workflows used in both academic and portfolio projects.',
+      pl: 'Pracuję nad prognozowaniem, klasyfikacją, sieciami neuronowymi, analizą grafów oraz eksperymentalnymi workflow danych w projektach uczelnianych i portfolio.'
     }
   },
   {
@@ -168,14 +256,45 @@ const modules: SkillModule[] = [
       'Microsoft SQL Server',
       'PostgreSQL',
       'LINQ',
-      'Queries',
       'Relational Modeling',
-      'EF Migrations'
+      'EF Migrations',
+      'Queries'
     ],
-    usedIn: [projects.conway, projects.documind, projects.eurpln, deheusWork],
+    usedIn: [projects.conway, projects.documind, deheusWork],
     description: {
       en: 'I use relational databases for persistence, querying, entity modeling, and application data flows in both web systems and internal tools.',
       pl: 'Korzystam z relacyjnych baz danych do persystencji, zapytań, modelowania encji oraz przepływu danych zarówno w systemach webowych, jak i narzędziach wewnętrznych.'
+    }
+  },
+  {
+    key: 'algorithms',
+    label: { en: 'Algorithms & C++', pl: 'Algorytmy i C++' },
+    shortLabel: { en: 'Algorithms', pl: 'Algorytmy' },
+    score: 8,
+    icon: Code2,
+    colorClass: 'text-[var(--accent-indigo)]',
+    glowClass: 'shadow-[0_0_24px_rgba(124,134,255,0.18)]',
+    accentClass: 'border-[var(--accent-indigo)]/50',
+    items: [
+      'C++',
+      'STL',
+      'Data Structures',
+      'Compression Algorithms',
+      'Signal Processing',
+      'Parsing / Binary Formats',
+      'CLI Applications'
+    ],
+    usedIn: [
+      projects.algorithmsRepo,
+      projects.grib,
+      projects.lz77,
+      projects.huffman,
+      projects.fourier,
+      projects.plane
+    ],
+    description: {
+      en: 'I build algorithmic and systems-oriented projects in C++, including compression, signal processing, simulation, and work with structured binary data.',
+      pl: 'Tworzę projekty algorytmiczne i systemowe w C++, obejmujące kompresję, przetwarzanie sygnałów, symulacje oraz pracę ze strukturalnymi danymi binarnymi.'
     }
   },
   {
@@ -187,11 +306,26 @@ const modules: SkillModule[] = [
     colorClass: 'text-[var(--accent-purple)]',
     glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
     accentClass: 'border-[var(--accent-purple)]/50',
-    items: ['Figma', 'Canva', 'UI/UX Design', '3ds Max', 'AutoCAD', 'Aseprite', 'Godot'],
-    usedIn: [projects.portfolio],
+    items: [
+      'Figma',
+      'Canva',
+      'UI / UX Design',
+      'Three.js',
+      '3ds Max',
+      'AutoCAD',
+      'Aseprite',
+      'Godot'
+    ],
+    usedIn: [
+      projects.portfolioKs,
+      projects.portfolioMain,
+      projects.portfolioOld,
+      projects.snow,
+      projects.coffecrime
+    ],
     description: {
-      en: 'I use creative tools for UI concepts, portfolio visuals, prototyping, and selected 3D or game-oriented work supporting my technical projects.',
-      pl: 'Korzystam z narzędzi kreatywnych do konceptów UI, wizualizacji portfolio, prototypowania oraz wybranych prac 3D i game-dev, które uzupełniają moje projekty techniczne.'
+      en: 'I use creative tools for UI concepts, portfolio visuals, interactive web visuals, prototyping, and selected 3D or game-oriented work.',
+      pl: 'Korzystam z narzędzi kreatywnych do konceptów UI, wizualizacji portfolio, interaktywnych form webowych, prototypowania oraz wybranych prac 3D i game-dev.'
     }
   }
 ];
@@ -364,7 +498,7 @@ export function Skills({ language }: SkillsProps) {
               <span className="h-3 w-3 rounded-full bg-[var(--accent-red)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-yellow)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-green)]" />
-              <span className="ml-2 text-xs text-[var(--text-secondary)] sm:text-sm code-font">
+              <span className="ml-2 code-font text-xs text-[var(--text-secondary)] sm:text-sm">
                 {ui.terminalFile}
               </span>
             </div>
