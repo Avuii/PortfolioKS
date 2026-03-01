@@ -319,26 +319,26 @@ export function Contact({ language, playClickSound }: ContactProps) {
         </div>
 
         {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 sm:mt-16 text-center code-font text-xs sm:text-sm text-[var(--text-secondary)]"
-        >
-          <div className="mb-2">
-            <span className="text-[var(--accent-blue)]">&lt;/&gt;</span>{' '}
-            Katarzyna Stańczyk | {ui.footerRole}
-          </div>
+       <motion.div
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  viewport={{ once: true }}
+  className="mt-16 text-center code-font text-sm text-[var(--text-secondary)] pb-[calc(env(safe-area-inset-bottom)+96px)] sm:pb-12"
+>
+  <div className="mb-2">
+    <span className="text-[var(--accent-blue)]">&lt;/&gt;</span>{' '}
+    Katarzyna Stańczyk | {ui.footerRole}
+  </div>
 
-          <div className="space-y-1">
-            <div className="text-xs text-[var(--text-muted)]">{ui.builtWith}</div>
-            <div className="text-xs text-[var(--text-muted)]">© {new Date().getFullYear()} Katarzyna Stańczyk</div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+  <div className="space-y-1">
+    <div className="text-xs text-[var(--text-muted)]">
+      {ui.builtWith}
+    </div>
+    <div className="text-xs text-[var(--text-muted)]">
+      © {new Date().getFullYear()} Katarzyna Stańczyk
+    </div>
+  </div>
+</motion.div>
 
 /** Helpers */
 function Line({ n, children }: { n: number; children: React.ReactNode }) {
