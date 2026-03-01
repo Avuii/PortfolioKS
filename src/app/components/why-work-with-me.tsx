@@ -75,22 +75,22 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
       <div className="mx-auto max-w-5xl">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8 sm:mb-12"
-        >
-          <div className="mb-4 flex items-start gap-3">
-            <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-yellow)] sm:h-6 sm:w-6" />
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="mb-8 sm:mb-12"
+>
+  <div className="mb-4 flex items-start gap-3">
+    <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-yellow)] sm:h-6 sm:w-6" />
 
-            <h2 className="min-w-0 code-font text-[clamp(18px,5.7vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl">
-              <span className="block">$ cat</span>
-              <span className="block break-words [overflow-wrap:anywhere]">
-                {fileName}
-              </span>
-            </h2>
-          </div>
-        </motion.div>
+    <h2 className="min-w-0 code-font text-[clamp(18px,5.7vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl sm:whitespace-nowrap">
+      <span className="block sm:inline">$ cat</span>
+      <span className="block break-words [overflow-wrap:anywhere] sm:ml-2 sm:inline sm:break-normal sm:[overflow-wrap:normal]">
+        {fileName}
+      </span>
+    </h2>
+  </div>
+</motion.div>
 
         {/* Content */}
         <div className="w-full overflow-hidden rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] sm:rounded-2xl">
