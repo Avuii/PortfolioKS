@@ -257,15 +257,17 @@ export function Contact({ language, playClickSound }: ContactProps) {
                 </span>
               </div>
 
-              <button
-                type="button"
-                className="rounded p-1 hover:bg-[var(--hover-overlay)]"
-                onClick={playClickSound}
-                aria-label="Close"
-              >
-                <div className="h-3 w-3 rounded-full bg-[#ff5f56]" />
-              </button>
-            </div>
+            <button
+              type="button"
+              className="rounded p-1 hover:bg-[var(--hover-overlay)]"
+              onClick={playClickSound}
+              aria-label="Status: active"
+            >
+              <div className="relative flex h-3 w-3 items-center justify-center">
+                <span className="absolute h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]/40 animate-pulse" />
+                <span className="relative h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]" />
+              </div>
+            </button>
 
             <div className="p-4 text-[12px] code-font sm:p-6 sm:text-sm">
               <div className="mb-4 text-[var(--syntax-comment)]">{ui.codeComment}</div>
