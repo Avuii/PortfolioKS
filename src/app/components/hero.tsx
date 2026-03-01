@@ -58,7 +58,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
       pl: {
         greeting: 'Cześć, jestem',
         roleText:
-          'Studentka Informatyki · Stażystka .NET · Full-Stack Development · Algorytmy · ML / AI',
+          'Studentka Informatyki · Stażystka .NET · Full-Stack Development · ML / AI',
         loadedModules: 'ZAŁADOWANE MODUŁY:',
         exportFile: 'Eksportuj CV.pdf',
         generating: '> przygotowywanie pliku',
