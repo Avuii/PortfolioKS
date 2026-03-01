@@ -17,7 +17,7 @@ const features = [
   {
     title: {
       en: 'feat: practical software mindset',
-      pl: 'cecha: praktyczne podejście do tworzenia oprogramowania'
+      pl: 'feat: praktyczne podejście do tworzenia oprogramowania'
     },
     description: {
       en: 'I focus on software that is useful, maintainable, and built for real needs.',
@@ -28,7 +28,7 @@ const features = [
   {
     title: {
       en: 'feat: full-stack perspective',
-      pl: 'cecha: perspektywa full-stack'
+      pl: 'feat: perspektywa full-stack'
     },
     description: {
       en: "I'm comfortable moving between backend logic, data models, APIs, and frontend interfaces.",
@@ -39,7 +39,7 @@ const features = [
   {
     title: {
       en: 'feat: strong technical foundation',
-      pl: 'cecha: solidne podstawy techniczne'
+      pl: 'feat: solidne podstawy techniczne'
     },
     description: {
       en: 'My academic background helps me understand algorithms, data structures, and problem-solving deeply.',
@@ -50,7 +50,7 @@ const features = [
   {
     title: {
       en: 'feat: fast learner, hands-on builder',
-      pl: 'cecha: szybka nauka i praktyczne podejście'
+      pl: 'feat: szybka nauka i praktyczne podejście'
     },
     description: {
       en: 'I like learning by building — from business applications to machine learning experiments and interactive tools.',
