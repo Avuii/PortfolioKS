@@ -57,7 +57,7 @@ const projects = {
   },
   conway: {
     label: { en: "Conway's Game of Life", pl: 'Conway Game of Life' },
-    href: 'https://github.com/Avuii/ConowayGameOfLife'
+    href: 'https://github.com/Avuii/ConwayGameOfLife'
   },
   social: {
     label: { en: 'Social Networks', pl: 'Social Networks' },
@@ -131,11 +131,11 @@ const projects = {
     label: { en: 'PortfolioKS', pl: 'PortfolioKS' },
     href: 'https://github.com/Avuii/PortfolioKS'
   },
-  portfolioMain: {
+  portfolioOld2: {
     label: { en: 'KatarzynaStanczyk', pl: 'KatarzynaStanczyk' },
     href: 'https://github.com/Avuii/KatarzynaStanczyk'
   },
-  portfolioOld: {
+  portfolioOld1: {
     label: { en: 'portfolio', pl: 'portfolio' },
     href: 'https://github.com/Avuii/portfolio'
   }
@@ -187,7 +187,6 @@ const modules: SkillModule[] = [
       'Blazor',
       'Vite',
       'Tailwind CSS',
-      'Framer Motion',
       'HTML5 / CSS3'
     ],
     usedIn: [
@@ -196,8 +195,8 @@ const modules: SkillModule[] = [
       projects.documind,
       projects.conway,
       projects.portfolioKs,
-      projects.portfolioMain,
-      projects.portfolioOld
+      projects.portfolioOld2,
+      projects.portfolioOld1
     ],
     description: {
       en: 'I create responsive interfaces, dashboards, portfolio sections, and polished app views with a focus on clarity, interaction, and visual structure.',
@@ -220,8 +219,7 @@ const modules: SkillModule[] = [
       'Scikit-learn',
       'PyTorch',
       'statsmodels',
-      'NetworkX',
-      'Forecasting'
+      'NetworkX'
     ],
     usedIn: [
       projects.eurpln,
@@ -233,8 +231,6 @@ const modules: SkillModule[] = [
       projects.fourier,
       projects.xor,
       projects.ac,
-      projects.demon,
-      projects.traffic,
       projects.plane
     ],
     description: {
@@ -244,7 +240,7 @@ const modules: SkillModule[] = [
   },
   {
     key: 'databases',
-    label: { en: 'Databases & Storage', pl: 'Bazy danych i storage' },
+    label: { en: 'Databases', pl: 'Bazy danych' },
     shortLabel: { en: 'Databases', pl: 'Bazy danych' },
     score: 8,
     icon: Database,
@@ -255,10 +251,7 @@ const modules: SkillModule[] = [
       'SQL',
       'Microsoft SQL Server',
       'PostgreSQL',
-      'LINQ',
-      'Relational Modeling',
-      'EF Migrations',
-      'Queries'
+      'Entity Framework',
     ],
     usedIn: [projects.conway, projects.documind, deheusWork],
     description: {
@@ -268,7 +261,7 @@ const modules: SkillModule[] = [
   },
   {
     key: 'algorithms',
-    label: { en: 'Algorithms & C++', pl: 'Algorytmy i C++' },
+    label: { en: 'Algorithms', pl: 'Algorytmy' },
     shortLabel: { en: 'Algorithms', pl: 'Algorytmy' },
     score: 8,
     icon: Code2,
@@ -290,7 +283,8 @@ const modules: SkillModule[] = [
       projects.lz77,
       projects.huffman,
       projects.fourier,
-      projects.plane
+      projects.plane,
+      projects.fuzzy
     ],
     description: {
       en: 'I build algorithmic and systems-oriented projects in C++, including compression, signal processing, simulation, and work with structured binary data.',
@@ -318,8 +312,8 @@ const modules: SkillModule[] = [
     ],
     usedIn: [
       projects.portfolioKs,
-      projects.portfolioMain,
-      projects.portfolioOld,
+      projects.portfolioOld2,
+      projects.portfolioOld1,
       projects.snow,
       projects.coffecrime
     ],
