@@ -155,7 +155,7 @@ export function Skills({ language }: SkillsProps) {
   const ui = {
     en: {
       sectionTitle: '$ ./skills-scan.exe',
-      terminalFile: 'skills-scan.sh',
+      terminalFile: 'skills-scan',
       command: '> scan --profile avui.dev',
       loading: 'Loading modules',
       completed: 'Scan complete. Select a module to inspect details.',
@@ -169,7 +169,7 @@ export function Skills({ language }: SkillsProps) {
     },
     pl: {
       sectionTitle: '$ ./skills-scan.exe',
-      terminalFile: 'skills-scan.sh',
+      terminalFile: 'skills-scan',
       command: '> scan --profile avui.dev',
       loading: 'Ładowanie modułów',
       completed: 'Skan zakończony. Wybierz moduł, aby zobaczyć szczegóły.',
