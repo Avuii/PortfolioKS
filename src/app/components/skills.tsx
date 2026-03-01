@@ -250,8 +250,7 @@ const modules: SkillModule[] = [
     items: [
       'SQL',
       'Microsoft SQL Server',
-      'PostgreSQL',
-      'Entity Framework',
+      'PostgreSQL'
     ],
     usedIn: [projects.conway, projects.documind, deheusWork],
     description: {
