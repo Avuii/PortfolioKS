@@ -268,7 +268,7 @@ export function Contact({ language, playClickSound }: ContactProps) {
                 <span className="relative h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]" />
               </div>
             </button>
-
+            </div>
             <div className="p-4 text-[12px] code-font sm:p-6 sm:text-sm">
               <div className="mb-4 text-[var(--syntax-comment)]">{ui.codeComment}</div>
 
