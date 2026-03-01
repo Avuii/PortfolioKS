@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import {
   Home,
   User,
@@ -27,17 +27,17 @@ type SectionId =
 type Section = {
   id: SectionId;
   label: { en: string; pl: string };
-  Icon: React.ComponentType<{ className?: string }>;
+  Icon: LucideIcon;
 };
 
 const SECTIONS: Section[] = [
-  { id: 'home', Icon: Home },
-  { id: 'about', Icon: User },
-  { id: 'skills', Icon: Settings },
-  { id: 'experience', Icon: GitBranch },
-  { id: 'projects', Icon: FolderGit2 },
-  { id: 'why', Icon: Sparkles },
-  { id: 'contact', Icon: Mail },
+  { id: 'home', label: { en: 'home', pl: 'start' }, Icon: Home },
+  { id: 'about', label: { en: 'about', pl: 'o mnie' }, Icon: User },
+  { id: 'skills', label: { en: 'skills', pl: 'skills' }, Icon: Settings },
+  { id: 'experience', label: { en: 'exp', pl: 'exp' }, Icon: GitBranch },
+  { id: 'projects', label: { en: 'projects', pl: 'projekty' }, Icon: FolderGit2 },
+  { id: 'why', label: { en: 'why', pl: 'dlaczego' }, Icon: Sparkles },
+  { id: 'contact', label: { en: 'contact', pl: 'kontakt' }, Icon: Mail },
 ];
 
 export function NavigationRail({
@@ -45,16 +45,14 @@ export function NavigationRail({
   activeSection,
   playClickSound,
 }: NavigationRailProps) {
-  const sections = useMemo(() => SECTIONS, []);
-
   const scrollToSection = (id: SectionId) => {
     playClickSound();
-    const element = document.getElementById(id);
-    if (!element) return;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const isActive = (id: string) => (activeSection ?? 'home') === id;
+  const isActive = (id: SectionId) => (activeSection ?? 'home') === id;
 
   return (
     <>
@@ -66,31 +64,36 @@ export function NavigationRail({
           {/* Vertical line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[var(--border-default)] -translate-x-1/2" />
 
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              onClick={() => scrollToSection(section.id)}
-              className="relative group z-10"
-              aria-label={section.label[language] ?? section.id}
-            >
-              {/* Node circle */}
-              <div
-                className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
-                  isActive(section.id)
-                    ? 'border-[var(--accent-blue)] bg-[var(--accent-blue)] shadow-[0_0_10px_var(--accent-blue)]'
-                    : 'border-[var(--border-default)] bg-[var(--bg-primary)] group-hover:border-[var(--accent-blue)]'
-                }`}
-              />
+          {SECTIONS.map((s) => {
+            const active = isActive(s.id);
+            const text = s.label[language];
 
-              {/* Tooltip */}
-              <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                <div className="bg-[var(--bg-elevated)] border border-[var(--border-default)] px-3 py-1 rounded text-xs code-font text-[var(--text-primary)] whitespace-nowrap">
-                  {section.label[language] ?? section.id}
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => scrollToSection(s.id)}
+                className="relative group z-10"
+                aria-label={text}
+              >
+                {/* Node circle */}
+                <div
+                  className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                    active
+                      ? 'border-[var(--accent-blue)] bg-[var(--accent-blue)] shadow-[0_0_10px_var(--accent-blue)]'
+                      : 'border-[var(--border-default)] bg-[var(--bg-primary)] group-hover:border-[var(--accent-blue)]'
+                  }`}
+                />
+
+                {/* Tooltip */}
+                <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div className="bg-[var(--bg-elevated)] border border-[var(--border-default)] px-3 py-1 rounded text-xs code-font text-[var(--text-primary)] whitespace-nowrap">
+                    {text}
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -98,50 +101,50 @@ export function NavigationRail({
           MOBILE: bottom bar (<md)
           ========================= */}
       <div className="md:hidden fixed left-0 right-0 bottom-0 z-50">
-        {/* backdrop */}
         <div className="mx-3 mb-3 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-elevated)]/90 backdrop-blur-md shadow-2xl overflow-hidden">
           <nav
-            className="
-              grid grid-cols-7
-              px-2 py-2
-              pb-[calc(0.5rem+env(safe-area-inset-bottom))]
-            "
+            className="grid grid-cols-7 px-1.5 py-1.5 pb-[calc(0.35rem+env(safe-area-inset-bottom))]"
             aria-label="Navigation"
           >
-            {sections.map(({ id, label, Icon }) => {
+            {SECTIONS.map(({ id, label, Icon }) => {
               const active = isActive(id);
+              const text = label[language];
+
               return (
                 <button
                   key={id}
                   type="button"
                   onClick={() => scrollToSection(id)}
                   className={`
+                    min-w-0
                     flex flex-col items-center justify-center gap-1
                     rounded-xl py-2
                     transition-colors
                     ${active ? 'bg-[var(--hover-overlay)]' : 'hover:bg-[var(--hover-overlay)]'}
                   `}
-                  aria-label={label[language] ?? id}
+                  aria-label={text}
                 >
                   <Icon
                     className={`
-                      w-5 h-5
+                      w-[18px] h-[18px]
                       ${active ? 'text-[var(--accent-blue)]' : 'text-[var(--text-secondary)]'}
                     `}
                   />
+                  
                   <span
                     className={`
-                      text-[10px] leading-none code-font
-                      ${active ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}
+                      max-w-full truncate
+                      text-[9px] leading-none code-font
+                      ${active ? 'text-[var(--text-primary)]' : 'hidden'}
                     `}
+                    title={text}
                   >
-                    {label[language] ?? id}
+                    {text}
                   </span>
 
-                  {/* active dot */}
                   <div
                     className={`
-                      mt-1 w-1.5 h-1.5 rounded-full
+                      mt-0.5 w-1.5 h-1.5 rounded-full
                       ${active ? 'bg-[var(--accent-blue)]' : 'bg-transparent'}
                     `}
                   />
