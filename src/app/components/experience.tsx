@@ -6,6 +6,31 @@ interface ExperienceProps {
 }
 
 const experiences = [
+  {  id: 'a1b2ca3',
+    branch: 'HEAD → ambassador',
+    company: 'Commerzbank',
+    title: {
+      en: 'Ambassador',
+      pl: 'Ambasadorka'
+    },
+    description: {
+      en: 'Representing Commerzbank in student-oriented initiatives, participating in trainings, IT events, and career fairs, and helping promote technology, software engineering, and computer science among students. Supporting employer branding activities and building connections between the company and the academic community.',
+      pl: 'Reprezentowanie Commerzbanku w inicjatywach skierowanych do studentów, udział w szkoleniach, wydarzeniach IT oraz targach pracy, a także wspieranie promocji technologii, inżynierii oprogramowania i informatyki wśród studentów. Wsparcie działań employer brandingowych oraz budowanie relacji między firmą a środowiskiem akademickim.'
+    },
+    tags: [
+      'Ambassador',
+      'Employer Branding',
+      'IT Events',
+      'Career Fairs',
+      'Trainings',
+      'Student Community',
+      'Tech Promotion'
+    ],
+    period: { en: '2026-03 — Present', pl: '2026-03 — Obecnie' },
+    filesChanged: 21,
+    insertions: 42,
+    deletions: 0
+  },
   {
     id: 'a1b2ca2',
     branch: 'HEAD → engineer',
