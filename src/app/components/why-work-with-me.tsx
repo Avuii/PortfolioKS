@@ -65,19 +65,23 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
     <section className="min-h-screen overflow-x-hidden px-4 py-16 pb-[calc(env(safe-area-inset-bottom)+120px)] sm:px-6 sm:py-20 sm:pb-16 lg:px-8">
       <div className="mx-auto max-w-5xl">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8 sm:mb-12"
-        >
-          <div className="mb-4 flex items-center gap-3">
-            <Sparkles className="h-5 w-5 shrink-0 text-[var(--accent-blue)] sm:h-6 sm:w-6" />
-            <h2 className="text-2xl code-font text-[var(--text-primary)] sm:text-3xl break-all">
-              $ cat WHY_WORK_WITH_ME.md
-            </h2>
-          </div>
-        </motion.div>
+ <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="mb-8 sm:mb-12"
+>
+  <div className="mb-4 flex items-start gap-3">
+    <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-blue)] sm:h-6 sm:w-6" />
+
+    <h2 className="min-w-0 code-font text-[clamp(18px,5.7vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl">
+      <span className="block">$ cat</span>
+      <span className="block break-words [overflow-wrap:anywhere]">
+        WHY_WORK_WITH_ME.md
+      </span>
+    </h2>
+  </div>
+</motion.div>
 
         {/* Content */}
         <div className="w-full overflow-hidden rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] sm:rounded-2xl">
