@@ -54,7 +54,7 @@ const experiences = [
       'MSSQL',
       'Agile'
     ],
-    period: { en: '2024-05 — Present', pl: '2024-05 — Obecnie' },
+    period: { en: '2025-10 — Present', pl: '2025-10 — Obecnie' },
     filesChanged: 11,
     insertions: 100,
     deletions: 10
@@ -77,7 +77,7 @@ const experiences = [
       'Signal Processing',
       'Full-Stack'
     ],
-    period: { en: '2022-06 — Present', pl: '2022-06 — Obecnie' },
+    period: { en: '2023-10 — Present', pl: '2023-10 — Obecnie' },
     filesChanged: 4,
     insertions: 128,
     deletions: 15
