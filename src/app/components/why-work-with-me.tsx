@@ -15,7 +15,10 @@ interface WhyWorkWithMeProps {
 
 const features = [
   {
-    title: 'feat: practical software mindset',
+    title: {
+      en: 'feat: practical software mindset',
+      pl: 'cecha: praktyczne podejście do tworzenia oprogramowania'
+    },
     description: {
       en: 'I focus on software that is useful, maintainable, and built for real needs.',
       pl: 'Skupiam się na oprogramowaniu, które jest użyteczne, łatwe w utrzymaniu i budowane dla rzeczywistych potrzeb.'
@@ -23,7 +26,10 @@ const features = [
     icon: Target
   },
   {
-    title: 'feat: full-stack perspective',
+    title: {
+      en: 'feat: full-stack perspective',
+      pl: 'cecha: perspektywa full-stack'
+    },
     description: {
       en: "I'm comfortable moving between backend logic, data models, APIs, and frontend interfaces.",
       pl: 'Swobodnie poruszam się między logiką backendu, modelami danych, API i interfejsami frontend.'
@@ -31,7 +37,10 @@ const features = [
     icon: Workflow
   },
   {
-    title: 'feat: strong technical foundation',
+    title: {
+      en: 'feat: strong technical foundation',
+      pl: 'cecha: solidne podstawy techniczne'
+    },
     description: {
       en: 'My academic background helps me understand algorithms, data structures, and problem-solving deeply.',
       pl: 'Moje wykształcenie akademickie pomaga mi głęboko rozumieć algorytmy, struktury danych i rozwiązywanie problemów.'
@@ -39,14 +48,17 @@ const features = [
     icon: Brain
   },
   {
-    title: 'feat: fast learner, hands-on builder',
+    title: {
+      en: 'feat: fast learner, hands-on builder',
+      pl: 'cecha: szybka nauka i praktyczne podejście'
+    },
     description: {
       en: 'I like learning by building — from business applications to machine learning experiments and interactive tools.',
       pl: 'Lubię uczyć się przez tworzenie — od aplikacji biznesowych po eksperymenty z machine learningiem i interaktywne narzędzia.'
     },
     icon: Zap
   }
-];
+] as const;
 
 export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
   return (
@@ -59,16 +71,12 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
           viewport={{ once: true }}
           className="mb-8 sm:mb-12"
         >
-          <div className="mb-3 flex items-center gap-3">
+          <div className="mb-4 flex items-center gap-3">
             <Sparkles className="h-5 w-5 shrink-0 text-[var(--accent-blue)] sm:h-6 sm:w-6" />
-            <span className="text-sm code-font text-[var(--accent-blue)] sm:text-base">
-              $ cat
-            </span>
+            <h2 className="text-2xl code-font text-[var(--text-primary)] sm:text-3xl break-all">
+              $ cat WHY_WORK_WITH_ME.md
+            </h2>
           </div>
-
-          <h2 className="max-w-full break-all text-[clamp(30px,9vw,56px)] leading-[0.95] code-font text-[var(--text-primary)]">
-            WHY_WORK_WITH_ME.md
-          </h2>
         </motion.div>
 
         {/* Content */}
@@ -89,7 +97,7 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
 
                 return (
                   <motion.div
-                    key={feature.title}
+                    key={feature.title.en}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -103,7 +111,7 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
                         <div className="mb-2 flex items-start gap-2">
                           <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent-blue)] sm:h-5 sm:w-5" />
                           <h3 className="break-words text-[15px] leading-snug code-font text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-blue)] sm:text-base lg:text-lg">
-                            {feature.title}
+                            {feature.title[language]}
                           </h3>
                         </div>
 
@@ -172,7 +180,9 @@ export function WhyWorkWithMe({ language }: WhyWorkWithMeProps) {
               <div className="mb-2 flex items-center gap-2 text-xs code-font text-[#7ee787] sm:text-sm">
                 <CheckCircle2 className="h-4 w-4 shrink-0" />
                 <span>
-                  {language === 'en' ? 'status: ready_to_collaborate' : 'status: gotowa_do_współpracy'}
+                  {language === 'en'
+                    ? 'status: ready_to_collaborate'
+                    : 'status: gotowa_do_współpracy'}
                 </span>
               </div>
 
