@@ -64,19 +64,21 @@ export function Experience({ language }: ExperienceProps) {
     <div className="min-h-[100svh] overflow-x-hidden px-4 py-16 pb-[calc(env(safe-area-inset-bottom)+120px)] sm:px-8 sm:py-20 sm:pb-20">
       <div className="mx-auto max-w-5xl">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10 sm:mb-12"
-        >
-          <div className="flex items-start gap-3 sm:items-center sm:gap-4">
-            <GitBranch className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-orange)] sm:mt-0 sm:h-6 sm:w-6" />
-            <h2 className="break-words text-2xl code-font leading-tight text-[var(--text-primary)] sm:text-3xl">
-              $ git log --stat --oneline
-            </h2>
-          </div>
-        </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 18 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="mb-10 sm:mb-12"
+>
+  <div className="flex items-start gap-3">
+    <GitBranch className="mt-1 h-5 w-5 shrink-0 text-[var(--accent-orange)] sm:h-6 sm:w-6" />
+
+    <h2 className="min-w-0 code-font text-[clamp(18px,5.6vw,30px)] leading-tight text-[var(--text-primary)] sm:text-3xl">
+      <span className="block">$ git log --stat</span>
+      <span className="block">--oneline</span>
+    </h2>
+  </div>
+</motion.div>
 
         {/* Timeline wrapper */}
         <div className="relative">
