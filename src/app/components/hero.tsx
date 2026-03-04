@@ -157,7 +157,12 @@ export function Hero({ language, playClickSound }: HeroProps) {
     playClickSound();
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
-
+  
+const handleRunProfile = () => {
+  playClickSound();
+  document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+};
+  
   return (
     <div className="min-h-[100svh] pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
@@ -276,7 +281,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
                 <div className="w-12" />
               </div>
 
-              {/* Code content (14 lines height) */}
+              {/* Code content*/}
               <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3">
                 <div
                   className="code-font text-[11px] sm:text-sm leading-[1.4] overflow-hidden"
@@ -305,7 +310,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
               {/* Buttons */}
 <div className="px-4 sm:px-6 pb-4 sm:pb-6 grid grid-cols-2 gap-2 sm:gap-3">
   <button
-    onClick={handleViewProjects}
+     onClick={handleRunProfile}
     className="min-w-0 flex items-center justify-center gap-1.5 rounded-lg bg-[var(--accent-green)] px-2.5 py-2 text-xs sm:px-3 sm:py-2.5 sm:text-sm code-font text-white transition-all hover:opacity-85"
   >
     <Play className="h-3.5 w-3.5 shrink-0" />
