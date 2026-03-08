@@ -211,7 +211,7 @@ export function Contact({ language, playClickSound }: ContactProps) {
                   <span className="text-[var(--text-secondary)]">➜ </span>
                   <span className="text-[var(--accent-blue)]">linkedin</span>{' '}
                   <a
-                    href="https://linkedin.com/in/katarzyna-stanczyk"
+                    href="https://linkedin.com/in/katarzyna-stanczykk"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={playClickSound}
