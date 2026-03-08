@@ -370,7 +370,7 @@ const handleRunProfile = () => {
                 </div>
 
                 <a
-                  href="https://linkedin.com/in/katarzyna-stanczyk"
+                  href="https://linkedin.com/in/katarzyna-stanczykk"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playClickSound}
