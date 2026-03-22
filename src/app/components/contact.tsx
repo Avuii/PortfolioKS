@@ -37,7 +37,7 @@ export function Contact({ language, playClickSound }: ContactProps) {
       submitSuccess: 'Message sent successfully!',
       submitError: 'Something went wrong. Try again.',
       validationError: 'Please fill in all fields.',
-      footerRole: 'Software Engineer',
+      footerRole: 'Developer',
       builtWith: 'Built with <3 using React, TypeScript & Tailwind'
     },
     pl: {
@@ -56,8 +56,8 @@ export function Contact({ language, playClickSound }: ContactProps) {
       submitSuccess: 'Wiadomość została wysłana pomyślnie!',
       submitError: 'Coś poszło nie tak. Spróbuj ponownie.',
       validationError: 'Uzupełnij wszystkie pola.',
-      footerRole: 'Software Engineer',
-      builtWith: 'Built with <3 using React, TypeScript & Tailwind'
+      footerRole: 'Developer',
+      builtWith: 'Zbudowane z <3 używając React, TypeScript & Tailwind'
     }
   }[language];
 
