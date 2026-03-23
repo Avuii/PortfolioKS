@@ -150,7 +150,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
   const handleDownloadCV = () => {
     playClickSound();
     window.location.href =
-      'https://www.dropbox.com/scl/fi/rqdd6ri8rnd9skg817k7t/CV_Katarzyna_Sta-czyk.pdf?rlkey=t3ijlht0qwzggpnz64owcvpw7&st=3365deps&dl=0';
+      'https://www.dropbox.com/scl/fi/rqdd6ri8rnd9skg817k7t/CV_Katarzyna_Sta-czyk.pdf?rlkey=t3ijlht0qwzggpnz64owcvpw7&st=3365deps&dl=1';
   };
 
   const handleViewProjects = () => {
