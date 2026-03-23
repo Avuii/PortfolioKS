@@ -228,22 +228,20 @@ export function Experience({ language }: ExperienceProps) {
 
             {/* Initial commit */}
             <motion.div
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="absolute left-5 top-8 z-10 -translate-x-1/2 lg:left-1/2">
-                <div className="h-4 w-4 rounded-full border-4 border-[var(--bg-primary)] bg-[var(--accent-green)] shadow-[0_0_18px_var(--accent-green)]" />
-              </div>
+  initial={{ opacity: 0, y: 22 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="mt-6 pl-10 lg:flex lg:justify-center lg:pl-0"
+>
+  <div className="relative inline-flex">
+    <div className="inline-flex rounded-full border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-5 py-3 text-sm code-font text-[var(--text-secondary)]">
+      <span className="mr-2 text-[var(--accent-green)]">➜</span>
+      {language === 'en' ? 'Initial Commit' : 'Initial Commit'}
+    </div>
 
-              <div className="mt-6 pl-10 lg:flex lg:justify-center lg:pl-0">
-                <div className="inline-flex rounded-full border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-5 py-3 text-sm code-font text-[var(--text-secondary)]">
-                  <span className="mr-2 text-[var(--accent-green)]">➜</span>
-                  {language === 'en' ? 'Initial Commit' : 'Initial Commit'}
-                </div>
-              </div>
-            </motion.div>
+    <div className="absolute z-10 h-4 w-4 rounded-full border-4 border-[var(--bg-primary)] bg-[var(--accent-green)] shadow-[0_0_18px_var(--accent-green)] left-[-28px] top-1/2 -translate-y-1/2 lg:left-1/2 lg:top-full lg:mt-2 lg:-translate-x-1/2 lg:translate-y-0" />
+  </div>
+</motion.div>
           </div>
         </div>
       </div>
