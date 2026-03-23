@@ -72,7 +72,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
         linkedin: 'LinkedIn',
         codeLines: [
           '// Witaj w moim środowisku pracy',
-          "import { Developer } from './universe';",
+          "import { Developer } from './świat';",
           '',
           'const Portfolio = () => {',
           '  return (',
