@@ -61,6 +61,24 @@ const experiences = [
     deletions: 10
   },
   {
+    id: 'b1p2026',
+    branch: 'feature → edutech-startup',
+    company: 'Erasmus+ BIP · ISPGAYA',
+    title: {
+      en: 'EduTech Startup Project Participant',
+      pl: 'Uczestniczka projektu EduTech Startup'
+    },
+    description: {
+      en: 'Participated in an Erasmus+ Blended Intensive Programme from 18 to 22 May 2026 and co-created CareQuest — an EduTech Startup MVP focused on safe learning, creativity, and connection during recovery.',
+      pl: 'Wzięłam udział w Erasmus+ Blended Intensive Programme w dniach 18–22 maja 2026 i współtworzyłam CareQuest — MVP projektu EduTech Startup wspierającego bezpieczną naukę, kreatywność i kontakt podczas rekonwalescencji.'
+    },
+    tags: ['React', 'Vite', 'TypeScript', 'EduTech', 'Startup MVP', 'Teamwork', 'UX'],
+    period: {
+      en: '2026-05-18 — 2026-05-22',
+      pl: '18.05.2026 — 22.05.2026'
+    }
+  },
+  {
     id: 'a1b2ca1',
     branch: 'HEAD → developer',
     company: 'University of Łódź',

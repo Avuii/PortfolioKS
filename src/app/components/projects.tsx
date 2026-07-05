@@ -16,71 +16,82 @@ interface ProjectsProps {
 
 const pinnedProjects = [
   {
-    name: 'DocuMind-AI',
-    url: 'https://github.com/Avuii/DocuMind-AI',
+    name: 'NearEarth',
+    url: 'https://github.com/Avuii/NearEarth',
+    demoUrl: 'https://avuii.github.io/NearEarth/',
     visibility: { en: 'Public', pl: 'Publiczne' },
     description: {
-      en: 'Document intelligence MVP for invoice and receipt extraction with .NET, FastAPI, OCR, ML, and PostgreSQL.',
-      pl: 'MVP document intelligence do ekstrakcji danych z faktur i paragonów z wykorzystaniem .NET, FastAPI, OCR, ML i PostgreSQL.'
+      en: 'Interactive dashboard for monitoring Near-Earth Objects, close approaches, asteroid watchlists, alerts and space-oriented insights.',
+      pl: 'Interaktywny dashboard do monitorowania obiektów bliskich Ziemi, bliskich przelotów, watchlist asteroid, alertów i analiz kosmicznych.'
     },
-    tags: ['.NET', 'FastAPI', 'OCR', 'ML', 'PostgreSQL', 'React'],
-    language: 'C#',
-    stars: 8,
-    forks: 2
-  },
-  {
-    name: 'AsteroidSafe',
-    url: 'https://github.com/Avuii/AsteroidSafe',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'ML-powered .NET data platform for classifying potentially hazardous asteroids using NASA datasets.',
-      pl: 'Platforma danych oparta na .NET i ML do klasyfikacji potencjalnie niebezpiecznych asteroid na podstawie danych NASA.'
-    },
-    tags: ['C#', '.NET', 'Python', 'ONNX', 'ML', 'NASA API'],
-    language: 'C#',
-    stars: 12,
-    forks: 3
-  },
-  {
-    name: "Conway's Game of Life",
-    url: 'https://github.com/Avuii/ConowayGameOfLife',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: "Interactive full-stack implementation of Conway's Game of Life with Blazor WebAssembly, ASP.NET Core API, and SQL persistence.",
-      pl: 'Interaktywna full-stackowa implementacja Gry w Życie Conwaya z użyciem Blazor WebAssembly, ASP.NET Core API i trwałości danych w SQL.'
-    },
-    tags: ['Blazor', 'ASP.NET Core', 'SQL', 'WebAssembly'],
-    language: 'C#',
-    stars: 6,
+    tags: ['React', 'TypeScript', 'NASA API', 'Dashboard', 'Data Visualization'],
+    language: 'TypeScript',
+    stars: 3,
     forks: 1
   },
   {
     name: 'EUR/PLN Tracker',
     url: 'https://github.com/Avuii/EUR-PLN-Tracker',
+    demoUrl: 'https://avuii.github.io/EUR-PLN-Tracker/',
     visibility: { en: 'Public', pl: 'Publiczne' },
     description: {
-      en: 'Interactive forecasting dashboard combining a .NET backend, frontend UI, and Python-based time-series models.',
-      pl: 'Interaktywny dashboard prognostyczny łączący backend .NET, frontend UI oraz modele szeregów czasowych oparte na Pythonie.'
+      en: 'End-to-end forecasting dashboard for EUR/PLN exchange rates: fetch NBP data, build time-series datasets, train models, compare errors and visualize forecasts.',
+      pl: 'End-to-end dashboard prognostyczny dla kursu EUR/PLN: pobieranie danych NBP, budowa szeregów czasowych, trenowanie modeli, porównywanie błędów i wizualizacja prognoz.'
     },
-    tags: ['.NET', 'React', 'Python', 'Time Series', 'Forecasting'],
+    tags: ['React', 'Python', 'NBP API', 'Forecasting', 'Time Series', 'ML'],
     language: 'TypeScript',
-    stars: 10,
+    stars: 4,
+    forks: 0
+  },
+  {
+    name: 'Parking Flow',
+    url: 'https://github.com/Avuii/ParkingFlow',
+    visibility: { en: 'Public', pl: 'Publiczne' },
+    description: {
+      en: 'Real-time smart parking simulation dashboard built with ASP.NET Core, SignalR and React.',
+      pl: 'Dashboard symulacji inteligentnego parkingu w czasie rzeczywistym zbudowany w ASP.NET Core, SignalR i React.'
+    },
+    tags: ['ASP.NET Core', 'SignalR', 'React', 'C#', 'Simulation', 'Real-time'],
+    language: 'C#',
+    stars: 2,
     forks: 2
+  },
+  {
+    name: 'CareQuest',
+    url: 'https://github.com/Avuii/CareQuest',
+    demoUrl: 'https://avuii.github.io/CareQuest/',
+    visibility: { en: 'Public', pl: 'Publiczne' },
+    description: {
+      en: 'EduTech Startup project created during Erasmus+ BIP. A safe platform supporting learning, creativity and connection during recovery.',
+      pl: 'Projekt EduTech Startup stworzony podczas Erasmus+ BIP. Bezpieczna platforma wspierająca naukę, kreatywność i kontakt podczas rekonwalescencji.'
+    },
+    tags: ['React', 'Vite', 'TypeScript', 'EduTech', 'Startup MVP', 'UX'],
+    language: 'TypeScript',
+    stars: 3,
+    forks: 1
   }
 ] as const;
 
 const repositoryList = [
-  { name: 'EUR-PLN-Tracker', url: 'https://github.com/Avuii/EUR-PLN-Tracker', language: 'TypeScript', updatedAt: '2026-02-08' },
-  { name: 'Social-Networks', url: 'https://github.com/Avuii/Social-Networks', language: 'Python', updatedAt: '2026-02-08' },
-  { name: 'AsteroidSafe', url: 'https://github.com/Avuii/AsteroidSafe', language: 'C#', updatedAt: '2026-01-19' },
-  { name: 'Banknote-Authentication', url: 'https://github.com/Avuii/Banknote-Authentication', language: 'Python', updatedAt: '2026-01-19' },
+  { name: 'NearEarth', url: 'https://github.com/Avuii/NearEarth', language: 'TypeScript', updatedAt: '2026-07-01' },
+  { name: 'EUR-PLN-Tracker', url: 'https://github.com/Avuii/EUR-PLN-Tracker', language: 'TypeScript', updatedAt: '2026-07-01' },
+  { name: 'CareQuest', url: 'https://github.com/Avuii/CareQuest', language: 'TypeScript', updatedAt: '2026-05-22' },
+  { name: 'ParkingFlow', url: 'https://github.com/Avuii/ParkingFlow', language: 'C#', updatedAt: '2026-07-01' },
+  { name: 'react-scientific-calculator', url: 'https://github.com/Avuii/react-scientific-calculator', language: 'TypeScript', updatedAt: '2026-07-01' },
+  { name: 'MediaRent', url: 'https://github.com/Avuii/MediaRent', language: 'C++', updatedAt: '2026-07-01' },
+  { name: 'FractalAnimation', url: 'https://github.com/Avuii/FractalAnimation', language: 'C++', updatedAt: '2026-07-01' },
+  { name: 'ScientificCalculator', url: 'https://github.com/Avuii/ScientificCalculator', language: 'C++', updatedAt: '2026-07-01' },
+  { name: 'applied-cryptography-lab', url: 'https://github.com/Avuii/applied-cryptography-lab', language: 'Python', updatedAt: '2026-07-01' },
+
   { name: 'DocuMind-AI', url: 'https://github.com/Avuii/DocuMind-AI', language: 'C#', updatedAt: '2026-01-13' },
+  { name: 'ConowayGameOfLife', url: 'https://github.com/Avuii/ConowayGameOfLife', language: 'C#', updatedAt: '2025-12-06' },
+  { name: 'Social-Networks', url: 'https://github.com/Avuii/Social-Networks', language: 'Python', updatedAt: '2026-02-08' },
+  { name: 'Banknote-Authentication', url: 'https://github.com/Avuii/Banknote-Authentication', language: 'Python', updatedAt: '2026-01-19' },
   { name: 'IRIS', url: 'https://github.com/Avuii/IRIS', language: 'Python', updatedAt: '2026-01-04' },
   { name: 'Fourier-Transform-Signal-Processing', url: 'https://github.com/Avuii/Fourier-Transform-Signal-Processing', language: 'Python', updatedAt: '2025-12-22' },
   { name: 'SOM-WTA-WTM-PyTorch', url: 'https://github.com/Avuii/SOM-WTA-WTM-PyTorch', language: 'Python', updatedAt: '2025-12-22' },
   { name: 'XOR-Classification-with-MLP', url: 'https://github.com/Avuii/XOR-Classification-with-MLP', language: 'Python', updatedAt: '2025-12-22' },
   { name: 'AC-letter-recognition', url: 'https://github.com/Avuii/AC-letter-recognition', language: 'C++', updatedAt: '2025-12-22' },
-  { name: 'ConowayGameOfLife', url: 'https://github.com/Avuii/ConowayGameOfLife', language: 'C#', updatedAt: '2025-12-06' },
   { name: 'Fuzzy-Logic', url: 'https://github.com/Avuii/Fuzzy-Logic', language: 'Python', updatedAt: '2025-11-27' },
   { name: 'SnowGlobe', url: 'https://github.com/Avuii/SnowGlobe', language: 'HTML', updatedAt: '2025-11-07' },
   { name: 'DemonCreutz-Ising2D', url: 'https://github.com/Avuii/DemonCreutz-Ising2D', language: 'Python', updatedAt: '2025-11-07' },
@@ -103,20 +114,14 @@ export function Projects({ language }: ProjectsProps) {
       repositories: 'Repositories',
       pinnedProjects: 'PINNED PROJECTS',
       viewMoreProjects: 'View More Projects',
-      viewRepo: 'View',
-      allRepositories: 'ALL REPOSITORIES',
-      swipeHint: 'Swipe to browse',
-      moreTags: 'more'
+      viewRepo: 'Code'
     },
     pl: {
       sectionTitle: '$ ls -la ~/projects',
       repositories: 'Repozytoria',
       pinnedProjects: 'PRZYPIĘTE PROJEKTY',
       viewMoreProjects: 'Zobacz więcej projektów',
-      viewRepo: 'Zobacz',
-      allRepositories: 'WSZYSTKIE REPOZYTORIA',
-      swipeHint: 'Przesuń, aby przeglądać',
-      moreTags: 'więcej'
+      viewRepo: 'Kod'
     }
   }[language];
 
@@ -396,15 +401,15 @@ export function Projects({ language }: ProjectsProps) {
                 {repositoryList.map((repo) => (
                   <a
                     key={repo.name}
-                    href={repo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setSelectedRepo(repo.name)}
-                    className={`block rounded border px-3 py-2 transition-colors ${
-                      selectedRepo === repo.name
-                        ? 'border-[var(--accent-blue)] bg-[var(--selected-overlay)]'
-                        : 'border-transparent hover:bg-[var(--hover-overlay)]'
-                    }`}
+                    type="button"
+                    onClick={() => {
+                      setSelectedRepo(repo.name);
+                      window.open(repo.url, '_blank');
+                    }}
+                    className={`w-full text-left px-3 py-2 rounded transition-colors ${selectedRepo === repo.name
+                        ? 'bg-[var(--selected-overlay)] border border-[var(--accent-blue)]'
+                        : 'hover:bg-[var(--hover-overlay)] border border-transparent'
+                      }`}
                   >
                     <div className="mb-1 flex items-center gap-2">
                       <BookOpen className="h-3 w-3 text-[var(--text-secondary)]" />
@@ -427,6 +432,114 @@ export function Projects({ language }: ProjectsProps) {
               </div>
             </div>
           </motion.div>
+
+          <div className="lg:col-span-3">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-sm text-[var(--text-secondary)] code-font">{ui.pinnedProjects}</h3>
+
+              <button
+                type="button"
+                onClick={() => window.open('https://github.com/Avuii?tab=repositories', '_blank')}
+                className="flex items-center gap-2 px-4 py-2 border border-[var(--border-default)] text-[var(--accent-blue)] rounded hover:bg-[var(--hover-overlay)] transition-colors code-font text-sm"
+              >
+                {ui.viewMoreProjects}
+                <ExternalLink className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {pinnedProjects.map((project, index) => (
+                <motion.div
+                  key={project.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] overflow-hidden hover:border-[var(--accent-blue)] transition-all group"
+                >
+                  <div className="px-6 py-4 border-b border-[var(--border-default)]">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <BookOpen className="w-4 h-4 text-[var(--accent-blue)]" />
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="code-font text-[var(--accent-blue)] group-hover:underline"
+                        >
+                          {project.name}
+                        </a>
+                      </div>
+
+                      <span className="px-2 py-0.5 border border-[var(--border-default)] rounded text-xs code-font text-[var(--text-secondary)]">
+                        {project.visibility[language]}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="px-6 py-4">
+                    <p className="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed min-h-[72px]">
+                      {project.description[language]}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 bg-[var(--bg-tertiary)] border border-[var(--accent-blue)] text-[var(--accent-blue)] text-xs rounded code-font"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-[var(--border-default)]">
+                      <div className="flex items-center gap-4 text-xs code-font text-[var(--text-secondary)]">
+                        <div className="flex items-center gap-1" style={{ color: getLanguageColor(project.language) }}>
+                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: getLanguageColor(project.language) }} />
+                          <span>{project.language}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3" />
+                          <span>{project.stars}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <GitFork className="w-3 h-3" />
+                          <span>{project.forks}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {'demoUrl' in project && project.demoUrl && (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 px-3 py-1 text-xs text-[var(--accent-green)] hover:bg-[var(--hover-overlay)] rounded transition-colors code-font"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            Demo
+                          </a>
+                        )}
+
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 px-3 py-1 text-xs text-[var(--accent-blue)] hover:bg-[var(--hover-overlay)] rounded transition-colors code-font"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          Code
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

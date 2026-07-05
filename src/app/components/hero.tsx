@@ -23,72 +23,71 @@ export function Hero({ language, playClickSound }: HeroProps) {
   const [exportTypedText, setExportTypedText] = useState('');
   const [exportDots, setExportDots] = useState('');
 
-  const ui = (
-    {
-      en: {
-        greeting: "Hello, I'm",
-        roleText:
-          'Computer Science Student · .NET Developer Intern · Full-Stack Development · ML / AI',
-        loadedModules: 'LOADED_MODULES:',
-        exportFile: 'Export CV.pdf',
-        generating: '> generating file',
-        ready: 'Ready',
-        latestVersion: 'Latest version',
-        downloadCv: 'Download CV',
-        viewProjects: 'View Projects',
-        runProfile: 'Run Profile',
-        checkOut: 'Check out',
-        github: 'GitHub',
-        linkedin: 'LinkedIn',
-        codeLines: [
-          '// Welcome to my workspace',
-          "import { Developer } from './universe';",
-          '',
-          'const Portfolio = () => {',
-          '  return (',
-          '    <Developer',
-          '      name="Katarzyna Stańczyk"',
-          '      role="Full-Stack Developer"',
-          '      passion="Building practical software"',
-          '    />',
-          '  );',
-          '};',
-        ],
-      },
-      pl: {
-        greeting: 'Cześć, jestem',
-        roleText:
-          'Studentka Informatyki · Stażystka .NET · Full-Stack Development · ML / AI',
-        loadedModules: 'ZAŁADOWANE MODUŁY:',
-        exportFile: 'Eksportuj CV.pdf',
-        generating: '> przygotowywanie pliku',
-        ready: 'Gotowe',
-        latestVersion: 'Najnowsza wersja',
-        downloadCv: 'Pobierz CV',
-        viewProjects: 'Zobacz Projekty',
-        runProfile: 'Uruchom Profil',
-        checkOut: 'Sprawdź',
-        github: 'GitHub',
-        linkedin: 'LinkedIn',
-        codeLines: [
-          '// Witaj w moim środowisku pracy',
-          "import { Developer } from './świat';",
-          '',
-          'const Portfolio = () => {',
-          '  return (',
-          '    <Developer',
-          '      name="Katarzyna Stańczyk"',
-          '      role="Full-Stack Developer"',
-          '      passion="Buduję sensowne rozwiązania"',
-          '    />',
-          '  );',
-          '};',
-        ],
-      },
-    } as const
-  )[language];
+  const ui = {
+    en: {
+      greeting: "Hello, I'm",
+      roleText:
+        'Computer Science Student · .NET Developer · Full-Stack Development · Algorithms · ML / AI',
+      loadedModules: 'LOADED_MODULES:',
+      exportFile: 'Export CV.pdf',
+      generating: '> generating file',
+      ready: 'Ready',
+      latestVersion: 'Latest version',
+      downloadCv: 'Download CV',
+      viewProjects: 'View Projects',
+      runProfile: 'Run Profile',
+      checkOut: 'Check out',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
+      codeLines: [
+        '// Welcome to my workspace',
+        "import { Developer } from './universe';",
+        '',
+        'const Portfolio = () => {',
+        '  return (',
+        '    <Developer',
+        '      name="Katarzyna Stańczyk"',
+        '      role="Full-Stack Developer"',
+        '      passion="Building practical software"',
+        '    />',
+        '  );',
+        '};',
+      ],
+    },
+    pl: {
+      greeting: 'Cześć, jestem',
+      roleText:
+        'Studentka Informatyki · Programistka .NET  · Full-Stack Development · Algorytmy · ML / AI',
+      loadedModules: 'ZAŁADOWANE MODUŁY:',
+      exportFile: 'Eksportuj CV.pdf',
+      generating: '> przygotowywanie pliku',
+      ready: 'Gotowe',
+      latestVersion: 'Najnowsza wersja',
+      downloadCv: 'Pobierz CV',
+      viewProjects: 'Zobacz Projekty',
+      runProfile: 'Uruchom Profil',
+      checkOut: 'Sprawdź',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
+      codeLines: [
+        '// Witaj w moim środowisku pracy',
+        "import { Developer } from './universe';",
+        '',
+        'const Portfolio = () => {',
+        '  return (',
+        '    <Developer',
+        '      name="Katarzyna Stańczyk"',
+        '      role="Full-Stack Developer"',
+        '      passion="Buduję praktyczne oprogramowanie"',
+        '    />',
+        '  );',
+        '};',
+      ],
+    },
+  }[language];
 
-  // Typing code animation
+  const codeLines = ui.codeLines;
+
   useEffect(() => {
     const fullText = ui.codeLines.join('\n');
     let currentIndex = 0;

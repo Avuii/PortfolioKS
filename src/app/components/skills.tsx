@@ -335,6 +335,7 @@ function buildBar(value: number, max = 10) {
 }
 
 export function Skills({ language }: SkillsProps) {
+  const [activeCategory, setActiveCategory] = useState<CategoryKey>('CoreLanguages');
   const containerRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.35 });
   const hasStartedRef = useRef(false);

@@ -41,7 +41,7 @@ export default function Root() {
     if (soundEnabled) {
       const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZSA0PVKvo8K1aFgpBmeHyv3Ag');
       audio.volume = 0.2;
-      audio.play().catch(() => {});
+      audio.play().catch(() => { });
     }
   };
 
@@ -64,35 +64,49 @@ export default function Root() {
         playClickSound={playClickSound}
       />
 
-      <main className="relative z-10">
-        <section id="home">
-          <Hero language={language} playClickSound={playClickSound} />
-        </section>
-        
-        <section id="about">
-          <About language={language} />
-        </section>
-        
-        <section id="skills">
-          <Skills language={language} />
-        </section>
-        
-        <section id="experience">
-          <Experience language={language} />
-        </section>
-        
-        <section id="projects">
-          <Projects language={language} />
-        </section>
-        
-        <section id="why">
-          <WhyWorkWithMe language={language} />
-        </section>
-        
-        <section id="contact">
-          <Contact language={language} playClickSound={playClickSound} />
-        </section>
-      </main>
+        <TopBar
+          language={language}
+          setLanguage={setLanguage}
+          soundEnabled={soundEnabled}
+          setSoundEnabled={setSoundEnabled}
+          playClickSound={playClickSound}
+        />
+
+        <NavigationRail
+          activeSection={activeSection}
+          playClickSound={playClickSound}
+        />
+
+        <main className="relative z-10">
+          <section id="home">
+            <Hero language={language} playClickSound={playClickSound} />
+          </section>
+
+          <section id="about">
+            <About language={language} />
+          </section>
+
+          <section id="skills">
+            <Skills language={language} />
+          </section>
+
+          <section id="experience">
+            <Experience language={language} />
+          </section>
+
+          <section id="projects">
+            <Projects language={language} />
+          </section>
+
+          <section id="why">
+            <WhyWorkWithMe language={language} />
+          </section>
+
+          <section id="contact">
+            <Contact language={language} playClickSound={playClickSound} />
+          </section>
+        </main>
+      </div>
     </div>
     </div>
   );
