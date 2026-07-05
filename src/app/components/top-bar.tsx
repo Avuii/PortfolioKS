@@ -8,31 +8,36 @@ interface TopBarProps {
   playClickSound: () => void;
 }
 
-export function TopBar({ language, setLanguage, soundEnabled, setSoundEnabled, playClickSound }: TopBarProps) {
-  const handleLanguageToggle = () => {
+export function TopBar({
+  language,
+  setLanguage,
+  soundEnabled,
+  setSoundEnabled,
+  playClickSound,
+}: TopBarProps) {
+  const handleLanguageToggle = (next: 'en' | 'pl') => {
     playClickSound();
-    setLanguage(language === 'en' ? 'pl' : 'en');
+    setLanguage(next);
   };
 
-  const handleSoundToggle = () => {
-    setSoundEnabled(!soundEnabled);
-  };
+  const handleSoundToggle = () => setSoundEnabled(!soundEnabled);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-default)] bg-[var(--bg-elevated)] backdrop-blur-sm">
-      <div className="flex items-center justify-between px-6 py-3">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between px-3 sm:px-6 py-2 sm:py-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-2 shrink-0">
             <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
             <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
             <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
           </div>
-          <span className="text-sm code-font text-[var(--text-secondary)] ml-4">
+
+          <span className="hidden sm:inline text-sm code-font text-[var(--text-secondary)] ml-4 truncate">
             ~/KatarzynaStanczyk_portfolio
           </span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           <button
             onClick={handleSoundToggle}
             className="p-2 hover:bg-[var(--hover-overlay)] rounded transition-colors"
@@ -45,10 +50,10 @@ export function TopBar({ language, setLanguage, soundEnabled, setSoundEnabled, p
             )}
           </button>
 
-          <div className="flex items-center gap-2 text-sm code-font">
+          <div className="flex items-center gap-1 sm:gap-2 text-sm code-font">
             <button
-              onClick={handleLanguageToggle}
-              className={`px-3 py-1 rounded transition-colors ${
+              onClick={() => handleLanguageToggle('en')}
+              className={`px-2 sm:px-3 py-1 rounded transition-colors ${
                 language === 'en'
                   ? 'bg-[var(--accent-blue)] text-white'
                   : 'text-[var(--text-secondary)] hover:bg-[var(--hover-overlay)]'
@@ -57,8 +62,8 @@ export function TopBar({ language, setLanguage, soundEnabled, setSoundEnabled, p
               EN
             </button>
             <button
-              onClick={handleLanguageToggle}
-              className={`px-3 py-1 rounded transition-colors ${
+              onClick={() => handleLanguageToggle('pl')}
+              className={`px-2 sm:px-3 py-1 rounded transition-colors ${
                 language === 'pl'
                   ? 'bg-[var(--accent-blue)] text-white'
                   : 'text-[var(--text-secondary)] hover:bg-[var(--hover-overlay)]'
@@ -68,7 +73,7 @@ export function TopBar({ language, setLanguage, soundEnabled, setSoundEnabled, p
             </button>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
+          <div className="hidden sm:flex items-center gap-2 text-xs text-[var(--text-secondary)]">
             <div className="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-pulse" />
             <span className="code-font">ONLINE</span>
           </div>

@@ -47,9 +47,22 @@ export default function Root() {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden">
-      <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
-        <CustomCursor />
-        <GridBackground />
+    <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <CustomCursor />
+      <GridBackground />
+      
+      <TopBar 
+        language={language}
+        setLanguage={setLanguage}
+        soundEnabled={soundEnabled}
+        setSoundEnabled={setSoundEnabled}
+        playClickSound={playClickSound}
+      />
+      
+      <NavigationRail 
+        activeSection={activeSection}
+        playClickSound={playClickSound}
+      />
 
         <TopBar
           language={language}
@@ -94,6 +107,7 @@ export default function Root() {
           </section>
         </main>
       </div>
+    </div>
     </div>
   );
 }
