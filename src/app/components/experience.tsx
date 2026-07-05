@@ -55,7 +55,7 @@ const experiences = [
       'MSSQL',
       'Agile'
     ],
-    period: { en: '2025-10 — Present', pl: '2025-10 — Obecnie' },
+    period: { en: '2025-10 — 2026-07', pl: '2025-10 — 2026-07' },
     filesChanged: 11,
     insertions: 100,
     deletions: 10
