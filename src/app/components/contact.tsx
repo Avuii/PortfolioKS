@@ -294,10 +294,14 @@ export function Contact({ language, playClickSound }: ContactProps) {
               </div>
               <button
                 type="button"
-                className="p-1 hover:bg-[var(--hover-overlay)] rounded"
+                className="rounded p-1 hover:bg-[var(--hover-overlay)]"
                 onClick={playClickSound}
+                aria-label="Status: active"
               >
-                <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                <div className="relative flex h-3 w-3 items-center justify-center">
+                  <span className="absolute h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]/40 animate-pulse" />
+                  <span className="relative h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]" />
+                </div>
               </button>
             </div>
 

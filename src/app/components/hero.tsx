@@ -27,7 +27,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
     en: {
       greeting: "Hello, I'm",
       roleText:
-        'Computer Science Student · .NET Developer Intern · Full-Stack Development · Algorithms · ML / AI',
+        'Computer Science Student · .NET Developer · Full-Stack Development · Algorithms · ML / AI',
       loadedModules: 'LOADED_MODULES:',
       exportFile: 'Export CV.pdf',
       generating: '> generating file',
@@ -57,7 +57,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
     pl: {
       greeting: 'Cześć, jestem',
       roleText:
-        'Studentka Informatyki · Stażystka .NET · Full-Stack Development · Algorytmy · ML / AI',
+        'Studentka Informatyki · Programistka .NET  · Full-Stack Development · Algorytmy · ML / AI',
       loadedModules: 'ZAŁADOWANE MODUŁY:',
       exportFile: 'Eksportuj CV.pdf',
       generating: '> przygotowywanie pliku',

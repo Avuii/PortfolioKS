@@ -187,7 +187,6 @@ const skillsData = {
 type CategoryKey = keyof typeof skillsData;
 
 export function Skills({ language }: SkillsProps) {
-  // ✅ Jeden state = jedna otwarta sekcja naraz
   const [activeCategory, setActiveCategory] = useState<CategoryKey>('CoreLanguages');
 
   const ui = {
