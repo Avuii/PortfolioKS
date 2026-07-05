@@ -82,7 +82,6 @@ const repositoryList = [
   { name: 'FractalAnimation', url: 'https://github.com/Avuii/FractalAnimation', language: 'C++', updatedAt: '2026-07-01' },
   { name: 'ScientificCalculator', url: 'https://github.com/Avuii/ScientificCalculator', language: 'C++', updatedAt: '2026-07-01' },
   { name: 'applied-cryptography-lab', url: 'https://github.com/Avuii/applied-cryptography-lab', language: 'Python', updatedAt: '2026-07-01' },
-
   { name: 'DocuMind-AI', url: 'https://github.com/Avuii/DocuMind-AI', language: 'C#', updatedAt: '2026-01-13' },
   { name: 'ConowayGameOfLife', url: 'https://github.com/Avuii/ConowayGameOfLife', language: 'C#', updatedAt: '2025-12-06' },
   { name: 'Social-Networks', url: 'https://github.com/Avuii/Social-Networks', language: 'Python', updatedAt: '2026-02-08' },
@@ -112,22 +111,29 @@ export function Projects({ language }: ProjectsProps) {
     en: {
       sectionTitle: '$ ls -la ~/projects',
       repositories: 'Repositories',
+      allRepositories: 'All repositories',
       pinnedProjects: 'PINNED PROJECTS',
       viewMoreProjects: 'View More Projects',
-      viewRepo: 'Code'
+      viewRepo: 'Code',
+      swipeHint: 'Swipe to explore pinned projects',
+      moreTags: 'more'
     },
     pl: {
       sectionTitle: '$ ls -la ~/projects',
       repositories: 'Repozytoria',
+      allRepositories: 'Wszystkie repozytoria',
       pinnedProjects: 'PRZYPIĘTE PROJEKTY',
       viewMoreProjects: 'Zobacz więcej projektów',
-      viewRepo: 'Kod'
+      viewRepo: 'Kod',
+      swipeHint: 'Przesuń, aby zobaczyć przypięte projekty',
+      moreTags: 'więcej'
     }
   }[language];
 
   const formatUpdated = (iso: string, lang: 'en' | 'pl') => {
-    const d = new Date(iso + 'T00:00:00');
+    const d = new Date(`${iso}T00:00:00`);
     const locale = lang === 'pl' ? 'pl-PL' : 'en-US';
+
     const formatted = new Intl.DateTimeFormat(locale, {
       year: 'numeric',
       month: 'short',
@@ -174,8 +180,9 @@ export function Projects({ language }: ProjectsProps) {
     >
       <div className="border-b border-[var(--border-default)] px-4 py-4 sm:px-6">
         <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0 flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <BookOpen className="h-4 w-4 shrink-0 text-[var(--accent-blue)]" />
+
             <a
               href={project.url}
               target="_blank"
@@ -236,7 +243,10 @@ export function Projects({ language }: ProjectsProps) {
           }`}
         >
           <div className="flex flex-wrap items-center gap-3 text-[10px] code-font text-[var(--text-secondary)] sm:gap-4 sm:text-xs">
-            <div className="flex items-center gap-1" style={{ color: getLanguageColor(project.language) }}>
+            <div
+              className="flex items-center gap-1"
+              style={{ color: getLanguageColor(project.language) }}
+            >
               <div
                 className="h-2.5 w-2.5 rounded-full sm:h-3 sm:w-3"
                 style={{ backgroundColor: getLanguageColor(project.language) }}
@@ -255,17 +265,33 @@ export function Projects({ language }: ProjectsProps) {
             </div>
           </div>
 
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex items-center gap-1 rounded px-3 py-2 text-[10px] code-font text-[var(--accent-blue)] transition-colors hover:bg-[var(--hover-overlay)] sm:text-xs ${
-              mobile ? 'w-full justify-center' : 'shrink-0'
-            }`}
-          >
-            <ExternalLink className="h-3 w-3" />
-            {ui.viewRepo}
-          </a>
+          <div className={`flex items-center gap-2 ${mobile ? 'w-full' : 'shrink-0'}`}>
+            {'demoUrl' in project && project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center justify-center gap-1 rounded px-3 py-2 text-[10px] code-font text-[var(--accent-green)] transition-colors hover:bg-[var(--hover-overlay)] sm:text-xs ${
+                  mobile ? 'flex-1' : ''
+                }`}
+              >
+                <ExternalLink className="h-3 w-3" />
+                Demo
+              </a>
+            )}
+
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center gap-1 rounded px-3 py-2 text-[10px] code-font text-[var(--accent-blue)] transition-colors hover:bg-[var(--hover-overlay)] sm:text-xs ${
+                mobile ? 'flex-1' : ''
+              }`}
+            >
+              <ExternalLink className="h-3 w-3" />
+              {ui.viewRepo}
+            </a>
+          </div>
         </div>
       </div>
     </motion.article>
@@ -292,8 +318,13 @@ export function Projects({ language }: ProjectsProps) {
           <div className="order-1 lg:order-2 lg:col-span-3">
             <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h3 className="text-sm code-font text-[var(--text-secondary)]">{ui.pinnedProjects}</h3>
-                <p className="mt-1 text-xs code-font text-[var(--text-muted)] lg:hidden">{ui.swipeHint}</p>
+                <h3 className="text-sm code-font text-[var(--text-secondary)]">
+                  {ui.pinnedProjects}
+                </h3>
+
+                <p className="mt-1 text-xs code-font text-[var(--text-muted)] lg:hidden">
+                  {ui.swipeHint}
+                </p>
               </div>
 
               <a
@@ -307,8 +338,8 @@ export function Projects({ language }: ProjectsProps) {
               </a>
             </div>
 
-            {/* MOBILE */}
-            <div className="lg:hidden overflow-x-auto px-0 pb-3 snap-x snap-mandatory">
+            {/* MOBILE PINNED PROJECTS */}
+            <div className="overflow-x-auto px-0 pb-3 snap-x snap-mandatory lg:hidden">
               <div className="flex gap-4 pr-4">
                 {pinnedProjects.map((project, index) => (
                   <ProjectCard key={project.name} project={project} index={index} mobile />
@@ -316,7 +347,7 @@ export function Projects({ language }: ProjectsProps) {
               </div>
             </div>
 
-            {/* DESKTOP */}
+            {/* DESKTOP PINNED PROJECTS */}
             <div className="hidden gap-6 lg:grid xl:grid-cols-2">
               {pinnedProjects.map((project, index) => (
                 <ProjectCard key={project.name} project={project} index={index} />
@@ -338,7 +369,10 @@ export function Projects({ language }: ProjectsProps) {
                 className="flex w-full items-center justify-between px-4 py-4 text-left"
               >
                 <div className="flex items-center gap-3">
-                  <h3 className="text-sm code-font text-[var(--text-secondary)]">{ui.allRepositories}</h3>
+                  <h3 className="text-sm code-font text-[var(--text-secondary)]">
+                    {ui.allRepositories}
+                  </h3>
+
                   <span className="rounded bg-[var(--bg-tertiary)] px-2 py-1 text-xs code-font text-[var(--text-secondary)]">
                     {repositoryList.length}
                   </span>
@@ -366,17 +400,21 @@ export function Projects({ language }: ProjectsProps) {
                           : 'border-transparent hover:bg-[var(--hover-overlay)]'
                       }`}
                     >
-                      <div className="mb-1 flex items-center gap-2">
+                      <div className="mb-1 flex min-w-0 items-center gap-2">
                         <BookOpen className="h-3 w-3 shrink-0 text-[var(--text-secondary)]" />
-                        <span className="truncate text-sm code-font text-[var(--accent-blue)]">{repo.name}</span>
+                        <span className="truncate text-sm code-font text-[var(--accent-blue)]">
+                          {repo.name}
+                        </span>
                       </div>
 
                       <div className="flex items-center gap-2 text-[10px]">
                         <div
-                          className="h-2 w-2 rounded-full"
+                          className="h-2 w-2 shrink-0 rounded-full"
                           style={{ backgroundColor: getLanguageColor(repo.language) }}
                         />
-                        <span className="code-font text-[var(--text-secondary)]">{repo.language}</span>
+                        <span className="code-font text-[var(--text-secondary)]">
+                          {repo.language}
+                        </span>
                       </div>
 
                       <div className="mt-1 text-[10px] code-font text-[var(--text-muted)]">
@@ -391,7 +429,10 @@ export function Projects({ language }: ProjectsProps) {
             {/* DESKTOP SIDEBAR */}
             <div className="sticky top-24 hidden max-h-[700px] overflow-auto rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-4 lg:block">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-sm code-font text-[var(--text-secondary)]">{ui.repositories}</h3>
+                <h3 className="text-sm code-font text-[var(--text-secondary)]">
+                  {ui.repositories}
+                </h3>
+
                 <span className="rounded bg-[var(--bg-tertiary)] px-2 py-1 text-xs code-font text-[var(--text-secondary)]">
                   {repositoryList.length}
                 </span>
@@ -401,29 +442,36 @@ export function Projects({ language }: ProjectsProps) {
                 {repositoryList.map((repo) => (
                   <a
                     key={repo.name}
-                    type="button"
-                    onClick={() => {
-                      setSelectedRepo(repo.name);
-                      window.open(repo.url, '_blank');
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded transition-colors ${selectedRepo === repo.name
-                        ? 'bg-[var(--selected-overlay)] border border-[var(--accent-blue)]'
-                        : 'hover:bg-[var(--hover-overlay)] border border-transparent'
-                      }`}
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setSelectedRepo(repo.name)}
+                    className={`block w-full rounded border px-3 py-2 text-left transition-colors ${
+                      selectedRepo === repo.name
+                        ? 'border-[var(--accent-blue)] bg-[var(--selected-overlay)]'
+                        : 'border-transparent hover:bg-[var(--hover-overlay)]'
+                    }`}
                   >
-                    <div className="mb-1 flex items-center gap-2">
-                      <BookOpen className="h-3 w-3 text-[var(--text-secondary)]" />
-                      <span className="truncate text-sm code-font text-[var(--accent-blue)]">{repo.name}</span>
+                    <div className="mb-1 flex min-w-0 items-center gap-2">
+                      <BookOpen className="h-3 w-3 shrink-0 text-[var(--text-secondary)]" />
+                      <span className="truncate text-sm code-font text-[var(--accent-blue)]">
+                        {repo.name}
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs">
                       <div
-                        className="h-2 w-2 rounded-full"
+                        className="h-2 w-2 shrink-0 rounded-full"
                         style={{ backgroundColor: getLanguageColor(repo.language) }}
                       />
-                      <span className="code-font text-[var(--text-secondary)]">{repo.language}</span>
+
+                      <span className="code-font text-[var(--text-secondary)]">
+                        {repo.language}
+                      </span>
+
                       <span className="text-[var(--text-muted)]">·</span>
-                      <span className="code-font text-[var(--text-muted)]">
+
+                      <span className="truncate code-font text-[var(--text-muted)]">
                         {formatUpdated(repo.updatedAt, language)}
                       </span>
                     </div>
@@ -432,114 +480,6 @@ export function Projects({ language }: ProjectsProps) {
               </div>
             </div>
           </motion.div>
-
-          <div className="lg:col-span-3">
-            <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-sm text-[var(--text-secondary)] code-font">{ui.pinnedProjects}</h3>
-
-              <button
-                type="button"
-                onClick={() => window.open('https://github.com/Avuii?tab=repositories', '_blank')}
-                className="flex items-center gap-2 px-4 py-2 border border-[var(--border-default)] text-[var(--accent-blue)] rounded hover:bg-[var(--hover-overlay)] transition-colors code-font text-sm"
-              >
-                {ui.viewMoreProjects}
-                <ExternalLink className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {pinnedProjects.map((project, index) => (
-                <motion.div
-                  key={project.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] overflow-hidden hover:border-[var(--accent-blue)] transition-all group"
-                >
-                  <div className="px-6 py-4 border-b border-[var(--border-default)]">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-[var(--accent-blue)]" />
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="code-font text-[var(--accent-blue)] group-hover:underline"
-                        >
-                          {project.name}
-                        </a>
-                      </div>
-
-                      <span className="px-2 py-0.5 border border-[var(--border-default)] rounded text-xs code-font text-[var(--text-secondary)]">
-                        {project.visibility[language]}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="px-6 py-4">
-                    <p className="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed min-h-[72px]">
-                      {project.description[language]}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 bg-[var(--bg-tertiary)] border border-[var(--accent-blue)] text-[var(--accent-blue)] text-xs rounded code-font"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-[var(--border-default)]">
-                      <div className="flex items-center gap-4 text-xs code-font text-[var(--text-secondary)]">
-                        <div className="flex items-center gap-1" style={{ color: getLanguageColor(project.language) }}>
-                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: getLanguageColor(project.language) }} />
-                          <span>{project.language}</span>
-                        </div>
-
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3" />
-                          <span>{project.stars}</span>
-                        </div>
-
-                        <div className="flex items-center gap-1">
-                          <GitFork className="w-3 h-3" />
-                          <span>{project.forks}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        {'demoUrl' in project && project.demoUrl && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 px-3 py-1 text-xs text-[var(--accent-green)] hover:bg-[var(--hover-overlay)] rounded transition-colors code-font"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                            Demo
-                          </a>
-                        )}
-
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 px-3 py-1 text-xs text-[var(--accent-blue)] hover:bg-[var(--hover-overlay)] rounded transition-colors code-font"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          Code
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
