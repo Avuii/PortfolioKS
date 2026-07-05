@@ -8,6 +8,8 @@ import {
   MonitorSmartphone,
   Palette,
   Settings,
+  ShieldCheck,
+  AppWindow,
   type LucideIcon
 } from 'lucide-react';
 
@@ -25,6 +27,8 @@ type ModuleKey =
   | 'frontend'
   | 'ml'
   | 'databases'
+  | 'desktop'
+  | 'security'
   | 'algorithms'
   | 'creative';
 
@@ -43,13 +47,41 @@ type SkillModule = {
 };
 
 const projects = {
+  nearEarth: {
+    label: { en: 'NearEarth', pl: 'NearEarth' },
+    href: 'https://github.com/Avuii/NearEarth'
+  },
   eurpln: {
     label: { en: 'EUR/PLN Tracker', pl: 'EUR/PLN Tracker' },
     href: 'https://github.com/Avuii/EUR-PLN-Tracker'
   },
-  asteroid: {
-    label: { en: 'AsteroidSafe', pl: 'AsteroidSafe' },
-    href: 'https://github.com/Avuii/AsteroidSafe'
+  careQuest: {
+    label: { en: 'CareQuest', pl: 'CareQuest' },
+    href: 'https://github.com/Avuii/CareQuest'
+  },
+  parkingFlow: {
+    label: { en: 'Parking Flow', pl: 'Parking Flow' },
+    href: 'https://github.com/Avuii/ParkingFlow'
+  },
+  reactCalculator: {
+    label: { en: 'React Scientific Calculator', pl: 'React Scientific Calculator' },
+    href: 'https://github.com/Avuii/react-scientific-calculator'
+  },
+  mediaRent: {
+    label: { en: 'MediaRent', pl: 'MediaRent' },
+    href: 'https://github.com/Avuii/MediaRent'
+  },
+  fractalAnimation: {
+    label: { en: 'Qt Fractal Animation', pl: 'Qt Fractal Animation' },
+    href: 'https://github.com/Avuii/FractalAnimation'
+  },
+  qtCalculator: {
+    label: { en: 'Qt Scientific Calculator', pl: 'Qt Scientific Calculator' },
+    href: 'https://github.com/Avuii/ScientificCalculator'
+  },
+  appliedCrypto: {
+    label: { en: 'Applied Cryptography Lab', pl: 'Applied Cryptography Lab' },
+    href: 'https://github.com/Avuii/applied-cryptography-lab'
   },
   documind: {
     label: { en: 'DocuMind-AI', pl: 'DocuMind-AI' },
@@ -130,14 +162,6 @@ const projects = {
   portfolioKs: {
     label: { en: 'PortfolioKS', pl: 'PortfolioKS' },
     href: 'https://github.com/Avuii/PortfolioKS'
-  },
-  portfolioOld2: {
-    label: { en: 'KatarzynaStanczyk', pl: 'KatarzynaStanczyk' },
-    href: 'https://github.com/Avuii/KatarzynaStanczyk'
-  },
-  portfolioOld1: {
-    label: { en: 'portfolio', pl: 'portfolio' },
-    href: 'https://github.com/Avuii/portfolio'
   }
 } as const;
 
@@ -162,13 +186,19 @@ const modules: SkillModule[] = [
       'Entity Framework Core',
       'REST API',
       'Swagger / OpenAPI',
-      'FastAPI',
-      'ONNX Runtime (.NET)'
+      'SignalR',
+      'FastAPI'
     ],
-    usedIn: [projects.conway, projects.documind, projects.eurpln, projects.asteroid, deheusWork],
+    usedIn: [
+      projects.parkingFlow,
+      projects.documind,
+      projects.eurpln,
+      projects.conway,
+      deheusWork
+    ],
     description: {
-      en: 'I build APIs, backend logic, DTO-based data flows, service integrations, and business-oriented application backends in .NET and Python.',
-      pl: 'Tworzę API, logikę backendową, przepływy danych oparte o DTO, integracje usług oraz backendy aplikacji biznesowych w .NET i Pythonie.'
+      en: 'I build APIs, backend logic, real-time features, DTO-based data flows, service integrations and business-oriented application backends in .NET and Python.',
+      pl: 'Tworzę API, logikę backendową, funkcje czasu rzeczywistego, przepływy danych oparte o DTO, integracje usług oraz backendy aplikacji biznesowych w .NET i Pythonie.'
     }
   },
   {
@@ -187,20 +217,21 @@ const modules: SkillModule[] = [
       'Blazor',
       'Vite',
       'Tailwind CSS',
-      'HTML5 / CSS3'
+      'HTML5 / CSS3',
+      'Responsive UI'
     ],
     usedIn: [
+      projects.nearEarth,
       projects.eurpln,
-      projects.asteroid,
-      projects.documind,
-      projects.conway,
+      projects.careQuest,
+      projects.parkingFlow,
+      projects.reactCalculator,
       projects.portfolioKs,
-      projects.portfolioOld2,
-      projects.portfolioOld1
+      deheusWork
     ],
     description: {
-      en: 'I create responsive interfaces, dashboards, portfolio sections, and polished app views with a focus on clarity, interaction, and visual structure.',
-      pl: 'Tworzę responsywne interfejsy, dashboardy, sekcje portfolio oraz dopracowane widoki aplikacji z naciskiem na czytelność, interakcję i dobrą strukturę wizualną.'
+      en: 'I create responsive interfaces, dashboards, portfolio sections and interactive app views with a focus on clarity, interaction and visual structure.',
+      pl: 'Tworzę responsywne interfejsy, dashboardy, sekcje portfolio oraz interaktywne widoki aplikacji z naciskiem na czytelność, interakcję i dobrą strukturę wizualną.'
     }
   },
   {
@@ -219,11 +250,14 @@ const modules: SkillModule[] = [
       'Scikit-learn',
       'PyTorch',
       'statsmodels',
+      'Time Series',
+      'Forecasting',
+      'NBP API',
       'NetworkX'
     ],
     usedIn: [
       projects.eurpln,
-      projects.asteroid,
+      projects.nearEarth,
       projects.banknote,
       projects.iris,
       projects.som,
@@ -234,7 +268,7 @@ const modules: SkillModule[] = [
       projects.plane
     ],
     description: {
-      en: 'I work on forecasting, classification, neural networks, graph analysis, and experiment-driven data workflows used in both academic and portfolio projects.',
+      en: 'I work on forecasting, classification, neural networks, graph analysis and experiment-driven data workflows used in academic and portfolio projects.',
       pl: 'Pracuję nad prognozowaniem, klasyfikacją, sieciami neuronowymi, analizą grafów oraz eksperymentalnymi workflow danych w projektach uczelnianych i portfolio.'
     }
   },
@@ -250,12 +284,84 @@ const modules: SkillModule[] = [
     items: [
       'SQL',
       'Microsoft SQL Server',
-      'PostgreSQL'
+      'PostgreSQL',
+      'Entity Modeling',
+      'Queries',
+      'Data Persistence'
     ],
-    usedIn: [projects.conway, projects.documind, deheusWork],
+    usedIn: [
+      projects.parkingFlow,
+      projects.documind,
+      projects.conway,
+      deheusWork
+    ],
     description: {
-      en: 'I use relational databases for persistence, querying, entity modeling, and application data flows in both web systems and internal tools.',
-      pl: 'Korzystam z relacyjnych baz danych do persystencji, zapytań, modelowania encji oraz przepływu danych zarówno w systemach webowych, jak i narzędziach wewnętrznych.'
+      en: 'I use relational databases for persistence, querying, entity modeling and application data flows in web systems and internal tools.',
+      pl: 'Korzystam z relacyjnych baz danych do persystencji, zapytań, modelowania encji oraz przepływu danych w systemach webowych i narzędziach wewnętrznych.'
+    }
+  },
+  {
+    key: 'desktop',
+    label: { en: 'Desktop / Qt / C++', pl: 'Desktop / Qt / C++' },
+    shortLabel: { en: 'Qt / Desktop', pl: 'Qt / Desktop' },
+    score: 8,
+    icon: AppWindow,
+    colorClass: 'text-[var(--accent-purple)]',
+    glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
+    accentClass: 'border-[var(--accent-purple)]/50',
+    items: [
+      'C++',
+      'Qt Widgets',
+      'Desktop Apps',
+      'Event-driven UI',
+      'Signals & Slots',
+      'Fractals',
+      'Scientific Tools',
+      'Rental Management UI'
+    ],
+    usedIn: [
+      projects.mediaRent,
+      projects.fractalAnimation,
+      projects.qtCalculator,
+      projects.traffic,
+      projects.grib,
+      projects.lz77,
+      projects.huffman
+    ],
+    description: {
+      en: 'I build desktop applications in C++ and Qt, including management tools, scientific calculators, fractal animation and event-driven interfaces.',
+      pl: 'Tworzę aplikacje desktopowe w C++ i Qt, w tym narzędzia zarządzania, kalkulatory naukowe, animacje fraktali oraz interfejsy oparte o zdarzenia.'
+    }
+  },
+  {
+    key: 'security',
+    label: { en: 'Cybersecurity Foundations', pl: 'Podstawy cyberbezpieczeństwa' },
+    shortLabel: { en: 'Security', pl: 'Security' },
+    score: 7,
+    icon: ShieldCheck,
+    colorClass: 'text-[var(--accent-red)]',
+    glowClass: 'shadow-[0_0_24px_rgba(248,81,73,0.18)]',
+    accentClass: 'border-[var(--accent-red)]/50',
+    items: [
+      'Cryptography',
+      'Data Protection',
+      'Hashing',
+      'Symmetric Encryption',
+      'Asymmetric Encryption',
+      'Digital Signatures',
+      'Access Control',
+      'IAM Interest',
+      'Secure Software Mindset'
+    ],
+    usedIn: [
+      projects.appliedCrypto,
+      projects.documind,
+      projects.nearEarth,
+      deheusWork
+    ],
+    description: {
+      en: 'I am developing a security-oriented mindset through cryptography, data protection, access control and IAM-related topics, while using my developer background to understand application security from the inside.',
+      pl: 'Rozwijam security mindset przez kryptografię, ochronę danych, kontrolę dostępu i tematy związane z IAM, wykorzystując doświadczenie developerskie do rozumienia bezpieczeństwa aplikacji od środka.'
     }
   },
   {
@@ -286,7 +392,7 @@ const modules: SkillModule[] = [
       projects.fuzzy
     ],
     description: {
-      en: 'I build algorithmic and systems-oriented projects in C++, including compression, signal processing, simulation, and work with structured binary data.',
+      en: 'I build algorithmic and systems-oriented projects in C++, including compression, signal processing, simulation and work with structured binary data.',
       pl: 'Tworzę projekty algorytmiczne i systemowe w C++, obejmujące kompresję, przetwarzanie sygnałów, symulacje oraz pracę ze strukturalnymi danymi binarnymi.'
     }
   },
@@ -296,9 +402,9 @@ const modules: SkillModule[] = [
     shortLabel: { en: 'Creative', pl: 'Creative' },
     score: 7,
     icon: Palette,
-    colorClass: 'text-[var(--accent-purple)]',
-    glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
-    accentClass: 'border-[var(--accent-purple)]/50',
+    colorClass: 'text-[var(--accent-slate)]',
+    glowClass: 'shadow-[0_0_24px_rgba(148,163,184,0.18)]',
+    accentClass: 'border-[var(--accent-slate)]/50',
     items: [
       'Figma',
       'Canva',
@@ -311,19 +417,20 @@ const modules: SkillModule[] = [
     ],
     usedIn: [
       projects.portfolioKs,
-      projects.portfolioOld2,
-      projects.portfolioOld1,
+      projects.nearEarth,
+      projects.careQuest,
       projects.snow,
       projects.coffecrime
     ],
     description: {
-      en: 'I use creative tools for UI concepts, portfolio visuals, interactive web visuals, prototyping, and selected 3D or game-oriented work.',
+      en: 'I use creative tools for UI concepts, portfolio visuals, interactive web visuals, prototyping and selected 3D or game-oriented work.',
       pl: 'Korzystam z narzędzi kreatywnych do konceptów UI, wizualizacji portfolio, interaktywnych form webowych, prototypowania oraz wybranych prac 3D i game-dev.'
     }
   }
 ];
 
 const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
 const randomBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -331,11 +438,11 @@ function buildBar(value: number, max = 10) {
   const safe = Math.max(0, Math.min(value, max));
   const filled = '█'.repeat(safe);
   const empty = '░'.repeat(max - safe);
+
   return `[${filled}${empty}]`;
 }
 
 export function Skills({ language }: SkillsProps) {
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>('CoreLanguages');
   const containerRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.35 });
   const hasStartedRef = useRef(false);
@@ -359,7 +466,6 @@ export function Skills({ language }: SkillsProps) {
       technologies: 'TECHNOLOGIES',
       projects: 'USED IN',
       notes: 'NOTES',
-      stats: 'coverage',
       tapHint: 'tap to inspect',
       clickHint: 'click to inspect'
     },
@@ -373,7 +479,6 @@ export function Skills({ language }: SkillsProps) {
       technologies: 'TECHNOLOGIE',
       projects: 'W PROJEKTACH',
       notes: 'OPIS',
-      stats: 'pokrycie',
       tapHint: 'dotknij, aby zobaczyć',
       clickHint: 'kliknij, aby zobaczyć'
     }
@@ -400,11 +505,13 @@ export function Skills({ language }: SkillsProps) {
 
       for (let index = 1; index <= command.length; index += 1) {
         if (cancelledRef.current) return;
+
         setTypedCommand(command.slice(0, index));
         await sleep(randomBetween(18, 42));
       }
 
       if (cancelledRef.current) return;
+
       await sleep(260);
       setPhase('scanning');
 
@@ -419,11 +526,14 @@ export function Skills({ language }: SkillsProps) {
         if (cancelledRef.current) return;
 
         const module = modules[moduleIndex];
+
         setVisibleLines((prev) => Math.max(prev, moduleIndex + 1));
         setSelectedKey(module.key);
+
         await sleep(120);
 
         let current = 0;
+
         while (current < module.score) {
           if (cancelledRef.current) return;
 
@@ -447,8 +557,11 @@ export function Skills({ language }: SkillsProps) {
       }
 
       setDots('...');
+
       await sleep(180);
+
       if (cancelledRef.current) return;
+
       setPhase('done');
     };
 
@@ -456,6 +569,7 @@ export function Skills({ language }: SkillsProps) {
 
     return () => {
       cancelledRef.current = true;
+
       if (dotsIntervalId) {
         window.clearInterval(dotsIntervalId);
       }
@@ -475,6 +589,7 @@ export function Skills({ language }: SkillsProps) {
         >
           <div className="mb-3 flex items-center gap-3">
             <Settings className="h-5 w-5 text-[var(--accent-slate)] sm:h-6 sm:w-6" />
+
             <h2 className="code-font text-2xl text-[var(--text-primary)] sm:text-3xl">
               {ui.sectionTitle}
             </h2>
@@ -492,6 +607,7 @@ export function Skills({ language }: SkillsProps) {
               <span className="h-3 w-3 rounded-full bg-[var(--accent-red)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-yellow)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-green)]" />
+
               <span className="ml-2 code-font text-xs text-[var(--text-secondary)] sm:text-sm">
                 {ui.terminalFile}
               </span>
@@ -500,6 +616,7 @@ export function Skills({ language }: SkillsProps) {
             <div className="p-4 sm:p-5 md:p-6">
               <div className="mb-3 min-h-[24px] break-all code-font text-[11px] text-[var(--accent-green)] sm:text-sm md:text-[15px]">
                 <span>{typedCommand}</span>
+
                 <span
                   className={`ml-0.5 inline-block h-[1em] w-[8px] translate-y-[2px] bg-[var(--accent-green)] ${
                     cursorVisible ? 'animate-pulse' : 'opacity-0'
@@ -540,12 +657,15 @@ export function Skills({ language }: SkillsProps) {
                       >
                         <div className="hidden items-center gap-3 sm:flex">
                           <Icon className={`h-4 w-4 ${module.colorClass}`} />
+
                           <span className="code-font whitespace-pre text-sm text-[var(--text-primary)]">
                             {buildBar(currentScore)}
                           </span>
+
                           <span className="code-font text-sm text-[var(--text-primary)]">
                             {module.label[language]}
                           </span>
+
                           <span className="ml-auto code-font text-xs text-[var(--text-secondary)]">
                             {currentScore}/10
                           </span>
@@ -555,14 +675,17 @@ export function Skills({ language }: SkillsProps) {
                           <div className="mb-2 flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
                               <Icon className={`h-4 w-4 ${module.colorClass}`} />
+
                               <span className="code-font text-xs text-[var(--text-primary)]">
                                 {module.label[language]}
                               </span>
                             </div>
+
                             <span className="code-font text-[10px] text-[var(--text-secondary)]">
                               {currentScore}/10
                             </span>
                           </div>
+
                           <div className="overflow-x-auto">
                             <div className="min-w-max code-font text-xs text-[var(--text-primary)]">
                               {buildBar(currentScore)}
@@ -612,10 +735,12 @@ export function Skills({ language }: SkillsProps) {
                   >
                     <selectedModule.icon className={`h-5 w-5 ${selectedModule.colorClass}`} />
                   </div>
+
                   <div>
                     <h3 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
                       {selectedModule.label[language]}
                     </h3>
+
                     <div className="mt-1 code-font text-xs text-[var(--text-secondary)] sm:text-sm">
                       {buildBar(selectedModule.score)}{' '}
                       <span className="ml-2">{selectedModule.score}/10</span>
@@ -627,6 +752,7 @@ export function Skills({ language }: SkillsProps) {
                   <div className="mb-2 code-font text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
                     {ui.notes}
                   </div>
+
                   <p className="text-sm leading-relaxed text-[var(--text-primary)] sm:text-[15px]">
                     {selectedModule.description[language]}
                   </p>
@@ -636,6 +762,7 @@ export function Skills({ language }: SkillsProps) {
                   <div className="mb-3 code-font text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
                     {ui.technologies}
                   </div>
+
                   <div className="flex flex-wrap gap-2">
                     {selectedModule.items.map((item) => (
                       <span
@@ -653,6 +780,7 @@ export function Skills({ language }: SkillsProps) {
                     <div className="code-font text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
                       {ui.projects}
                     </div>
+
                     <div className="code-font text-[10px] text-[var(--text-secondary)] sm:text-xs">
                       <span className="sm:hidden">{ui.tapHint}</span>
                       <span className="hidden sm:inline">{ui.clickHint}</span>
@@ -668,7 +796,12 @@ export function Skills({ language }: SkillsProps) {
                       );
 
                       return project.href ? (
-                        <a key={project.label.en} href={project.href} target="_blank" rel="noreferrer">
+                        <a
+                          key={project.label.en}
+                          href={project.href}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           {chip}
                         </a>
                       ) : (
