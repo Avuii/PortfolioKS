@@ -175,7 +175,9 @@ export function Contact({ language, playClickSound }: ContactProps) {
                 <Line n={5}>
                   <span className="pl-4">
                     <span className="text-[var(--accent-purple)]">"linkedin"</span>:{' '}
-                    <span className="text-[var(--accent-green)]">"{contactInfo.socials.linkedin}"</span>,
+                    <span className="text-[var(--accent-green)]">
+                      "{contactInfo.socials.linkedin}"
+                    </span>,
                   </span>
                 </Line>
 
@@ -257,16 +259,6 @@ export function Contact({ language, playClickSound }: ContactProps) {
                 </span>
               </div>
 
-            <button
-              type="button"
-              className="rounded p-1 hover:bg-[var(--hover-overlay)]"
-              onClick={playClickSound}
-              aria-label="Status: active"
-            >
-              <div className="relative flex h-3 w-3 items-center justify-center">
-                <span className="absolute h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]/40 animate-pulse" />
-                <span className="relative h-2.5 w-2.5 rounded-full bg-[var(--accent-green)]" />
-              </div>
               <button
                 type="button"
                 className="rounded p-1 hover:bg-[var(--hover-overlay)]"
@@ -279,6 +271,7 @@ export function Contact({ language, playClickSound }: ContactProps) {
                 </div>
               </button>
             </div>
+
             <div className="p-4 text-[12px] code-font sm:p-6 sm:text-sm">
               <div className="mb-4 text-[var(--syntax-comment)]">{ui.codeComment}</div>
 
@@ -315,9 +308,7 @@ export function Contact({ language, playClickSound }: ContactProps) {
                     <textarea
                       value={formData.message}
                       placeholder={ui.messagePlaceholder}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       rows={5}
                       className="w-full resize-none rounded border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-3 py-2 text-[var(--accent-green)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-blue)] focus:outline-none"
                     />
@@ -418,6 +409,7 @@ function Field({
       <div className="mb-1 text-[var(--syntax-keyword)]">
         const <span className="text-[var(--syntax-variable)]">{label}</span> =
       </div>
+
       <input
         type={type}
         value={value}
