@@ -15,8 +15,6 @@ interface HeroProps {
   playClickSound: () => void;
 }
 
-// Krótka lista technologii, które najlepiej pokazują główną specjalizację.
-// Pełny stack znajduje się w komponencie Skills.
 const modules = [
   'C#',
   '.NET',
@@ -29,17 +27,19 @@ const modules = [
   'Docker',
 ];
 
+const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
 export function Hero({ language, playClickSound }: HeroProps) {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [exportTypedText, setExportTypedText] = useState('');
   const [exportDots, setExportDots] = useState('');
+  const [isCvReady, setIsCvReady] = useState(false);
 
   const ui = {
     en: {
       greeting: "Hello, I'm",
-      roleText:
-        '.NET Developer · Backend & Full-Stack · Computer Science',
+      roleText: '.NET Developer · Backend & Full-Stack · Computer Science',
       introText:
         'Computer Science student specializing in Programming & Algorithms, with hands-on commercial experience building business applications at De Heus.',
       focusLabel: 'CURRENT FOCUS / ENGINEERING THESIS',
@@ -48,10 +48,13 @@ export function Hero({ language, playClickSound }: HeroProps) {
         'Building a secure e-invoicing web application with ASP.NET Core, SQL Server, authentication and KSeF API integration.',
       loadedModules: 'CORE_STACK:',
       exportFile: 'Export CV.pdf',
-      generating: '> CV.pdf located',
+      generating: '> generating CV.pdf',
+      readyLine: '> CV.pdf located/',
       ready: 'Ready',
+      building: 'Building',
       latestVersion: 'External PDF · Dropbox',
       downloadCv: 'Download CV',
+      preparingCv: 'Preparing CV',
       viewProjects: 'View Projects',
       runProfile: 'Run Profile',
       checkOut: 'Check out',
@@ -76,20 +79,22 @@ export function Hero({ language, playClickSound }: HeroProps) {
     },
     pl: {
       greeting: 'Cześć, jestem',
-      roleText:
-        'Programistka .NET · Backend & Full-Stack · Informatyka',
+      roleText: 'Programistka .NET · Backend & Full-Stack · Informatyka',
       introText:
         'Studiuję informatykę na Uniwersytecie Łódzkim (specjalizacja Programowanie i Algorytmy). Mam doświadczenie komercyjne zdobyte przy tworzeniu aplikacji biznesowych w De Heus.',
       focusLabel: 'OBECNY PROJEKT / PRACA INŻYNIERSKA',
       focusTitle: 'KSeF Manager',
       focusDescription:
         'Tworzę aplikację do obsługi e-faktur z wykorzystaniem ASP.NET Core, SQL Server, uwierzytelniania i integracji z API KSeF.',
-      loadedModules: 'GŁÓWNY_STACK:',
+      loadedModules: 'CORE_STACK:',
       exportFile: 'Eksportuj CV.pdf',
-      generating: '> znaleziono CV.pdf',
+      generating: '> tworzenie CV.pdf',
+      readyLine: '> CV.pdf gotowe do pobrania/',
       ready: 'Gotowe',
+      building: 'Tworzenie',
       latestVersion: 'Zewnętrzny plik PDF · Dropbox',
       downloadCv: 'Pobierz CV',
+      preparingCv: 'Przygotowywanie CV',
       viewProjects: 'Zobacz Projekty',
       runProfile: 'Uruchom Profil',
       checkOut: 'Sprawdź',
@@ -115,7 +120,8 @@ export function Hero({ language, playClickSound }: HeroProps) {
   }[language];
 
   useEffect(() => {
-    const fullText = ui.codeLines.join('\n');
+    const fullText = ui.codeLines.join('
+');
     let currentIndex = 0;
 
     setTypedText('');
@@ -139,30 +145,65 @@ export function Hero({ language, playClickSound }: HeroProps) {
     };
   }, [language]);
 
-  // Animacja lokalnego komunikatu — bez sugerowania, że PDF jest generowany na serwerze.
   useEffect(() => {
-    const baseText = ui.generating;
-    let currentIndex = 0;
+    let cancelled = false;
+    let dotsInterval: number | undefined;
 
-    setExportTypedText('');
-    setExportDots('');
+    const runCvAnimation = async () => {
+      setIsCvReady(false);
+      setExportTypedText('');
+      setExportDots('');
 
-    const typingInterval = window.setInterval(() => {
-      if (currentIndex < baseText.length) {
-        currentIndex += 1;
-        setExportTypedText(baseText.substring(0, currentIndex));
-      } else {
-        window.clearInterval(typingInterval);
-        setExportDots(' ✓');
+      for (let index = 1; index <= ui.generating.length; index += 1) {
+        if (cancelled) return;
+        setExportTypedText(ui.generating.slice(0, index));
+        await wait(40);
       }
-    }, 45);
 
-    return () => window.clearInterval(typingInterval);
-  }, [language, ui.generating]);
+      if (cancelled) return;
+
+      dotsInterval = window.setInterval(() => {
+        setExportDots((prev) => {
+          if (prev === '') return '.';
+          if (prev === '.') return '..';
+          if (prev === '..') return '...';
+          return '';
+        });
+      }, 240);
+
+      await wait(1800);
+      if (cancelled) return;
+
+      if (dotsInterval) {
+        window.clearInterval(dotsInterval);
+      }
+
+      setExportDots('');
+      setExportTypedText('');
+
+      for (let index = 1; index <= ui.readyLine.length; index += 1) {
+        if (cancelled) return;
+        setExportTypedText(ui.readyLine.slice(0, index));
+        await wait(28);
+      }
+
+      if (cancelled) return;
+      setIsCvReady(true);
+    };
+
+    void runCvAnimation();
+
+    return () => {
+      cancelled = true;
+      if (dotsInterval) {
+        window.clearInterval(dotsInterval);
+      }
+    };
+  }, [language, ui.generating, ui.readyLine]);
 
   const handleDownloadCV = () => {
+    if (!isCvReady) return;
     playClickSound();
-    // Pozostawiam istniejący adres CV — warto okresowo podmieniać sam PDF na aktualną wersję.
     window.location.href =
       'https://www.dropbox.com/scl/fi/rqdd6ri8rnd9skg817k7t/CV_Katarzyna_Sta-czyk.pdf?rlkey=t3ijlht0qwzggpnz64owcvpw7&st=3365deps&dl=1';
   };
@@ -181,14 +222,12 @@ export function Hero({ language, playClickSound }: HeroProps) {
     <div className="min-h-[100svh] pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="pt-8 sm:pt-12"
           >
-            {/* Status badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-tertiary)] border border-[var(--accent-green)] mb-6">
               <div className="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-pulse shadow-[0_0_10px_var(--accent-green)]" />
               <span className="text-xs sm:text-sm code-font text-[var(--accent-green)]">
@@ -196,7 +235,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </span>
             </div>
 
-            {/* Heading */}
             <h1 className="mb-4 leading-none">
               <div className="text-4xl sm:text-5xl lg:text-6xl text-[var(--text-primary)]">
                 {ui.greeting}
@@ -206,18 +244,58 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
             </h1>
 
-            {/* Role line */}
             <div className="text-base sm:text-lg text-[var(--text-secondary)] mb-6 code-font leading-relaxed">
               <span className="text-[var(--accent-blue)]">&lt;Developer /&gt;</span>{' '}
               {ui.roleText}
             </div>
 
-            {/* Zwięzłe podsumowanie doświadczenia i aktualnego kierunku rozwoju */}
             <p className="mb-5 max-w-xl text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
               {ui.introText}
             </p>
 
-            {/* Aktualny projekt inżynierski */}
+            <div className="mb-6 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
+              <div className="flex items-start justify-between mb-4 gap-4">
+                <div className="min-w-0">
+                  <h3 className="code-font text-[var(--text-primary)] mb-1">
+                    {ui.exportFile}
+                  </h3>
+
+                  <div className="code-font text-sm text-[var(--accent-green)] mb-2 min-h-[20px]">
+                    {exportTypedText}
+                    <span className="inline-block w-[24px] text-left">{exportDots}</span>
+                  </div>
+                </div>
+
+                <span
+                  className={`shrink-0 px-2 py-1 border text-white text-xs rounded code-font ${
+                    isCvReady
+                      ? 'bg-[var(--accent-green)]/20 border-[var(--accent-green)]'
+                      : 'bg-[var(--accent-blue)]/15 border-[var(--accent-blue)]'
+                  }`}
+                >
+                  {isCvReady ? ui.ready : ui.building}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleDownloadCV}
+                disabled={!isCvReady}
+                className={`w-full flex items-center justify-center gap-2 px-4 py-2 border rounded transition-all code-font text-sm ${
+                  isCvReady
+                    ? 'border-[var(--border-default)] text-[var(--text-primary)] hover:bg-[var(--hover-overlay)]'
+                    : 'border-[var(--border-default)]/60 text-[var(--text-secondary)] opacity-70 cursor-not-allowed'
+                }`}
+              >
+                <Download className="w-4 h-4" />
+                {isCvReady ? ui.downloadCv : ui.preparingCv}
+              </button>
+
+              <div className="mt-2 text-xs text-[var(--text-secondary)] code-font">
+                {ui.latestVersion}
+              </div>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -236,7 +314,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </p>
             </motion.div>
 
-            {/* Modules */}
             <div className="border-t border-[var(--border-default)] pt-6">
               <div className="text-xs text-[var(--text-secondary)] mb-3 code-font">
                 {ui.loadedModules}
@@ -257,54 +334,18 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
             </div>
 
-            {/* Export CV */}
-            <div className="mt-6 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
-              <div className="flex items-start justify-between mb-4 gap-4">
-                <div className="min-w-0">
-                  <h3 className="code-font text-[var(--text-primary)] mb-1">
-                    {ui.exportFile}
-                  </h3>
-
-                  <div className="code-font text-sm text-[var(--accent-green)] mb-2 min-h-[20px]">
-                    {exportTypedText}
-                    <span className="inline-block w-[24px] text-left">{exportDots}</span>
-                  </div>
-                </div>
-
-                <span className="shrink-0 px-2 py-1 bg-[var(--accent-green)]/20 border border-[var(--accent-green)] text-white text-xs rounded code-font">
-                  {ui.ready}
-                </span>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleDownloadCV}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-[var(--border-default)] text-[var(--text-primary)] rounded hover:bg-[var(--hover-overlay)] transition-all code-font text-sm"
-              >
-                <Download className="w-4 h-4" />
-                {ui.downloadCv}
-              </button>
-
-              <div className="mt-2 text-xs text-[var(--text-secondary)] code-font">
-                {ui.latestVersion}
-              </div>
-            </div>
-
             <div className="mt-8 code-font text-xs sm:text-sm text-[var(--accent-green)] break-words">
               while (caffeine {'>'} 0) {'{'} ship(); {'}'}
             </div>
           </motion.div>
 
-          {/* RIGHT */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:sticky lg:top-24"
           >
-            {/* Code window */}
             <div className="bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] overflow-hidden shadow-2xl">
-              {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 bg-[var(--bg-tertiary)] border-b border-[var(--border-default)]">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
@@ -320,14 +361,14 @@ export function Hero({ language, playClickSound }: HeroProps) {
                 <div className="w-12" />
               </div>
 
-              {/* Code content*/}
               <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3">
                 <div
                   className="code-font text-[11px] sm:text-sm leading-[1.4] overflow-hidden"
                   style={{ height: 'calc(1.4em * 14)' }}
                 >
                   <pre className="h-full overflow-x-auto overflow-y-hidden pr-2">
-                    {typedText.split('\n').map((line, index) => (
+                    {typedText.split('
+').map((line, index) => (
                       <div key={index} className="flex min-w-max">
                         <span className="text-[var(--text-muted)] mr-3 select-none w-6 text-right shrink-0">
                           {index + 1}
@@ -346,7 +387,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="grid grid-cols-2 gap-2 px-4 pb-4 sm:gap-3 sm:px-6 sm:pb-6">
                 <button
                   type="button"
@@ -368,7 +408,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
             </div>
 
-            {/* GitHub card */}
             <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0">
@@ -396,7 +435,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
             </div>
 
-            {/* LinkedIn card */}
             <div className="mt-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0">
@@ -438,7 +476,7 @@ function highlightSyntax(line: string): string {
   const escaped = escapeHtml(line);
 
   return escaped.replace(
-    /(\/\/.*$)|\b(import|const|return|from)\b|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(Developer|Portfolio)\b|\b(name|role|experience|focus|stack)\b/g,
+    /(\/\/.*$)|(import|const|return|from)|("(?:[^"\]|\.)*"|'(?:[^'\]|\.)*')|(Developer|Portfolio)|(name|role|experience|focus|stack)/g,
     (match, comment, keyword, stringLiteral, componentName, propName) => {
       if (comment) return `<span style="color: var(--syntax-comment)">${comment}</span>`;
       if (keyword) return `<span style="color: var(--syntax-keyword)">${keyword}</span>`;

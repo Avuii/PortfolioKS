@@ -7,7 +7,7 @@ import {
   ExternalLink,
   BookOpen,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
 } from 'lucide-react';
 
 interface ProjectsProps {
@@ -21,13 +21,13 @@ const pinnedProjects = [
     demoUrl: 'https://avuii.github.io/NearEarth/',
     visibility: { en: 'Public', pl: 'Publiczne' },
     description: {
-      en: 'Full-stack asteroid monitoring dashboard with NASA NeoWs integration, close approach data, watchlists, alerts, charts and a simplified interactive 3D Solar System.',
-      pl: 'Full-stackowy dashboard obiektów bliskich Ziemi z NASA NeoWs, danymi przelotów asteroid, listą obserwowanych, alertami, wykresami i interaktywną wizualizacją 3D Układu Słonecznego.'
+      en: 'Full-stack asteroid monitoring dashboard with NASA NeoWs integration, close approach data, watchlists, alerts, charts and an interactive 3D Solar System preview.',
+      pl: 'Full-stackowy dashboard obiektów bliskich Ziemi z integracją NASA NeoWs, danymi przelotów asteroid, listą obserwowanych, alertami, wykresami i interaktywnym podglądem 3D Układu Słonecznego.',
     },
     tags: ['ASP.NET Core', 'React', 'TypeScript', 'NASA NeoWs API', 'Three.js', 'Recharts'],
     language: 'TypeScript',
     stars: 3,
-    forks: 0
+    forks: 0,
   },
   {
     name: 'TrackMyCV',
@@ -36,12 +36,12 @@ const pinnedProjects = [
     visibility: { en: 'In development', pl: 'W trakcie rozwoju' },
     description: {
       en: 'Job application tracker for organizing vacancies, recruitment stages, interviews, calendar events and application analytics in one dashboard.',
-      pl: 'Aplikacja do śledzenia rekrutacji: oferty pracy, etapy aplikacji, rozmowy, kalendarz oraz statystyki i analityka w jednym panelu.'
+      pl: 'Aplikacja do śledzenia rekrutacji: oferty pracy, etapy aplikacji, rozmowy, kalendarz oraz statystyki i analityka w jednym panelu.',
     },
-    tags: ['React', 'TypeScript', 'ASP.NET Core', 'EF Core', 'SQL Server', 'Recharts'],
+    tags: ['React', 'TypeScript', 'ASP.NET Core', 'EF Core', 'SQL Server', 'AI'],
     language: 'TypeScript',
     stars: 0,
-    forks: 0
+    forks: 0,
   },
   {
     name: 'StockPriceBot',
@@ -50,103 +50,33 @@ const pinnedProjects = [
     visibility: { en: 'In development', pl: 'W trakcie rozwoju' },
     description: {
       en: 'Full-stack product price and availability tracker combining a browser extension, dashboard, scheduled checks, price history and automated notifications.',
-      pl: 'Full-stackowy monitoring cen i dostępności produktów z rozszerzeniem przeglądarki, dashboardem, harmonogramem sprawdzania, historią cen i alertami.'
+      pl: 'Full-stackowy monitoring cen i dostępności produktów z rozszerzeniem przeglądarki, dashboardem, harmonogramem sprawdzania, historią cen i automatycznymi powiadomieniami.',
     },
     tags: ['ASP.NET Core', 'React', 'TypeScript', 'PostgreSQL', 'Quartz.NET', 'SignalR'],
     language: 'TypeScript',
     stars: 0,
-    forks: 0
+    forks: 0,
   },
   {
-    name: 'ParkingFlow',
-    url: 'https://github.com/Avuii/ParkingFlow',
-    visibility: { en: 'Public', pl: 'Publiczne' },
+    name: 'DocuMind-AI',
+    url: 'https://github.com/Avuii/DocuMind-AI',
+    visibility: { en: 'Prototype', pl: 'Prototyp' },
     description: {
-      en: 'Real-time smart parking simulation dashboard built with ASP.NET Core, SignalR and React.',
-      pl: 'Dashboard symulacji inteligentnego parkingu w czasie rzeczywistym zbudowany w ASP.NET Core, SignalR i React.'
+      en: 'AI-powered document processing project focused on OCR, document understanding, extraction workflows and practical automation for working with files.',
+      pl: 'Projekt przetwarzania dokumentów wspieranego przez AI, skupiony na OCR, rozumieniu treści dokumentów, ekstrakcji danych i praktycznej automatyzacji pracy z plikami.',
     },
-    tags: ['ASP.NET Core', 'SignalR', 'React', 'C#', 'Simulation', 'Real-time'],
+    tags: ['C#', '.NET', 'OCR', 'AI', 'Document Processing', 'Automation'],
     language: 'C#',
     stars: null,
-    forks: null
+    forks: null,
   },
-  {
-    name: 'React Scientific Calculator',
-    url: 'https://github.com/Avuii/react-scientific-calculator',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'Scientific web calculator built with React and Vite, featuring mathematical operations, graphing, unit conversion, calculation history and keyboard input.',
-      pl: 'Kalkulator naukowy w React i Vite z funkcjami matematycznymi, wykresami, konwersją jednostek, historią obliczeń i obsługą klawiatury.'
-    },
-    tags: ['React', 'JavaScript', 'Vite', 'Graphing', 'UI'],
-    language: 'JavaScript',
-    stars: null,
-    forks: null
-  },
-  {
-    name: 'MediaRent',
-    url: 'https://github.com/Avuii/MediaRent',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'C++ project exploring application logic and data management around media rentals.',
-      pl: 'Projekt w C++ rozwijający logikę aplikacji i zarządzanie danymi w kontekście wypożyczalni mediów.'
-    },
-    tags: ['C++', 'OOP', 'Data Management'],
-    language: 'C++',
-    stars: null,
-    forks: null
-  },
-  {
-    name: 'FractalAnimation',
-    url: 'https://github.com/Avuii/FractalAnimation',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'C++ project focused on generating and animating fractal visualizations.',
-      pl: 'Projekt w C++ poświęcony generowaniu i animowaniu wizualizacji fraktali.'
-    },
-    tags: ['C++', 'Algorithms', 'Fractals', 'Animation'],
-    language: 'C++',
-    stars: null,
-    forks: null
-  }
-] as const;
-
-// Earlier featured work stays on the page in a separate group.
-const otherHighlights = [
-  {
-    name: 'EUR/PLN Tracker',
-    url: 'https://github.com/Avuii/EUR-PLN-Tracker',
-    demoUrl: 'https://avuii.github.io/EUR-PLN-Tracker/',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'End-to-end forecasting dashboard for EUR/PLN exchange rates: NBP data, time-series datasets, model comparison and forecast visualization.',
-      pl: 'Dashboard prognozowania kursu EUR/PLN: dane NBP, szeregi czasowe, porównywanie modeli i wizualizacja prognoz.'
-    },
-    tags: ['React', 'Python', 'NBP API', 'Forecasting', 'Time Series', 'ML'],
-    language: 'TypeScript',
-    stars: 4,
-    forks: 0
-  },
-  {
-    name: 'CareQuest',
-    url: 'https://github.com/Avuii/CareQuest',
-    demoUrl: 'https://avuii.github.io/CareQuest/',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'EduTech Startup MVP created during Erasmus+ BIP: a space for learning, creativity and connection during recovery.',
-      pl: 'MVP EduTech Startup stworzone w ramach Erasmus+ BIP: przestrzeń wspierająca naukę, kreatywność i kontakt podczas rekonwalescencji.'
-    },
-    tags: ['React', 'Vite', 'TypeScript', 'EduTech', 'Startup MVP', 'UX'],
-    language: 'TypeScript',
-    stars: 3,
-    forks: 1
-  }
 ] as const;
 
 const repositoryList = [
   { name: 'TrackMyCV', url: 'https://github.com/Avuii/TrackMyCV', language: 'TypeScript', updatedAt: '' },
   { name: 'StockPriceBot', url: 'https://github.com/Avuii/StockPriceBot', language: 'TypeScript', updatedAt: '' },
   { name: 'NearEarth', url: 'https://github.com/Avuii/NearEarth', language: 'TypeScript', updatedAt: '2026-07-01' },
+  { name: 'DocuMind-AI', url: 'https://github.com/Avuii/DocuMind-AI', language: 'C#', updatedAt: '2026-01-13' },
   { name: 'EUR-PLN-Tracker', url: 'https://github.com/Avuii/EUR-PLN-Tracker', language: 'TypeScript', updatedAt: '2026-07-01' },
   { name: 'CareQuest', url: 'https://github.com/Avuii/CareQuest', language: 'TypeScript', updatedAt: '2026-05-22' },
   { name: 'ParkingFlow', url: 'https://github.com/Avuii/ParkingFlow', language: 'C#', updatedAt: '2026-07-01' },
@@ -155,7 +85,6 @@ const repositoryList = [
   { name: 'FractalAnimation', url: 'https://github.com/Avuii/FractalAnimation', language: 'C++', updatedAt: '2026-07-01' },
   { name: 'ScientificCalculator', url: 'https://github.com/Avuii/ScientificCalculator', language: 'C++', updatedAt: '2026-07-01' },
   { name: 'applied-cryptography-lab', url: 'https://github.com/Avuii/applied-cryptography-lab', language: 'Python', updatedAt: '2026-07-01' },
-  { name: 'DocuMind-AI', url: 'https://github.com/Avuii/DocuMind-AI', language: 'C#', updatedAt: '2026-01-13' },
   { name: 'ConowayGameOfLife', url: 'https://github.com/Avuii/ConowayGameOfLife', language: 'C#', updatedAt: '2025-12-06' },
   { name: 'Social-Networks', url: 'https://github.com/Avuii/Social-Networks', language: 'Python', updatedAt: '2026-02-08' },
   { name: 'Banknote-Authentication', url: 'https://github.com/Avuii/Banknote-Authentication', language: 'Python', updatedAt: '2026-01-19' },
@@ -173,7 +102,7 @@ const repositoryList = [
   { name: 'LZ77', url: 'https://github.com/Avuii/LZ77', language: 'C++', updatedAt: '2025-07-13' },
   { name: 'PlaneAndWindSimulator', url: 'https://github.com/Avuii/PlaneAndWindSimulator', language: 'C++', updatedAt: '2025-06-04' },
   { name: 'Huffman-text-compression', url: 'https://github.com/Avuii/Huffman-text-compression', language: 'C++', updatedAt: '2025-06-04' },
-  { name: 'Algorithms', url: 'https://github.com/Avuii/Algorithms', language: 'C++', updatedAt: '2025-06-04' }
+  { name: 'Algorithms', url: 'https://github.com/Avuii/Algorithms', language: 'C++', updatedAt: '2025-06-04' },
 ] as const;
 
 export function Projects({ language }: ProjectsProps) {
@@ -188,10 +117,8 @@ export function Projects({ language }: ProjectsProps) {
       pinnedProjects: 'PINNED PROJECTS',
       viewMoreProjects: 'View More Projects',
       viewRepo: 'Code',
-      allRepositories: 'All repositories',
       swipeHint: 'Swipe to explore featured projects',
       moreTags: 'more',
-      otherProjects: 'OTHER PROJECTS'
     },
     pl: {
       sectionTitle: '$ ls -la ~/projects',
@@ -200,11 +127,9 @@ export function Projects({ language }: ProjectsProps) {
       pinnedProjects: 'PRZYPIĘTE PROJEKTY',
       viewMoreProjects: 'Zobacz więcej projektów',
       viewRepo: 'Kod',
-      allRepositories: 'Wszystkie repozytoria',
       swipeHint: 'Przesuń, aby zobaczyć wyróżnione projekty',
       moreTags: 'więcej',
-      otherProjects: 'POZOSTAŁE PROJEKTY'
-    }
+    },
   }[language];
 
   const formatUpdated = (iso: string, lang: 'en' | 'pl') => {
@@ -215,7 +140,7 @@ export function Projects({ language }: ProjectsProps) {
     const formatted = new Intl.DateTimeFormat(locale, {
       year: 'numeric',
       month: 'short',
-      day: '2-digit'
+      day: '2-digit',
     }).format(d);
 
     return lang === 'pl' ? `Zaktualizowano ${formatted}` : `Updated ${formatted}`;
@@ -231,7 +156,7 @@ export function Projects({ language }: ProjectsProps) {
       HTML: 'var(--accent-orange)',
       CSS: 'var(--accent-pink)',
       GDScript: 'var(--accent-green)',
-      Java: 'var(--accent-red)'
+      Java: 'var(--accent-red)',
     };
 
     return colors[lang] || 'var(--text-secondary)';
@@ -240,7 +165,7 @@ export function Projects({ language }: ProjectsProps) {
   const ProjectCard = ({
     project,
     index,
-    mobile = false
+    mobile = false,
   }: {
     project: (typeof pinnedProjects)[number];
     index: number;
@@ -288,7 +213,7 @@ export function Projects({ language }: ProjectsProps) {
                   display: '-webkit-box',
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
                 }
               : undefined
           }
@@ -380,7 +305,7 @@ export function Projects({ language }: ProjectsProps) {
   );
 
   return (
-    <div className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <div className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 lg:py-20" id="projects">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -420,7 +345,6 @@ export function Projects({ language }: ProjectsProps) {
               </a>
             </div>
 
-            {/* MOBILE PINNED PROJECTS */}
             <div className="overflow-x-auto px-0 pb-3 snap-x snap-mandatory lg:hidden">
               <div className="flex gap-4 pr-4">
                 {pinnedProjects.map((project, index) => (
@@ -429,7 +353,6 @@ export function Projects({ language }: ProjectsProps) {
               </div>
             </div>
 
-            {/* DESKTOP PINNED PROJECTS */}
             <div className="hidden gap-6 lg:grid xl:grid-cols-2">
               {pinnedProjects.map((project, index) => (
                 <ProjectCard key={project.name} project={project} index={index} />
@@ -443,7 +366,6 @@ export function Projects({ language }: ProjectsProps) {
             viewport={{ once: true }}
             className="order-2 lg:order-1 lg:col-span-1"
           >
-            {/* MOBILE ACCORDION */}
             <div className="overflow-hidden rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] lg:hidden">
               <button
                 type="button"
@@ -508,7 +430,6 @@ export function Projects({ language }: ProjectsProps) {
               )}
             </div>
 
-            {/* DESKTOP SIDEBAR */}
             <div className="sticky top-24 hidden max-h-[700px] overflow-auto rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-4 lg:block">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm code-font text-[var(--text-secondary)]">
@@ -528,10 +449,11 @@ export function Projects({ language }: ProjectsProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setSelectedRepo(repo.name)}
-                    className={`w-full text-left px-3 py-2 rounded transition-colors ${selectedRepo === repo.name
+                    className={`w-full text-left px-3 py-2 rounded transition-colors ${
+                      selectedRepo === repo.name
                         ? 'bg-[var(--selected-overlay)] border border-[var(--accent-blue)]'
                         : 'hover:bg-[var(--hover-overlay)] border border-transparent'
-                      }`}
+                    }`}
                   >
                     <div className="mb-1 flex min-w-0 items-center gap-2">
                       <BookOpen className="h-3 w-3 shrink-0 text-[var(--text-secondary)]" />
@@ -561,114 +483,6 @@ export function Projects({ language }: ProjectsProps) {
               </div>
             </div>
           </motion.div>
-
-          <div className="lg:col-span-3">
-            <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-sm text-[var(--text-secondary)] code-font">{ui.otherProjects}</h3>
-
-              <button
-                type="button"
-                onClick={() => window.open('https://github.com/Avuii?tab=repositories', '_blank')}
-                className="flex items-center gap-2 px-4 py-2 border border-[var(--border-default)] text-[var(--accent-blue)] rounded hover:bg-[var(--hover-overlay)] transition-colors code-font text-sm"
-              >
-                {ui.viewMoreProjects}
-                <ExternalLink className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {otherHighlights.map((project, index) => (
-                <motion.div
-                  key={project.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-default)] overflow-hidden hover:border-[var(--accent-blue)] transition-all group"
-                >
-                  <div className="px-6 py-4 border-b border-[var(--border-default)]">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-[var(--accent-blue)]" />
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="code-font text-[var(--accent-blue)] group-hover:underline"
-                        >
-                          {project.name}
-                        </a>
-                      </div>
-
-                      <span className="px-2 py-0.5 border border-[var(--border-default)] rounded text-xs code-font text-[var(--text-secondary)]">
-                        {project.visibility[language]}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="px-6 py-4">
-                    <p className="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed min-h-[72px]">
-                      {project.description[language]}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 bg-[var(--bg-tertiary)] border border-[var(--accent-blue)] text-[var(--accent-blue)] text-xs rounded code-font"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-[var(--border-default)]">
-                      <div className="flex items-center gap-4 text-xs code-font text-[var(--text-secondary)]">
-                        <div className="flex items-center gap-1" style={{ color: getLanguageColor(project.language) }}>
-                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: getLanguageColor(project.language) }} />
-                          <span>{project.language}</span>
-                        </div>
-
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3" />
-                          <span>{project.stars}</span>
-                        </div>
-
-                        <div className="flex items-center gap-1">
-                          <GitFork className="w-3 h-3" />
-                          <span>{project.forks}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        {'demoUrl' in project && project.demoUrl && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 px-3 py-1 text-xs text-[var(--accent-green)] hover:bg-[var(--hover-overlay)] rounded transition-colors code-font"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                            Demo
-                          </a>
-                        )}
-
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 px-3 py-1 text-xs text-[var(--accent-blue)] hover:bg-[var(--hover-overlay)] rounded transition-colors code-font"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          Code
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
