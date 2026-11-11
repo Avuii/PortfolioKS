@@ -33,7 +33,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [exportTypedText, setExportTypedText] = useState('');
-  const [exportDots, setExportDots] = useState('');
+  const [exportProgress, setExportProgress] = useState(0);
   const [isCvReady, setIsCvReady] = useState(false);
 
   const ui = {
@@ -49,7 +49,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
       loadedModules: 'CORE_STACK:',
       exportFile: 'Export CV.pdf',
       generating: '> generating CV.pdf',
-      readyLine: '> CV.pdf located/',
+      readyLine: '> CV.pdf ready to download',
       ready: 'Ready',
       building: 'Building',
       latestVersion: 'External PDF · Dropbox',
@@ -88,8 +88,8 @@ export function Hero({ language, playClickSound }: HeroProps) {
         'Tworzę aplikację do obsługi e-faktur z wykorzystaniem ASP.NET Core, SQL Server, uwierzytelniania i integracji z API KSeF.',
       loadedModules: 'CORE_STACK:',
       exportFile: 'Eksportuj CV.pdf',
-      generating: '> tworzenie CV.pdf',
-      readyLine: '> CV.pdf gotowe do pobrania/',
+      generating: '> generowanie CV.pdf',
+      readyLine: '> CV.pdf gotowe do pobrania',
       ready: 'Gotowe',
       building: 'Tworzenie',
       latestVersion: 'Zewnętrzny plik PDF · Dropbox',
@@ -144,48 +144,36 @@ export function Hero({ language, playClickSound }: HeroProps) {
     };
   }, [language]);
 
+  // Animacja czysto wizualna — właściwe CV jest już zapisane w Dropbox.
   useEffect(() => {
     let cancelled = false;
-    let dotsInterval: number | undefined;
+
+    const typeLine = async (line: string, delayMs: number) => {
+      setExportTypedText('');
+      for (let index = 1; index <= line.length; index += 1) {
+        if (cancelled) return;
+        setExportTypedText(line.slice(0, index));
+        await wait(delayMs);
+      }
+    };
 
     const runCvAnimation = async () => {
       setIsCvReady(false);
-      setExportTypedText('');
-      setExportDots('');
+      setExportProgress(0);
 
-      for (let index = 1; index <= ui.generating.length; index += 1) {
+      await typeLine(ui.generating, 35);
+      if (cancelled) return;
+
+      // Symulowany postęp eksportu pliku PDF.
+      for (let progress = 5; progress <= 100; progress += 5) {
         if (cancelled) return;
-        setExportTypedText(ui.generating.slice(0, index));
-        await wait(40);
+        setExportProgress(progress);
+        await wait(95);
       }
 
       if (cancelled) return;
-
-      dotsInterval = window.setInterval(() => {
-        setExportDots((prev) => {
-          if (prev === '') return '.';
-          if (prev === '.') return '..';
-          if (prev === '..') return '...';
-          return '';
-        });
-      }, 240);
-
-      await wait(1800);
-      if (cancelled) return;
-
-      if (dotsInterval) {
-        window.clearInterval(dotsInterval);
-      }
-
-      setExportDots('');
-      setExportTypedText('');
-
-      for (let index = 1; index <= ui.readyLine.length; index += 1) {
-        if (cancelled) return;
-        setExportTypedText(ui.readyLine.slice(0, index));
-        await wait(28);
-      }
-
+      await wait(180);
+      await typeLine(ui.readyLine, 26);
       if (cancelled) return;
       setIsCvReady(true);
     };
@@ -194,9 +182,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
 
     return () => {
       cancelled = true;
-      if (dotsInterval) {
-        window.clearInterval(dotsInterval);
-      }
     };
   }, [language, ui.generating, ui.readyLine]);
 
@@ -259,9 +244,13 @@ export function Hero({ language, playClickSound }: HeroProps) {
                     {ui.exportFile}
                   </h3>
 
-                  <div className="code-font text-sm text-[var(--accent-green)] mb-2 min-h-[20px]">
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    className="code-font text-sm text-[var(--accent-green)] mb-2 min-h-[20px] break-all"
+                  >
                     {exportTypedText}
-                    <span className="inline-block w-[24px] text-left">{exportDots}</span>
+                    {!isCvReady && <span className="ml-1 animate-pulse">▌</span>}
                   </div>
                 </div>
 
@@ -274,6 +263,21 @@ export function Hero({ language, playClickSound }: HeroProps) {
                 >
                   {isCvReady ? ui.ready : ui.building}
                 </span>
+              </div>
+
+              <div
+                className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-[var(--bg-tertiary)]"
+                role="progressbar"
+                aria-label={language === 'pl' ? 'Postęp przygotowywania CV' : 'CV preparation progress'}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={exportProgress}
+              >
+                <motion.div
+                  className="h-full rounded-full bg-[var(--accent-green)]"
+                  animate={{ width: `${exportProgress}%` }}
+                  transition={{ duration: 0.12, ease: 'linear' }}
+                />
               </div>
 
               <button
