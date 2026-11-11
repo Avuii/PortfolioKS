@@ -465,15 +465,16 @@ export function Skills({ language }: SkillsProps) {
   const containerRef = useRef<HTMLElement | null>(null);
   const moduleListRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.35 });
-  const hasStartedRef = useRef(false);
-  const cancelledRef = useRef(false);
+  // Prevent a completed scan from restarting when the component re-renders.
+  const hasCompletedRef = useRef(false);
 
   const [typedCommand, setTypedCommand] = useState('');
   const [visibleLines, setVisibleLines] = useState(0);
   const [scores, setScores] = useState<number[]>(modules.map(() => 0));
-  const [selectedKey, setSelectedKey] = useState<ModuleKey>('backend');
+  const [selectedKey, setSelectedKey] = useState<ModuleKey>('languages');
   const [phase, setPhase] = useState<'idle' | 'typing' | 'scanning' | 'done'>('idle');
   const [dots, setDots] = useState('');
+  const [scannedCount, setScannedCount] = useState(0);
 
   const ui = {
     en: {
@@ -481,7 +482,9 @@ export function Skills({ language }: SkillsProps) {
       terminalFile: 'skills-scan',
       command: '> scan --profile avui.dev',
       loading: 'Loading modules',
-      completed: 'Scan complete. Select a module to inspect details.',
+      completed: 'All modules loaded',
+      inspectHint: 'Select a module to inspect its details.',
+      finishedCommand: '> scan --status complete',
       selectedLabel: 'Selected module',
       technologies: 'TECHNOLOGIES',
       projects: 'USED IN',
@@ -494,7 +497,9 @@ export function Skills({ language }: SkillsProps) {
       terminalFile: 'skills-scan',
       command: '> scan --profile avui.dev',
       loading: 'Ładowanie modułów',
-      completed: 'Skan zakończony. Wybierz moduł, aby zobaczyć szczegóły.',
+      completed: 'Wszystkie moduły załadowane',
+      inspectHint: 'Wybierz moduł, aby zobaczyć szczegóły.',
+      finishedCommand: '> scan --status complete',
       selectedLabel: 'Wybrany moduł',
       technologies: 'TECHNOLOGIE',
       projects: 'W PROJEKTACH',
@@ -510,86 +515,83 @@ export function Skills({ language }: SkillsProps) {
   );
 
   useEffect(() => {
-    if (!isInView || hasStartedRef.current) {
-      return;
-    }
+    if (!isInView || hasCompletedRef.current) return;
 
-    hasStartedRef.current = true;
-    cancelledRef.current = false;
-
+    // Local cancellation keeps React StrictMode's effect cleanup from
+    // cancelling the next scan or leaving the terminal stuck in "Loading".
+    let cancelled = false;
     let dotsIntervalId: number | undefined;
 
     const runScan = async () => {
       const command = ui.command;
+      setTypedCommand('');
+      setVisibleLines(0);
+      setScannedCount(0);
+      setScores(modules.map(() => 0));
+      setDots('');
       setPhase('typing');
 
       for (let index = 1; index <= command.length; index += 1) {
-        if (cancelledRef.current) return;
-
+        if (cancelled) return;
         setTypedCommand(command.slice(0, index));
-        await sleep(randomBetween(18, 42));
+        await sleep(randomBetween(35, 60));
       }
 
-      if (cancelledRef.current) return;
-
-      await sleep(260);
+      if (cancelled) return;
+      await sleep(400);
+      if (cancelled) return;
       setPhase('scanning');
 
       dotsIntervalId = window.setInterval(() => {
-        setDots((prev) => {
-          if (prev.length >= 3) return '';
-          return `${prev}.`;
-        });
-      }, 280);
+        if (cancelled) return;
+        setDots((previous) => previous.length >= 3 ? '' : `${previous}.`);
+      }, 420);
 
       for (let moduleIndex = 0; moduleIndex < modules.length; moduleIndex += 1) {
-        if (cancelledRef.current) return;
+        if (cancelled) return;
 
         const module = modules[moduleIndex];
+        setVisibleLines(moduleIndex + 1);
 
-        setVisibleLines((prev) => Math.max(prev, moduleIndex + 1));
-        setSelectedKey(module.key);
-        await sleep(65);
+        // Do not automatically switch the right-hand details pane: that
+        // caused rapid, distracting transitions across all 14 modules.
+        await sleep(180);
 
         let current = 0;
-
         while (current < module.score) {
-          if (cancelledRef.current) return;
+          if (cancelled) return;
+          current = Math.min(module.score, current + 1);
 
-          const step = Math.random() > 0.6 ? 3 : 2;
-          current = Math.min(module.score, current + step);
-
-          setScores((prev) => {
-            const next = [...prev];
+          setScores((previous) => {
+            const next = [...previous];
             next[moduleIndex] = current;
             return next;
           });
 
-          await sleep(randomBetween(30, 55));
+          await sleep(randomBetween(80, 115));
         }
 
-        await sleep(randomBetween(50, 90));
+        if (cancelled) return;
+        setScannedCount(moduleIndex + 1);
+        await sleep(randomBetween(240, 320));
       }
 
-      if (dotsIntervalId) {
+      if (dotsIntervalId !== undefined) {
         window.clearInterval(dotsIntervalId);
+        dotsIntervalId = undefined;
       }
 
-      setDots('...');
-
-      await sleep(180);
-
-      if (cancelledRef.current) return;
-
+      if (cancelled) return;
+      setDots('');
       setPhase('done');
+      hasCompletedRef.current = true;
     };
 
     void runScan();
 
     return () => {
-      cancelledRef.current = true;
-
-      if (dotsIntervalId) {
+      cancelled = true;
+      if (dotsIntervalId !== undefined) {
         window.clearInterval(dotsIntervalId);
       }
     };
@@ -642,7 +644,7 @@ export function Skills({ language }: SkillsProps) {
 
             <div className="p-4 sm:p-5 md:p-6">
               <div className="mb-3 min-h-[24px] break-all code-font text-[11px] text-[var(--accent-green)] sm:text-sm md:text-[15px]">
-                <span>{typedCommand}</span>
+                <span>{phase === 'done' ? ui.finishedCommand : typedCommand}</span>
 
                 <span
                   className={`ml-0.5 inline-block h-[1em] w-[8px] translate-y-[2px] bg-[var(--accent-green)] ${
@@ -651,12 +653,19 @@ export function Skills({ language }: SkillsProps) {
                 />
               </div>
 
-              <div className="mb-5 min-h-[20px] code-font text-[11px] text-[var(--text-secondary)] sm:text-sm">
-                {phase !== 'idle' && (
+              <div
+                aria-live={phase === 'done' ? 'polite' : 'off'}
+                className={`mb-5 min-h-[20px] code-font text-[11px] sm:text-sm ${
+                  phase === 'done' ? 'text-[var(--accent-green)]' : 'text-[var(--text-secondary)]'
+                }`}
+              >
+                {phase === 'scanning' && (
                   <span>
-                    {ui.loading}
-                    {phase === 'done' ? '...' : dots}
+                    {ui.loading}{dots} ({scannedCount}/{modules.length})
                   </span>
+                )}
+                {phase === 'done' && (
+                  <span>✓ {ui.completed} ({modules.length}/{modules.length})</span>
                 )}
               </div>
 
@@ -671,9 +680,10 @@ export function Skills({ language }: SkillsProps) {
                       <motion.button
                         key={module.key}
                         type="button"
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 7 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.28 }}
                         whileHover={{ x: 2 }}
                         onClick={() => setSelectedKey(module.key)}
                         className={`w-full rounded-xl border px-3 py-3 text-left transition-all sm:px-4 sm:py-3 ${
@@ -722,11 +732,7 @@ export function Skills({ language }: SkillsProps) {
               </div>
 
               <div className="mt-5 min-h-[22px] code-font text-[11px] text-[var(--accent-cyan)] sm:text-sm">
-                {phase === 'done'
-                  ? ui.completed
-                  : phase === 'scanning'
-                    ? `${ui.loading}${dots}`
-                    : ''}
+                {phase === 'done' ? ui.inspectHint : ''}
               </div>
             </div>
           </motion.div>
