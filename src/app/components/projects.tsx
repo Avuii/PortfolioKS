@@ -21,30 +21,44 @@ const pinnedProjects = [
     demoUrl: 'https://avuii.github.io/NearEarth/',
     visibility: { en: 'Public', pl: 'Publiczne' },
     description: {
-      en: 'Interactive dashboard for monitoring Near-Earth Objects, close approaches, asteroid watchlists, alerts and space-oriented insights.',
-      pl: 'Interaktywny dashboard do monitorowania obiektów bliskich Ziemi, bliskich przelotów, watchlist asteroid, alertów i analiz kosmicznych.'
+      en: 'Full-stack asteroid monitoring dashboard with NASA NeoWs integration, close approach data, watchlists, alerts, charts and a simplified interactive 3D Solar System.',
+      pl: 'Full-stackowy dashboard obiektów bliskich Ziemi z NASA NeoWs, danymi przelotów asteroid, listą obserwowanych, alertami, wykresami i interaktywną wizualizacją 3D Układu Słonecznego.'
     },
-    tags: ['React', 'TypeScript', 'NASA API', 'Dashboard', 'Data Visualization'],
+    tags: ['ASP.NET Core', 'React', 'TypeScript', 'NASA NeoWs API', 'Three.js', 'Recharts'],
     language: 'TypeScript',
     stars: 3,
-    forks: 1
-  },
-  {
-    name: 'EUR/PLN Tracker',
-    url: 'https://github.com/Avuii/EUR-PLN-Tracker',
-    demoUrl: 'https://avuii.github.io/EUR-PLN-Tracker/',
-    visibility: { en: 'Public', pl: 'Publiczne' },
-    description: {
-      en: 'End-to-end forecasting dashboard for EUR/PLN exchange rates: fetch NBP data, build time-series datasets, train models, compare errors and visualize forecasts.',
-      pl: 'End-to-end dashboard prognostyczny dla kursu EUR/PLN: pobieranie danych NBP, budowa szeregów czasowych, trenowanie modeli, porównywanie błędów i wizualizacja prognoz.'
-    },
-    tags: ['React', 'Python', 'NBP API', 'Forecasting', 'Time Series', 'ML'],
-    language: 'TypeScript',
-    stars: 4,
     forks: 0
   },
   {
-    name: 'Parking Flow',
+    name: 'TrackMyCV',
+    url: 'https://github.com/Avuii/TrackMyCV',
+    demoUrl: 'https://avuii.github.io/TrackMyCV/',
+    visibility: { en: 'In development', pl: 'W trakcie rozwoju' },
+    description: {
+      en: 'Job application tracker for organizing vacancies, recruitment stages, interviews, calendar events and application analytics in one dashboard.',
+      pl: 'Aplikacja do śledzenia rekrutacji: oferty pracy, etapy aplikacji, rozmowy, kalendarz oraz statystyki i analityka w jednym panelu.'
+    },
+    tags: ['React', 'TypeScript', 'ASP.NET Core', 'EF Core', 'SQL Server', 'Recharts'],
+    language: 'TypeScript',
+    stars: 0,
+    forks: 0
+  },
+  {
+    name: 'StockPriceBot',
+    url: 'https://github.com/Avuii/StockPriceBot',
+    demoUrl: 'https://avuii.github.io/StockPriceBot/demo/',
+    visibility: { en: 'In development', pl: 'W trakcie rozwoju' },
+    description: {
+      en: 'Full-stack product price and availability tracker combining a browser extension, dashboard, scheduled checks, price history and automated notifications.',
+      pl: 'Full-stackowy monitoring cen i dostępności produktów z rozszerzeniem przeglądarki, dashboardem, harmonogramem sprawdzania, historią cen i alertami.'
+    },
+    tags: ['ASP.NET Core', 'React', 'TypeScript', 'PostgreSQL', 'Quartz.NET', 'SignalR'],
+    language: 'TypeScript',
+    stars: 0,
+    forks: 0
+  },
+  {
+    name: 'ParkingFlow',
     url: 'https://github.com/Avuii/ParkingFlow',
     visibility: { en: 'Public', pl: 'Publiczne' },
     description: {
@@ -53,8 +67,65 @@ const pinnedProjects = [
     },
     tags: ['ASP.NET Core', 'SignalR', 'React', 'C#', 'Simulation', 'Real-time'],
     language: 'C#',
-    stars: 2,
-    forks: 2
+    stars: null,
+    forks: null
+  },
+  {
+    name: 'React Scientific Calculator',
+    url: 'https://github.com/Avuii/react-scientific-calculator',
+    visibility: { en: 'Public', pl: 'Publiczne' },
+    description: {
+      en: 'Scientific web calculator built with React and Vite, featuring mathematical operations, graphing, unit conversion, calculation history and keyboard input.',
+      pl: 'Kalkulator naukowy w React i Vite z funkcjami matematycznymi, wykresami, konwersją jednostek, historią obliczeń i obsługą klawiatury.'
+    },
+    tags: ['React', 'JavaScript', 'Vite', 'Graphing', 'UI'],
+    language: 'JavaScript',
+    stars: null,
+    forks: null
+  },
+  {
+    name: 'MediaRent',
+    url: 'https://github.com/Avuii/MediaRent',
+    visibility: { en: 'Public', pl: 'Publiczne' },
+    description: {
+      en: 'C++ project exploring application logic and data management around media rentals.',
+      pl: 'Projekt w C++ rozwijający logikę aplikacji i zarządzanie danymi w kontekście wypożyczalni mediów.'
+    },
+    tags: ['C++', 'OOP', 'Data Management'],
+    language: 'C++',
+    stars: null,
+    forks: null
+  },
+  {
+    name: 'FractalAnimation',
+    url: 'https://github.com/Avuii/FractalAnimation',
+    visibility: { en: 'Public', pl: 'Publiczne' },
+    description: {
+      en: 'C++ project focused on generating and animating fractal visualizations.',
+      pl: 'Projekt w C++ poświęcony generowaniu i animowaniu wizualizacji fraktali.'
+    },
+    tags: ['C++', 'Algorithms', 'Fractals', 'Animation'],
+    language: 'C++',
+    stars: null,
+    forks: null
+  }
+] as const;
+
+// Earlier featured work stays on the page in a separate group.
+const otherHighlights = [
+  {
+    name: 'EUR/PLN Tracker',
+    url: 'https://github.com/Avuii/EUR-PLN-Tracker',
+    demoUrl: 'https://avuii.github.io/EUR-PLN-Tracker/',
+    visibility: { en: 'Public', pl: 'Publiczne' },
+    description: {
+      en: 'End-to-end forecasting dashboard for EUR/PLN exchange rates: NBP data, time-series datasets, model comparison and forecast visualization.',
+      pl: 'Dashboard prognozowania kursu EUR/PLN: dane NBP, szeregi czasowe, porównywanie modeli i wizualizacja prognoz.'
+    },
+    tags: ['React', 'Python', 'NBP API', 'Forecasting', 'Time Series', 'ML'],
+    language: 'TypeScript',
+    stars: 4,
+    forks: 0
   },
   {
     name: 'CareQuest',
@@ -62,8 +133,8 @@ const pinnedProjects = [
     demoUrl: 'https://avuii.github.io/CareQuest/',
     visibility: { en: 'Public', pl: 'Publiczne' },
     description: {
-      en: 'EduTech Startup project created during Erasmus+ BIP. A safe platform supporting learning, creativity and connection during recovery.',
-      pl: 'Projekt EduTech Startup stworzony podczas Erasmus+ BIP. Bezpieczna platforma wspierająca naukę, kreatywność i kontakt podczas rekonwalescencji.'
+      en: 'EduTech Startup MVP created during Erasmus+ BIP: a space for learning, creativity and connection during recovery.',
+      pl: 'MVP EduTech Startup stworzone w ramach Erasmus+ BIP: przestrzeń wspierająca naukę, kreatywność i kontakt podczas rekonwalescencji.'
     },
     tags: ['React', 'Vite', 'TypeScript', 'EduTech', 'Startup MVP', 'UX'],
     language: 'TypeScript',
@@ -73,11 +144,13 @@ const pinnedProjects = [
 ] as const;
 
 const repositoryList = [
+  { name: 'TrackMyCV', url: 'https://github.com/Avuii/TrackMyCV', language: 'TypeScript', updatedAt: '' },
+  { name: 'StockPriceBot', url: 'https://github.com/Avuii/StockPriceBot', language: 'TypeScript', updatedAt: '' },
   { name: 'NearEarth', url: 'https://github.com/Avuii/NearEarth', language: 'TypeScript', updatedAt: '2026-07-01' },
   { name: 'EUR-PLN-Tracker', url: 'https://github.com/Avuii/EUR-PLN-Tracker', language: 'TypeScript', updatedAt: '2026-07-01' },
   { name: 'CareQuest', url: 'https://github.com/Avuii/CareQuest', language: 'TypeScript', updatedAt: '2026-05-22' },
   { name: 'ParkingFlow', url: 'https://github.com/Avuii/ParkingFlow', language: 'C#', updatedAt: '2026-07-01' },
-  { name: 'react-scientific-calculator', url: 'https://github.com/Avuii/react-scientific-calculator', language: 'TypeScript', updatedAt: '2026-07-01' },
+  { name: 'react-scientific-calculator', url: 'https://github.com/Avuii/react-scientific-calculator', language: 'JavaScript', updatedAt: '2026-07-01' },
   { name: 'MediaRent', url: 'https://github.com/Avuii/MediaRent', language: 'C++', updatedAt: '2026-07-01' },
   { name: 'FractalAnimation', url: 'https://github.com/Avuii/FractalAnimation', language: 'C++', updatedAt: '2026-07-01' },
   { name: 'ScientificCalculator', url: 'https://github.com/Avuii/ScientificCalculator', language: 'C++', updatedAt: '2026-07-01' },
@@ -114,18 +187,27 @@ export function Projects({ language }: ProjectsProps) {
       repositories: 'Repositories',
       pinnedProjects: 'PINNED PROJECTS',
       viewMoreProjects: 'View More Projects',
-      viewRepo: 'Code'
+      viewRepo: 'Code',
+      allRepositories: 'All repositories',
+      swipeHint: 'Swipe to explore featured projects',
+      moreTags: 'more',
+      otherProjects: 'OTHER PROJECTS'
     },
     pl: {
       sectionTitle: '$ ls -la ~/projects',
       repositories: 'Repozytoria',
       pinnedProjects: 'PRZYPIĘTE PROJEKTY',
       viewMoreProjects: 'Zobacz więcej projektów',
-      viewRepo: 'Kod'
+      viewRepo: 'Kod',
+      allRepositories: 'Wszystkie repozytoria',
+      swipeHint: 'Przesuń, aby zobaczyć wyróżnione projekty',
+      moreTags: 'więcej',
+      otherProjects: 'POZOSTAŁE PROJEKTY'
     }
   }[language];
 
   const formatUpdated = (iso: string, lang: 'en' | 'pl') => {
+    if (!iso) return lang === 'pl' ? 'Data aktualizacji: GitHub' : 'Updated on GitHub';
     const d = new Date(iso + 'T00:00:00');
     const locale = lang === 'pl' ? 'pl-PL' : 'en-US';
     const formatted = new Intl.DateTimeFormat(locale, {
@@ -244,15 +326,19 @@ export function Projects({ language }: ProjectsProps) {
               <span>{project.language}</span>
             </div>
 
-            <div className="flex items-center gap-1">
-              <Star className="h-3 w-3" />
-              <span>{project.stars}</span>
-            </div>
+            {project.stars !== null && (
+              <div className="flex items-center gap-1">
+                <Star className="h-3 w-3" />
+                <span>{project.stars}</span>
+              </div>
+            )}
 
-            <div className="flex items-center gap-1">
-              <GitFork className="h-3 w-3" />
-              <span>{project.forks}</span>
-            </div>
+            {project.forks !== null && (
+              <div className="flex items-center gap-1">
+                <GitFork className="h-3 w-3" />
+                <span>{project.forks}</span>
+              </div>
+            )}
           </div>
 
           <a
@@ -401,11 +487,10 @@ export function Projects({ language }: ProjectsProps) {
                 {repositoryList.map((repo) => (
                   <a
                     key={repo.name}
-                    type="button"
-                    onClick={() => {
-                      setSelectedRepo(repo.name);
-                      window.open(repo.url, '_blank');
-                    }}
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setSelectedRepo(repo.name)}
                     className={`w-full text-left px-3 py-2 rounded transition-colors ${selectedRepo === repo.name
                         ? 'bg-[var(--selected-overlay)] border border-[var(--accent-blue)]'
                         : 'hover:bg-[var(--hover-overlay)] border border-transparent'
@@ -435,7 +520,7 @@ export function Projects({ language }: ProjectsProps) {
 
           <div className="lg:col-span-3">
             <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-sm text-[var(--text-secondary)] code-font">{ui.pinnedProjects}</h3>
+              <h3 className="text-sm text-[var(--text-secondary)] code-font">{ui.otherProjects}</h3>
 
               <button
                 type="button"
@@ -448,7 +533,7 @@ export function Projects({ language }: ProjectsProps) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {pinnedProjects.map((project, index) => (
+              {otherHighlights.map((project, index) => (
                 <motion.div
                   key={project.name}
                   initial={{ opacity: 0, y: 20 }}

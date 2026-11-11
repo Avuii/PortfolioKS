@@ -1,64 +1,124 @@
-import { motion } from 'motion/react';
-import { Calendar, FileCode, GitBranch } from 'lucide-react';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { Calendar, CheckCircle2, ChevronDown, ExternalLink, FileCode, GitBranch } from 'lucide-react';
 
 interface ExperienceProps {
   language: 'en' | 'pl';
 }
 
-const experiences = [
+type Bilingual = { en: string; pl: string };
+
+type ExperienceItem = {
+  id: string;
+  branch: string;
+  company: string;
+  title: Bilingual;
+  description: Bilingual;
+  period: Bilingual;
+  tags: string[];
+  highlights: { en: string[]; pl: string[] };
+  contributions?: {
+    name: string;
+    technologies: string;
+    description: Bilingual;
+  }[];
+  projectLink?: { label: string; url: string };
+  plannedEnd?: string;
+};
+
+const experiences: ExperienceItem[] = [
   {
     id: 'a1b2ca3',
-    branch: 'HEAD → ambassador',
-    company: 'Commerzbank',
+    branch: 'community → nextgen',
+    company: 'Commerzbank · NextGen',
     title: {
-      en: 'Ambassador',
-      pl: 'Ambasadorka'
+      en: 'NextGen Ambassador',
+      pl: 'Ambasadorka programu NextGen'
     },
     description: {
-      en: 'Representing Commerzbank in student-oriented initiatives, participating in trainings, IT events, and career fairs, and helping promote technology, software engineering, and computer science among students. Supporting employer branding activities and building connections between the company and the academic community.',
-      pl: 'Reprezentowanie Commerzbanku w inicjatywach skierowanych do studentów, udział w szkoleniach, wydarzeniach IT oraz targach pracy, a także wspieranie promocji technologii, inżynierii oprogramowania i informatyki wśród studentów. Wsparcie działań employer brandingowych oraz budowanie relacji między firmą a środowiskiem akademickim.'
+      en: 'Representing the Commerzbank Digital Technology Center in student initiatives and connecting the IT industry with the academic community. Taking part in training sessions, technology events and career fairs, while supporting employer branding and promoting opportunities in software engineering.',
+      pl: 'Reprezentowanie Commerzbank Digital Technology Center w inicjatywach studenckich i budowanie relacji między branżą IT a środowiskiem akademickim. Udział w szkoleniach, wydarzeniach technologicznych i targach pracy oraz wspieranie działań employer brandingowych.'
     },
     tags: [
-      'Ambassador',
-      'Employer Branding',
-      'IT Events',
-      'Career Fairs',
-      'Trainings',
-      'Student Community',
-      'Tech Promotion'
+      'NextGen', 'Employer Branding', 'IT Events', 'Career Fairs',
+      'Trainings', 'Student Community'
     ],
-    period: { en: '2026-03 — Present', pl: '2026-03 — Obecnie' },
-    filesChanged: 21,
-    insertions: 42,
-    deletions: 0
+    period: {
+      en: 'Mar 2026 — Nov 27, 2026',
+      pl: '03.2026 — 27.11.2026'
+    },
+    plannedEnd: '2026-11-27',
+    highlights: {
+      en: ['Academic–industry collaboration', 'IT events & career fairs', 'Student initiatives'],
+      pl: ['Współpraca uczelni z branżą IT', 'Wydarzenia IT i targi pracy', 'Inicjatywy studenckie']
+    }
   },
   {
     id: 'a1b2ca2',
-    branch: 'HEAD → engineer',
+    branch: 'work → full-stack',
     company: 'De Heus',
     title: {
       en: '.NET Developer Intern',
       pl: 'Stażystka .NET Developer'
     },
     description: {
-      en: 'Developing and maintaining business applications using C#, ASP.NET Core, Blazor, Entity Framework Core, Angular, DevExpress, WPF, and MSSQL. Implementing new features, refactoring existing modules, working with databases, and collaborating with analysts and end users in an Agile environment.',
-      pl: 'Tworzenie i utrzymywanie aplikacji biznesowych z wykorzystaniem C#, ASP.NET Core, Blazor, Entity Framework Core, Angular, DevExpress, WPF i MSSQL. Implementacja nowych funkcjonalności, refaktoryzacja istniejących modułów, praca z bazami danych oraz współpraca z analitykami i użytkownikami końcowymi w środowisku Agile.'
+      en: 'Contributed to commercial business applications and internal tools. Worked across the full stack using C#/.NET, ASP.NET Core, Entity Framework Core, Angular, Blazor, WPF and SQL Server. Implemented features, maintained and improved existing modules, and supported integrations with Comarch ERP XL.',
+      pl: 'Rozwijałam komercyjne aplikacje biznesowe i narzędzia wewnętrzne. Pracowałam full-stack z użyciem C#/.NET, ASP.NET Core, Entity Framework Core, Angular, Blazor, WPF i SQL Server. Implementowałam funkcjonalności, ulepszałam istniejące moduły i wspierałam integracje z Comarch ERP XL.'
     },
     tags: [
-      'C#',
-      'ASP.NET Core',
-      'Blazor',
-      'Entity Framework Core',
-      'Angular',
-      'DevExpress',
-      'WPF',
-      'MSSQL',
-      'Agile'
+      'C#', '.NET', 'ASP.NET Core', 'EF Core', 'Angular',
+      'Blazor', 'WPF', 'SQL Server', 'Comarch ERP XL', 'Jira'
     ],
-    period: { en: '2025-10 — Present', pl: '2025-10 — Obecnie' },
-    filesChanged: 11,
-    insertions: 100,
-    deletions: 10
+    period: {
+      en: 'Oct 2025 — Jul 2, 2026',
+      pl: '10.2025 — 02.07.2026'
+    },
+    highlights: {
+      en: ['Commercial applications', 'Full-stack development', 'ERP & SQL integrations'],
+      pl: ['Aplikacje komercyjne', 'Rozwój full-stack', 'Integracje ERP i SQL']
+    },
+    contributions: [
+      {
+        name: 'XL Session Manager',
+        technologies: 'C# · WPF · Comarch ERP XL',
+        description: {
+          en: 'Desktop tool for managing sessions in the Comarch ERP XL environment.',
+          pl: 'Aplikacja desktopowa do zarządzania sesjami w środowisku Comarch ERP XL.'
+        }
+      },
+      {
+        name: 'Config Attributes Panel',
+        technologies: 'Angular · TypeScript',
+        description: {
+          en: 'Interface for configuring and managing business attributes.',
+          pl: 'Interfejs do konfiguracji i zarządzania atrybutami biznesowymi.'
+        }
+      },
+      {
+        name: 'Commission',
+        technologies: 'Angular · .NET',
+        description: {
+          en: 'Maintenance and improvements to an existing full-stack business application.',
+          pl: 'Utrzymanie i rozwój istniejącej aplikacji biznesowej full-stack.'
+        }
+      },
+      {
+        name: 'SASS',
+        technologies: 'Blazor · MudBlazor',
+        description: {
+          en: 'Development and improvement of an internal business application.',
+          pl: 'Rozwój i usprawnianie wewnętrznej aplikacji biznesowej.'
+        }
+      },
+      {
+        name: 'KNT Attributes',
+        technologies: 'C# · Comarch ERP XL',
+        description: {
+          en: 'Features supporting contractor attributes and ERP integration.',
+          pl: 'Funkcjonalności obsługujące atrybuty kontrahentów i integrację z ERP.'
+        }
+      }
+    ]
   },
   {
     id: 'b1p2026',
@@ -69,41 +129,66 @@ const experiences = [
       pl: 'Uczestniczka projektu EduTech Startup'
     },
     description: {
-      en: 'Participated in an Erasmus+ Blended Intensive Programme from 18 to 22 May 2026 and co-created CareQuest — an EduTech Startup MVP focused on safe learning, creativity, and connection during recovery.',
+      en: 'Participated in an Erasmus+ Blended Intensive Programme from 18 to 22 May 2026 and co-created CareQuest — an EduTech Startup MVP focused on safe learning, creativity and connection during recovery.',
       pl: 'Wzięłam udział w Erasmus+ Blended Intensive Programme w dniach 18–22 maja 2026 i współtworzyłam CareQuest — MVP projektu EduTech Startup wspierającego bezpieczną naukę, kreatywność i kontakt podczas rekonwalescencji.'
     },
     tags: ['React', 'Vite', 'TypeScript', 'EduTech', 'Startup MVP', 'Teamwork', 'UX'],
     period: {
-      en: '2026-05-18 — 2026-05-22',
-      pl: '18.05.2026 — 22.05.2026'
-    }
+      en: 'May 18–22, 2026',
+      pl: '18–22.05.2026'
+    },
+    highlights: {
+      en: ['International teamwork', 'EduTech MVP', 'UX & prototyping'],
+      pl: ['Praca w międzynarodowym zespole', 'MVP EduTech', 'UX i prototypowanie']
+    },
+    projectLink: { label: 'CareQuest — live demo', url: 'https://avuii.github.io/CareQuest/' }
   },
   {
     id: 'a1b2ca1',
-    branch: 'HEAD → developer',
+    branch: 'HEAD → engineering-degree',
     company: 'University of Łódź',
-    title: { en: 'Computer Science Student', pl: 'Studentka Informatyki' },
+    title: {
+      en: 'Computer Science — Programming & Algorithms',
+      pl: 'Informatyka — Programowanie i Algorytmy'
+    },
     description: {
-      en: 'Building academic and portfolio projects in algorithms, data structures, simulations, signal processing, and machine learning. Combining theory with hands-on implementation in C++, Python, and modern web technologies.',
-      pl: 'Tworzenie projektów akademickich i portfoliowych z zakresu algorytmów, struktur danych, symulacji, przetwarzania sygnałów i machine learningu. Łączenie teorii z praktyczną implementacją w C++, Python i nowoczesnych technologiach webowych.'
+      en: 'Computer Science engineering student specializing in Programming and Algorithms. Building academic and personal projects in algorithms, data structures, simulation and machine learning. My engineering thesis focuses on KSeF Manager, a full-stack application for electronic invoicing, API integration and secure access to data.',
+      pl: 'Studentka informatyki inżynierskiej, specjalność Programowanie i Algorytmy. Realizuję projekty z algorytmiki, struktur danych, symulacji i machine learningu. W ramach pracy inżynierskiej rozwijam KSeF Manager — aplikację full-stack do obsługi e-faktur, integracji API i bezpiecznego dostępu do danych.'
     },
     tags: [
-      'C++',
-      'Python',
-      'Algorithms',
-      'Data Structures',
-      'Machine Learning',
-      'Signal Processing',
-      'Full-Stack'
+      'C++', 'Python', 'Algorithms', 'Data Structures',
+      'Machine Learning', 'Full-Stack', 'KSeF Manager'
     ],
-    period: { en: '2023-10 — Present', pl: '2023-10 — Obecnie' },
-    filesChanged: 4,
-    insertions: 128,
-    deletions: 15
+    period: { en: 'Oct 2023 — Present', pl: '10.2023 — Obecnie' },
+    highlights: {
+      en: ['Engineering degree', 'Programming & Algorithms', 'KSeF Manager thesis'],
+      pl: ['Studia inżynierskie', 'Programowanie i Algorytmy', 'Praca inż.: KSeF Manager']
+    }
   }
 ];
 
 export function Experience({ language }: ExperienceProps) {
+  const [expandedExperience, setExpandedExperience] = useState<string | null>(null);
+  // 27 November is a scheduled end date until that day has passed.
+  const isNextGenEndUpcoming = new Date() < new Date('2026-11-28T00:00:00');
+  const ui = language === 'pl'
+    ? {
+        highlights: 'NAJWAŻNIEJSZE OBSZARY',
+        selectedWork: 'Wybrane projekty i wkład',
+        showWork: 'Pokaż projekty realizowane podczas stażu',
+        hideWork: 'Ukryj projekty',
+        plannedEnd: 'Planowane zakończenie: 27.11.2026',
+        viewDemo: 'Zobacz demo'
+      }
+    : {
+        highlights: 'KEY AREAS',
+        selectedWork: 'Selected projects & contributions',
+        showWork: 'Show internship projects',
+        hideWork: 'Hide projects',
+        plannedEnd: 'Scheduled end: Nov 27, 2026',
+        viewDemo: 'View demo'
+      };
+
   return (
     <div className="min-h-[100svh] overflow-x-hidden px-4 py-16 pb-[calc(env(safe-area-inset-bottom)+120px)] sm:px-8 sm:py-20 sm:pb-20">
       <div className="mx-auto max-w-5xl">
@@ -148,23 +233,23 @@ export function Experience({ language }: ExperienceProps) {
                     <div className="h-4 w-4 rounded-full border-4 border-[var(--bg-primary)] bg-[var(--accent-blue)] shadow-[0_0_18px_var(--accent-blue)]" />
                   </div>
 
-                  {/* date (fixed alignment: mobile offset, desktop centered) */}
+                  {/* Date — long dates can wrap on mobile */}
                   <div className="pt-2 lg:pt-0">
-  <div
-    className={[
-      'ml-10 max-w-[calc(100%-2.5rem)]',
-      'lg:absolute lg:top-0 lg:ml-0 lg:max-w-none',
-      isLeftOnDesktop
-        ? 'lg:left-[calc(50%+2rem)]'
-        : 'lg:right-[calc(50%+2rem)]'
-    ].join(' ')}
-  >
-    <div className="inline-flex w-fit items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[var(--accent-blue)] bg-[var(--bg-tertiary)] px-3 py-1 text-[11px] code-font text-[var(--accent-blue)] shadow-[0_0_18px_rgba(88,166,255,0.08)] sm:px-4 sm:py-1.5 sm:text-xs">
-      <Calendar className="h-3 w-3 shrink-0" />
-      <span>{exp.period[language]}</span>
-    </div>
-  </div>
-</div>
+                    <div
+                      className={[
+                        'ml-10 max-w-[calc(100%-2.5rem)]',
+                        'lg:absolute lg:top-0 lg:ml-0 lg:max-w-none',
+                        isLeftOnDesktop
+                          ? 'lg:left-[calc(50%+2rem)]'
+                          : 'lg:right-[calc(50%+2rem)]'
+                      ].join(' ')}
+                    >
+                      <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[var(--accent-blue)] bg-[var(--bg-tertiary)] px-3 py-1 text-[11px] code-font text-[var(--accent-blue)] shadow-[0_0_18px_rgba(88,166,255,0.08)] sm:px-4 sm:py-1.5 sm:text-xs">
+                        <Calendar className="h-3 w-3 shrink-0" />
+                        <span className="break-words">{exp.period[language]}</span>
+                      </div>
+                    </div>
+                  </div>
                   {/* card */}
                   <div
                     className={[
@@ -208,6 +293,14 @@ export function Experience({ language }: ExperienceProps) {
                           {exp.description[language]}
                         </p>
 
+                        {/* Scheduled date, shown only while NextGen is ongoing */}
+                        {exp.plannedEnd && isNextGenEndUpcoming && (
+                          <p className="mb-4 code-font text-xs text-[var(--accent-green)]">
+                            <Calendar className="mr-2 inline-block h-3.5 w-3.5" />
+                            {ui.plannedEnd}
+                          </p>
+                        )}
+
                         {/* tags */}
                         <div className="mb-4 flex flex-wrap gap-2">
                           {exp.tags.map((tag) => (
@@ -220,23 +313,90 @@ export function Experience({ language }: ExperienceProps) {
                           ))}
                         </div>
 
-                        {/* stats */}
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--border-default)] pt-4 text-xs code-font text-[var(--text-secondary)]">
-                          <div className="flex items-center gap-1">
-                            <FileCode className="h-3 w-3 shrink-0" />
-                            <span>
-                              {exp.filesChanged} {language === 'en' ? 'files changed' : 'pliki zmienione'}
-                            </span>
+                        {/* Key areas instead of invented Git insertions/deletions */}
+                        <div className="border-t border-[var(--border-default)] pt-4">
+                          <div className="mb-3 flex items-center gap-2 text-xs code-font text-[var(--text-secondary)]">
+                            <FileCode className="h-3.5 w-3.5 shrink-0" />
+                            {ui.highlights}
                           </div>
-
-                          <span className="text-[var(--accent-green)]">
-                            +{exp.insertions} {language === 'en' ? 'insertions' : 'wstawienia'}
-                          </span>
-
-                          <span className="text-[var(--accent-red)]">
-                            -{exp.deletions} {language === 'en' ? 'deletions' : 'usunięcia'}
-                          </span>
+                          <div className="flex flex-wrap gap-x-4 gap-y-2">
+                            {exp.highlights[language].map((highlight) => (
+                              <span key={highlight} className="inline-flex items-center gap-1.5 text-xs code-font text-[var(--text-secondary)]">
+                                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[var(--accent-green)]" />
+                                {highlight}
+                              </span>
+                            ))}
+                          </div>
                         </div>
+
+                        {/* Internal company projects: descriptions only, no private links/code */}
+                        {exp.contributions && (
+                          <div className="mt-4 border-t border-[var(--border-default)] pt-4">
+                            <button
+                              type="button"
+                              aria-expanded={expandedExperience === exp.id}
+                              aria-controls={`contributions-${exp.id}`}
+                              onClick={() => setExpandedExperience((current) => current === exp.id ? null : exp.id)}
+                              className="flex w-full items-center justify-between gap-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-tertiary)] px-3 py-2.5 text-left text-xs code-font text-[var(--accent-blue)] transition-colors hover:border-[var(--accent-blue)] sm:text-sm"
+                            >
+                              <span>{expandedExperience === exp.id ? ui.hideWork : ui.showWork} ({exp.contributions.length})</span>
+                              <motion.span
+                                animate={{ rotate: expandedExperience === exp.id ? 180 : 0 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <ChevronDown className="h-4 w-4" />
+                              </motion.span>
+                            </button>
+                            <AnimatePresence initial={false}>
+                              {expandedExperience === exp.id && (
+                                <motion.div
+                                  id={`contributions-${exp.id}`}
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: 'auto', opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.25 }}
+                                  className="overflow-hidden"
+                                >
+                                  <div className="space-y-3 pt-4">
+                                    <p className="code-font text-xs uppercase tracking-wider text-[var(--text-secondary)]">
+                                      {ui.selectedWork}
+                                    </p>
+                                    {exp.contributions.map((item) => (
+                                      <div
+                                        key={item.name}
+                                        className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-tertiary)] p-3 sm:p-4"
+                                      >
+                                        <h4 className="mb-1 font-medium text-[var(--text-primary)]">
+                                          {item.name}
+                                        </h4>
+                                        <p className="mb-2 text-xs code-font text-[var(--accent-purple)]">
+                                          {item.technologies}
+                                        </p>
+                                        <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
+                                          {item.description[language]}
+                                        </p>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        )}
+
+                        {exp.projectLink && (
+                          <div className="mt-4 border-t border-[var(--border-default)] pt-4">
+                            <a
+                              href={exp.projectLink.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-lg border border-[var(--border-default)] px-3 py-2 text-xs code-font text-[var(--accent-blue)] transition-colors hover:border-[var(--accent-blue)] sm:text-sm"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                              {ui.viewDemo}: {exp.projectLink.label.replace(' — live demo', '')}
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </article>
                   </div>
