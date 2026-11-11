@@ -120,8 +120,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
   }[language];
 
   useEffect(() => {
-    const fullText = ui.codeLines.join('
-');
+    const fullText = ui.codeLines.join('\n');
     let currentIndex = 0;
 
     setTypedText('');
@@ -367,8 +366,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
                   style={{ height: 'calc(1.4em * 14)' }}
                 >
                   <pre className="h-full overflow-x-auto overflow-y-hidden pr-2">
-                    {typedText.split('
-').map((line, index) => (
+                    {typedText.split('\n').map((line, index) => (
                       <div key={index} className="flex min-w-max">
                         <span className="text-[var(--text-muted)] mr-3 select-none w-6 text-right shrink-0">
                           {index + 1}
@@ -476,7 +474,7 @@ function highlightSyntax(line: string): string {
   const escaped = escapeHtml(line);
 
   return escaped.replace(
-    /(\/\/.*$)|(import|const|return|from)|("(?:[^"\]|\.)*"|'(?:[^'\]|\.)*')|(Developer|Portfolio)|(name|role|experience|focus|stack)/g,
+    /(\/\/.*$)|\b(import|const|return|from)\b|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(Developer|Portfolio)\b|\b(name|role|experience|focus|stack)\b/g,
     (match, comment, keyword, stringLiteral, componentName, propName) => {
       if (comment) return `<span style="color: var(--syntax-comment)">${comment}</span>`;
       if (keyword) return `<span style="color: var(--syntax-keyword)">${keyword}</span>`;
