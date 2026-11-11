@@ -42,10 +42,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
       roleText: '.NET Developer · Backend & Full-Stack · Computer Science',
       introText:
         'Computer Science student specializing in Programming & Algorithms, with hands-on commercial experience building business applications at De Heus.',
-      focusLabel: 'CURRENT FOCUS / ENGINEERING THESIS',
-      focusTitle: 'KSeF Manager',
-      focusDescription:
-        'Building a secure e-invoicing web application with ASP.NET Core, SQL Server, authentication and KSeF API integration.',
       loadedModules: 'CORE_STACK:',
       exportFile: 'Export CV.pdf',
       generating: '> generating CV.pdf',
@@ -70,7 +66,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
         '      name="Katarzyna Stańczyk"',
         '      role=".NET / Full-Stack Developer"',
         '      experience="De Heus"',
-        '      focus="KSeF Manager"',
         '      stack="C# · ASP.NET Core · SQL · React"',
         '    />',
         '  );',
@@ -82,10 +77,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
       roleText: 'Programistka .NET · Backend & Full-Stack · Informatyka',
       introText:
         'Studiuję informatykę na Uniwersytecie Łódzkim (specjalizacja Programowanie i Algorytmy). Mam doświadczenie komercyjne zdobyte przy tworzeniu aplikacji biznesowych w De Heus.',
-      focusLabel: 'OBECNY PROJEKT / PRACA INŻYNIERSKA',
-      focusTitle: 'KSeF Manager',
-      focusDescription:
-        'Tworzę aplikację do obsługi e-faktur z wykorzystaniem ASP.NET Core, SQL Server, uwierzytelniania i integracji z API KSeF.',
       loadedModules: 'CORE_STACK:',
       exportFile: 'Eksportuj CV.pdf',
       generating: '> generowanie CV.pdf',
@@ -110,7 +101,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
         '      name="Katarzyna Stańczyk"',
         '      role=".NET / Full-Stack Developer"',
         '      experience="De Heus"',
-        '      focus="KSeF Manager"',
         '      stack="C# · ASP.NET Core · SQL · React"',
         '    />',
         '  );',
@@ -299,24 +289,6 @@ export function Hero({ language, playClickSound }: HeroProps) {
               </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.35 }}
-              className="mb-6 rounded-lg border border-[var(--accent-purple)]/40 bg-[var(--bg-secondary)] px-4 py-3 sm:px-5 sm:py-4"
-            >
-              <div className="mb-1 flex items-center gap-2 code-font text-[10px] uppercase tracking-wider text-[var(--accent-purple)] sm:text-xs">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-purple)]" />
-                {ui.focusLabel}
-              </div>
-              <div className="mb-1 code-font text-sm font-semibold text-[var(--text-primary)] sm:text-base">
-                {ui.focusTitle}
-              </div>
-              <p className="text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-                {ui.focusDescription}
-              </p>
-            </motion.div>
-
             <div className="border-t border-[var(--border-default)] pt-6">
               <div className="text-xs text-[var(--text-secondary)] mb-3 code-font">
                 {ui.loadedModules}
@@ -367,7 +339,7 @@ export function Hero({ language, playClickSound }: HeroProps) {
               <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3">
                 <div
                   className="code-font text-[11px] sm:text-sm leading-[1.4] overflow-hidden"
-                  style={{ height: 'calc(1.4em * 14)' }}
+                  style={{ height: 'calc(1.4em * 13)' }}
                 >
                   <pre className="h-full overflow-x-auto overflow-y-hidden pr-2">
                     {typedText.split('\n').map((line, index) => (
@@ -478,7 +450,7 @@ function highlightSyntax(line: string): string {
   const escaped = escapeHtml(line);
 
   return escaped.replace(
-    /(\/\/.*$)|\b(import|const|return|from)\b|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(Developer|Portfolio)\b|\b(name|role|experience|focus|stack)\b/g,
+    /(\/\/.*$)|\b(import|const|return|from)\b|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(Developer|Portfolio)\b|\b(name|role|experience|stack)\b/g,
     (match, comment, keyword, stringLiteral, componentName, propName) => {
       if (comment) return `<span style="color: var(--syntax-comment)">${comment}</span>`;
       if (keyword) return `<span style="color: var(--syntax-keyword)">${keyword}</span>`;
