@@ -35,7 +35,7 @@ export function About({ language }: AboutProps) {
       experience: '.NET INTERNSHIP',
       caffeine: 'COFFEE',
       studyValue: '7th sem.',
-      expValue: '9 mo',
+      expValue: '9 months',
     },
     pl: {
       sectionTitle: '# O_mnie.system',
@@ -64,7 +64,7 @@ export function About({ language }: AboutProps) {
       experience: 'STAŻ .NET',
       caffeine: 'KAWA',
       studyValue: '7. sem.',
-      expValue: '9 mies.',
+      expValue: '9 miesięcy',
     },
   }[language];
 
