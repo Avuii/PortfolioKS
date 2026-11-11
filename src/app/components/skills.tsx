@@ -427,9 +427,9 @@ const modules: SkillModule[] = [
     shortLabel: { en: 'Design / 3D', pl: 'Design / 3D' },
     score: 7,
     icon: Palette,
-    colorClass: 'text-[var(--accent-purple)]',
-    glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
-    accentClass: 'border-[var(--accent-purple)]/50',
+    colorClass: 'text-[var(--accent-slate)]',
+    glowClass: 'shadow-[0_0_24px_rgba(148,163,184,0.18)]',
+    accentClass: 'border-[var(--accent-slate)]/50',
     items: [
       'Figma',
       'Canva',
@@ -449,6 +449,7 @@ const modules: SkillModule[] = [
 ];
 
 const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
 const randomBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -456,6 +457,7 @@ function buildBar(value: number, max = 10) {
   const safe = Math.max(0, Math.min(value, max));
   const filled = '█'.repeat(safe);
   const empty = '░'.repeat(max - safe);
+
   return `[${filled}${empty}]`;
 }
 
@@ -484,7 +486,6 @@ export function Skills({ language }: SkillsProps) {
       technologies: 'TECHNOLOGIES',
       projects: 'USED IN',
       notes: 'NOTES',
-      stats: 'coverage',
       tapHint: 'tap to inspect',
       clickHint: 'click to inspect'
     },
@@ -498,7 +499,6 @@ export function Skills({ language }: SkillsProps) {
       technologies: 'TECHNOLOGIE',
       projects: 'W PROJEKTACH',
       notes: 'OPIS',
-      stats: 'pokrycie',
       tapHint: 'dotknij, aby zobaczyć',
       clickHint: 'kliknij, aby zobaczyć'
     }
@@ -525,11 +525,13 @@ export function Skills({ language }: SkillsProps) {
 
       for (let index = 1; index <= command.length; index += 1) {
         if (cancelledRef.current) return;
+
         setTypedCommand(command.slice(0, index));
         await sleep(randomBetween(18, 42));
       }
 
       if (cancelledRef.current) return;
+
       await sleep(260);
       setPhase('scanning');
 
@@ -544,11 +546,13 @@ export function Skills({ language }: SkillsProps) {
         if (cancelledRef.current) return;
 
         const module = modules[moduleIndex];
+
         setVisibleLines((prev) => Math.max(prev, moduleIndex + 1));
         setSelectedKey(module.key);
         await sleep(65);
 
         let current = 0;
+
         while (current < module.score) {
           if (cancelledRef.current) return;
 
@@ -572,8 +576,11 @@ export function Skills({ language }: SkillsProps) {
       }
 
       setDots('...');
+
       await sleep(180);
+
       if (cancelledRef.current) return;
+
       setPhase('done');
     };
 
@@ -581,6 +588,7 @@ export function Skills({ language }: SkillsProps) {
 
     return () => {
       cancelledRef.current = true;
+
       if (dotsIntervalId) {
         window.clearInterval(dotsIntervalId);
       }
@@ -608,6 +616,7 @@ export function Skills({ language }: SkillsProps) {
         >
           <div className="mb-3 flex items-center gap-3">
             <Settings className="h-5 w-5 text-[var(--accent-slate)] sm:h-6 sm:w-6" />
+
             <h2 className="code-font text-2xl text-[var(--text-primary)] sm:text-3xl">
               {ui.sectionTitle}
             </h2>
@@ -625,6 +634,7 @@ export function Skills({ language }: SkillsProps) {
               <span className="h-3 w-3 rounded-full bg-[var(--accent-red)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-yellow)]" />
               <span className="h-3 w-3 rounded-full bg-[var(--accent-green)]" />
+
               <span className="ml-2 code-font text-xs text-[var(--text-secondary)] sm:text-sm">
                 {ui.terminalFile}
               </span>
@@ -633,6 +643,7 @@ export function Skills({ language }: SkillsProps) {
             <div className="p-4 sm:p-5 md:p-6">
               <div className="mb-3 min-h-[24px] break-all code-font text-[11px] text-[var(--accent-green)] sm:text-sm md:text-[15px]">
                 <span>{typedCommand}</span>
+
                 <span
                   className={`ml-0.5 inline-block h-[1em] w-[8px] translate-y-[2px] bg-[var(--accent-green)] ${
                     cursorVisible ? 'animate-pulse' : 'opacity-0'
@@ -692,10 +703,12 @@ export function Skills({ language }: SkillsProps) {
                                 {module.label[language]}
                               </span>
                             </div>
+
                             <span className="code-font text-[10px] text-[var(--text-secondary)]">
                               {currentScore}/10
                             </span>
                           </div>
+
                           <div className="overflow-x-auto">
                             <div className="min-w-max code-font text-xs text-[var(--text-primary)]">
                               {buildBar(currentScore)}
@@ -745,10 +758,12 @@ export function Skills({ language }: SkillsProps) {
                   >
                     <selectedModule.icon className={`h-5 w-5 ${selectedModule.colorClass}`} />
                   </div>
+
                   <div>
                     <h3 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
                       {selectedModule.label[language]}
                     </h3>
+
                     <div className="mt-1 code-font text-xs text-[var(--text-secondary)] sm:text-sm">
                       {buildBar(selectedModule.score)}{' '}
                       <span className="ml-2">{selectedModule.score}/10</span>
@@ -760,6 +775,7 @@ export function Skills({ language }: SkillsProps) {
                   <div className="mb-2 code-font text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
                     {ui.notes}
                   </div>
+
                   <p className="text-sm leading-relaxed text-[var(--text-primary)] sm:text-[15px]">
                     {selectedModule.description[language]}
                   </p>
@@ -769,6 +785,7 @@ export function Skills({ language }: SkillsProps) {
                   <div className="mb-3 code-font text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
                     {ui.technologies}
                   </div>
+
                   <div className="flex flex-wrap gap-2">
                     {selectedModule.items.map((item) => (
                       <span
@@ -786,6 +803,7 @@ export function Skills({ language }: SkillsProps) {
                     <div className="code-font text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
                       {ui.projects}
                     </div>
+
                     <div className="code-font text-[10px] text-[var(--text-secondary)] sm:text-xs">
                       <span className="sm:hidden">{ui.tapHint}</span>
                       <span className="hidden sm:inline">{ui.clickHint}</span>
@@ -801,7 +819,12 @@ export function Skills({ language }: SkillsProps) {
                       );
 
                       return project.href ? (
-                        <a key={project.label.en} href={project.href} target="_blank" rel="noreferrer">
+                        <a
+                          key={project.label.en}
+                          href={project.href}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           {chip}
                         </a>
                       ) : (

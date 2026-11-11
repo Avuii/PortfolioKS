@@ -23,8 +23,10 @@ export default function Root() {
 
       for (const section of sections) {
         const element = document.getElementById(section);
+
         if (element) {
           const { offsetTop, offsetHeight } = element;
+
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section);
             break;
@@ -34,35 +36,27 @@ export default function Root() {
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const playClickSound = () => {
     if (soundEnabled) {
-      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZSA0PVKvo8K1aFgpBmeHyv3Ag');
+      const audio = new Audio(
+        'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZSA0PVKvo8K1aFgpBmeHyv3Ag'
+      );
+
       audio.volume = 0.2;
-      audio.play().catch(() => { });
+      audio.play().catch(() => {});
     }
   };
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden">
-    <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
-      <CustomCursor />
-      <GridBackground />
-      
-      <TopBar 
-        language={language}
-        setLanguage={setLanguage}
-        soundEnabled={soundEnabled}
-        setSoundEnabled={setSoundEnabled}
-        playClickSound={playClickSound}
-      />
-      
-      <NavigationRail 
-        activeSection={activeSection}
-        playClickSound={playClickSound}
-      />
+      <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+        <CustomCursor />
+        <GridBackground />
 
         <TopBar
           language={language}
@@ -107,7 +101,6 @@ export default function Root() {
           </section>
         </main>
       </div>
-    </div>
     </div>
   );
 }
