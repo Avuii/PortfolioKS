@@ -15,7 +15,19 @@ interface HeroProps {
   playClickSound: () => void;
 }
 
-const modules = ['C#', '.NET', 'C++', 'Blazor', 'Angular', 'Python', 'SQL'];
+// Krótka lista technologii, które najlepiej pokazują główną specjalizację.
+// Pełny stack znajduje się w komponencie Skills.
+const modules = [
+  'C#',
+  '.NET',
+  'ASP.NET Core',
+  'Entity Framework Core',
+  'SQL Server',
+  'React',
+  'TypeScript',
+  'Angular',
+  'Docker',
+];
 
 export function Hero({ language, playClickSound }: HeroProps) {
   const [typedText, setTypedText] = useState('');
@@ -27,12 +39,18 @@ export function Hero({ language, playClickSound }: HeroProps) {
     en: {
       greeting: "Hello, I'm",
       roleText:
-        'Computer Science Student · .NET Developer · Full-Stack Development · Algorithms · ML / AI',
-      loadedModules: 'LOADED_MODULES:',
+        '.NET Developer · Backend & Full-Stack · Computer Science',
+      introText:
+        'Computer Science student specializing in Programming & Algorithms, with hands-on commercial experience building business applications at De Heus.',
+      focusLabel: 'CURRENT FOCUS / ENGINEERING THESIS',
+      focusTitle: 'KSeF Manager',
+      focusDescription:
+        'Building a secure e-invoicing web application with ASP.NET Core, SQL Server, authentication and KSeF API integration.',
+      loadedModules: 'CORE_STACK:',
       exportFile: 'Export CV.pdf',
-      generating: '> generating file',
+      generating: '> CV.pdf located',
       ready: 'Ready',
-      latestVersion: 'Latest version',
+      latestVersion: 'External PDF · Dropbox',
       downloadCv: 'Download CV',
       viewProjects: 'View Projects',
       runProfile: 'Run Profile',
@@ -40,15 +58,17 @@ export function Hero({ language, playClickSound }: HeroProps) {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       codeLines: [
-        '// Welcome to my workspace',
+        '// Backend-first, product-focused',
         "import { Developer } from './universe';",
         '',
         'const Portfolio = () => {',
         '  return (',
         '    <Developer',
         '      name="Katarzyna Stańczyk"',
-        '      role="Full-Stack Developer"',
-        '      passion="Building practical software"',
+        '      role=".NET / Full-Stack Developer"',
+        '      experience="De Heus"',
+        '      focus="KSeF Manager"',
+        '      stack="C# · ASP.NET Core · SQL · React"',
         '    />',
         '  );',
         '};',
@@ -57,12 +77,18 @@ export function Hero({ language, playClickSound }: HeroProps) {
     pl: {
       greeting: 'Cześć, jestem',
       roleText:
-        'Studentka Informatyki · Programistka .NET  · Full-Stack Development · Algorytmy · ML / AI',
-      loadedModules: 'ZAŁADOWANE MODUŁY:',
+        'Programistka .NET · Backend & Full-Stack · Informatyka',
+      introText:
+        'Studiuję informatykę na Uniwersytecie Łódzkim (specjalizacja Programowanie i Algorytmy). Mam doświadczenie komercyjne zdobyte przy tworzeniu aplikacji biznesowych w De Heus.',
+      focusLabel: 'OBECNY PROJEKT / PRACA INŻYNIERSKA',
+      focusTitle: 'KSeF Manager',
+      focusDescription:
+        'Tworzę aplikację do obsługi e-faktur z wykorzystaniem ASP.NET Core, SQL Server, uwierzytelniania i integracji z API KSeF.',
+      loadedModules: 'GŁÓWNY_STACK:',
       exportFile: 'Eksportuj CV.pdf',
-      generating: '> przygotowywanie pliku',
+      generating: '> znaleziono CV.pdf',
       ready: 'Gotowe',
-      latestVersion: 'Najnowsza wersja',
+      latestVersion: 'Zewnętrzny plik PDF · Dropbox',
       downloadCv: 'Pobierz CV',
       viewProjects: 'Zobacz Projekty',
       runProfile: 'Uruchom Profil',
@@ -70,23 +96,23 @@ export function Hero({ language, playClickSound }: HeroProps) {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       codeLines: [
-        '// Witaj w moim środowisku pracy',
+        '// Backend w centrum, produkt na pierwszym miejscu',
         "import { Developer } from './universe';",
         '',
         'const Portfolio = () => {',
         '  return (',
         '    <Developer',
         '      name="Katarzyna Stańczyk"',
-        '      role="Full-Stack Developer"',
-        '      passion="Buduję praktyczne oprogramowanie"',
+        '      role=".NET / Full-Stack Developer"',
+        '      experience="De Heus"',
+        '      focus="KSeF Manager"',
+        '      stack="C# · ASP.NET Core · SQL · React"',
         '    />',
         '  );',
         '};',
       ],
     },
   }[language];
-
-  const codeLines = ui.codeLines;
 
   useEffect(() => {
     const fullText = ui.codeLines.join('\n');
@@ -113,41 +139,30 @@ export function Hero({ language, playClickSound }: HeroProps) {
     };
   }, [language]);
 
-  // Typing export line animation
+  // Animacja lokalnego komunikatu — bez sugerowania, że PDF jest generowany na serwerze.
   useEffect(() => {
     const baseText = ui.generating;
     let currentIndex = 0;
-    let dotsInterval: ReturnType<typeof setInterval> | undefined;
 
     setExportTypedText('');
     setExportDots('');
 
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= baseText.length) {
+    const typingInterval = window.setInterval(() => {
+      if (currentIndex < baseText.length) {
+        currentIndex += 1;
         setExportTypedText(baseText.substring(0, currentIndex));
-        currentIndex++;
       } else {
-        clearInterval(typingInterval);
-
-        dotsInterval = setInterval(() => {
-          setExportDots((prev) => {
-            if (prev === '') return '.';
-            if (prev === '.') return '..';
-            if (prev === '..') return '...';
-            return '';
-          });
-        }, 450);
+        window.clearInterval(typingInterval);
+        setExportDots(' ✓');
       }
     }, 45);
 
-    return () => {
-      clearInterval(typingInterval);
-      if (dotsInterval) clearInterval(dotsInterval);
-    };
+    return () => window.clearInterval(typingInterval);
   }, [language, ui.generating]);
 
   const handleDownloadCV = () => {
     playClickSound();
+    // Pozostawiam istniejący adres CV — warto okresowo podmieniać sam PDF na aktualną wersję.
     window.location.href =
       'https://www.dropbox.com/scl/fi/rqdd6ri8rnd9skg817k7t/CV_Katarzyna_Sta-czyk.pdf?rlkey=t3ijlht0qwzggpnz64owcvpw7&st=3365deps&dl=1';
   };
@@ -156,12 +171,12 @@ export function Hero({ language, playClickSound }: HeroProps) {
     playClickSound();
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
-  
-const handleRunProfile = () => {
-  playClickSound();
-  document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-};
-  
+
+  const handleRunProfile = () => {
+    playClickSound();
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-[100svh] pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
@@ -196,6 +211,30 @@ const handleRunProfile = () => {
               <span className="text-[var(--accent-blue)]">&lt;Developer /&gt;</span>{' '}
               {ui.roleText}
             </div>
+
+            {/* Zwięzłe podsumowanie doświadczenia i aktualnego kierunku rozwoju */}
+            <p className="mb-5 max-w-xl text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
+              {ui.introText}
+            </p>
+
+            {/* Aktualny projekt inżynierski */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.35 }}
+              className="mb-6 rounded-lg border border-[var(--accent-purple)]/40 bg-[var(--bg-secondary)] px-4 py-3 sm:px-5 sm:py-4"
+            >
+              <div className="mb-1 flex items-center gap-2 code-font text-[10px] uppercase tracking-wider text-[var(--accent-purple)] sm:text-xs">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-purple)]" />
+                {ui.focusLabel}
+              </div>
+              <div className="mb-1 code-font text-sm font-semibold text-[var(--text-primary)] sm:text-base">
+                {ui.focusTitle}
+              </div>
+              <p className="text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                {ui.focusDescription}
+              </p>
+            </motion.div>
 
             {/* Modules */}
             <div className="border-t border-[var(--border-default)] pt-6">
@@ -238,6 +277,7 @@ const handleRunProfile = () => {
               </div>
 
               <button
+                type="button"
                 onClick={handleDownloadCV}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-[var(--border-default)] text-[var(--text-primary)] rounded hover:bg-[var(--hover-overlay)] transition-all code-font text-sm"
               >
@@ -307,23 +347,25 @@ const handleRunProfile = () => {
               </div>
 
               {/* Buttons */}
-<div className="px-4 sm:px-6 pb-4 sm:pb-6 grid grid-cols-2 gap-2 sm:gap-3">
-  <button
-     onClick={handleRunProfile}
-    className="min-w-0 flex items-center justify-center gap-1.5 rounded-lg bg-[var(--accent-green)] px-2.5 py-2 text-xs sm:px-3 sm:py-2.5 sm:text-sm code-font text-white transition-all hover:opacity-85"
-  >
-    <Play className="h-3.5 w-3.5 shrink-0" />
-    <span className="truncate">{ui.runProfile}</span>
-  </button>
+              <div className="grid grid-cols-2 gap-2 px-4 pb-4 sm:gap-3 sm:px-6 sm:pb-6">
+                <button
+                  type="button"
+                  onClick={handleRunProfile}
+                  className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg bg-[var(--accent-green)] px-2.5 py-2 text-xs text-white transition-all hover:opacity-85 sm:px-3 sm:py-2.5 sm:text-sm code-font"
+                >
+                  <Play className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{ui.runProfile}</span>
+                </button>
 
-  <button
-    onClick={handleViewProjects}
-    className="min-w-0 flex items-center justify-center gap-1.5 rounded-lg bg-[var(--accent-blue)] px-2.5 py-2 text-xs sm:px-3 sm:py-2.5 sm:text-sm code-font text-white transition-all hover:opacity-85"
-  >
-    <FolderGit2 className="h-3.5 w-3.5 shrink-0" />
-    <span className="truncate">{ui.viewProjects}</span>
-  </button>
-</div>
+                <button
+                  type="button"
+                  onClick={handleViewProjects}
+                  className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg bg-[var(--accent-blue)] px-2.5 py-2 text-xs text-white transition-all hover:opacity-85 sm:px-3 sm:py-2.5 sm:text-sm code-font"
+                >
+                  <FolderGit2 className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{ui.viewProjects}</span>
+                </button>
+              </div>
             </div>
 
             {/* GitHub card */}
@@ -343,6 +385,7 @@ const handleRunProfile = () => {
 
                 <a
                   href="https://github.com/Avuii"
+                  aria-label="GitHub — Avuii"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playClickSound}
@@ -370,6 +413,7 @@ const handleRunProfile = () => {
 
                 <a
                   href="https://linkedin.com/in/katarzyna-stanczykk"
+                  aria-label="LinkedIn — Katarzyna Stańczyk"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playClickSound}
@@ -394,7 +438,7 @@ function highlightSyntax(line: string): string {
   const escaped = escapeHtml(line);
 
   return escaped.replace(
-    /(\/\/.*$)|\b(import|const|return|from)\b|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(Developer|Portfolio)\b|\b(name|role|passion)\b/g,
+    /(\/\/.*$)|\b(import|const|return|from)\b|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(Developer|Portfolio)\b|\b(name|role|experience|focus|stack)\b/g,
     (match, comment, keyword, stringLiteral, componentName, propName) => {
       if (comment) return `<span style="color: var(--syntax-comment)">${comment}</span>`;
       if (keyword) return `<span style="color: var(--syntax-keyword)">${keyword}</span>`;

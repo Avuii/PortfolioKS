@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Terminal, BriefcaseBusiness, GraduationCap, FolderGit2, Coffee } from 'lucide-react';
+import { Terminal, BriefcaseBusiness, GraduationCap, FolderGit2, Coffee, ExternalLink } from 'lucide-react';
 import profileImg from '@/imports/photo.jpg';
 
 interface AboutProps {
@@ -13,50 +13,73 @@ export function About({ language }: AboutProps) {
       operator: 'OPERATOR',
       role: 'ROLE',
       location: 'LOCATION',
+      specialization: 'SPECIALIZATION',
+      specializationValue: 'Programming & Algorithms',
       status: 'STATUS',
       open: 'AVAILABLE',
       terminalFile: 'user_profile.log',
       whoami: 'get-user',
-      missionCmd: 'cat mission.txt',
+      missionCmd: 'cat experience.log',
+      projectCmd: 'cat current_focus.md',
+      recentCmd: 'ls ~/selected-projects',
       whoamiText:
-        'Computer Science student at the University of Łódź and aspiring Full-Stack Developer focused on building practical software. I enjoy combining clean backend architecture, user-friendly interfaces, and problem-solving grounded in real-world needs.',
+        'I study Computer Science at the University of Łódź, specializing in Programming and Algorithms. I focus on C#/.NET and backend engineering, while creating full-stack applications that combine reliable APIs, relational databases and user-friendly interfaces.',
       missionText:
-        "I turn ideas, requirements, and data into maintainable software. Right now I'm growing through .NET internship work, academic projects in algorithms and machine learning, and hands-on full-stack development.",
-      focusLabel: 'Currently focused on',
+        'During my .NET Developer internship at De Heus (October 2025 – 2 July 2026), I worked on commercial business applications, internal tools, ERP integrations and SQL-based solutions. Today, I build on that experience through independent projects and my engineering thesis.',
+      currentProjectTitle: 'KSeF Manager',
+      currentProjectText:
+        "My engineering thesis: a web application for managing electronic invoices and integrating with Poland's National e-Invoicing System (KSeF). Current work focuses on the ASP.NET Core backend, database, authentication, authorization and API security.",
+      focusLabel: 'Main technologies',
       studies: 'STUDIES',
-      projects: 'PROJECTS',
-      experience: 'EXPERIENCE',
+      projects: 'REPOSITORIES',
+      experience: '.NET INTERNSHIP',
       caffeine: 'COFFEE',
-      studyValue: '3rd yr',
-      expValue: '1+ yr',
+      studyValue: '7th sem.',
+      expValue: '9 mo',
     },
     pl: {
       sectionTitle: '# O_mnie.system',
       operator: 'OPERATOR',
       role: 'ROLA',
       location: 'LOKALIZACJA',
+      specialization: 'SPECJALIZACJA',
+      specializationValue: 'Programowanie i Algorytmy',
       status: 'STATUS',
       open: 'DOSTĘPNA',
       terminalFile: 'profil_uzytkownika.log',
       whoami: 'get-user',
-      missionCmd: 'cat mission.txt',
+      missionCmd: 'cat doswiadczenie.log',
+      projectCmd: 'cat aktualny_projekt.md',
+      recentCmd: 'ls ~/wybrane-projekty',
       whoamiText:
-        'Jestem studentką Informatyki i rozwijam się jako Full-Stack Developer. Tworzę praktyczne oprogramowanie: od czystej architektury backendu po dopracowane interfejsy i rozwiązywanie realnych problemów.',
+        'Studiuję Informatykę na Uniwersytecie Łódzkim na specjalizacji Programowanie i Algorytmy. Koncentruję się na C#/.NET i backendzie, tworząc także aplikacje full-stack, w których łączę solidne API, relacyjne bazy danych i przemyślane interfejsy.',
       missionText:
-        'Zamieniam pomysły, wymagania i dane w utrzymywalne oprogramowanie. Rozwijam się poprzez staż w .NET oraz projekty z algorytmów i machine learningu — od prototypu do wdrożenia.',
-      focusLabel: 'Obecnie skupiam się na',
+        'Podczas stażu .NET Developer w De Heus (październik 2025 – 2 lipca 2026) pracowałam przy komercyjnych aplikacjach biznesowych, narzędziach wewnętrznych, integracjach ERP i rozwiązaniach opartych na SQL. Dziś rozwijam te umiejętności w projektach własnych i pracy inżynierskiej.',
+      currentProjectTitle: 'KSeF Manager',
+      currentProjectText:
+        'Moja praca inżynierska: aplikacja webowa do zarządzania fakturami elektronicznymi i integracji z Krajowym Systemem e-Faktur. Obecnie rozwijam backend ASP.NET Core, bazę danych, uwierzytelnianie, autoryzację oraz zabezpieczenia API.',
+      focusLabel: 'Główne technologie',
       studies: 'STUDIA',
-      projects: 'PROJEKTY',
-      experience: 'DOŚWIADCZENIE',
+      projects: 'REPOZYTORIA',
+      experience: 'STAŻ .NET',
       caffeine: 'KAWA',
-      studyValue: '3 rok',
-      expValue: '1+ rok',
+      studyValue: '7. sem.',
+      expValue: '9 mies.',
     },
   }[language];
 
+  // Links to selected public repositories; KSeF Manager is presented as an ongoing thesis project.
+  const selectedProjects = [
+    { name: 'NearEarth', url: 'https://github.com/Avuii/NearEarth' },
+    { name: 'TrackMyCV', url: 'https://github.com/Avuii/TrackMyCV' },
+    { name: 'StockPriceBot', url: 'https://github.com/Avuii/StockPriceBot' },
+  ];
+
+  const mainTechnologies = ['C# / .NET', 'ASP.NET Core', 'SQL', 'React / Angular'];
+
   const stats = [
     { icon: GraduationCap, label: ui.studies, value: ui.studyValue, color: 'var(--accent-blue)' },
-    { icon: FolderGit2, label: ui.projects, value: '10+', color: 'var(--accent-purple)' },
+    { icon: FolderGit2, label: ui.projects, value: '30+', color: 'var(--accent-purple)' },
     { icon: BriefcaseBusiness, label: ui.experience, value: ui.expValue, color: 'var(--accent-blue)' },
     { icon: Coffee, label: ui.caffeine, value: '∞ ml', color: 'var(--accent-purple)' },
   ];
@@ -104,8 +127,9 @@ export function About({ language }: AboutProps) {
             {/* Profile info */}
             <div className="space-y-2">
               <InfoRow label={ui.operator} value="Katarzyna Stańczyk" valueClassName="text-[var(--accent-blue)]" />
-              <InfoRow label={ui.role} value="FULL_STACK_DEVELOPER" valueClassName="text-[var(--accent-purple)]" />
+              <InfoRow label={ui.role} value=".NET / FULL_STACK_DEVELOPER" valueClassName="text-[var(--accent-purple)]" />
               <InfoRow label={ui.location} value="Łódź, Poland" valueClassName="text-[var(--text-primary)]" />
+              <InfoRow label={ui.specialization} value={ui.specializationValue} valueClassName="text-[var(--text-primary)]" />
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-3">
                 <span className="text-xs sm:text-sm text-[var(--text-secondary)] code-font">
@@ -157,14 +181,53 @@ export function About({ language }: AboutProps) {
                 </p>
               </div>
 
-              {/* Focus line */}
-              <div className="pl-4 space-y-2 text-[var(--text-primary)] border-l border-[var(--border-default)] break-words">
-                <div>
-                  {ui.focusLabel}:{' '}
-                  <span className="text-[var(--accent-blue)]">.NET</span>,{' '}
-                  <span className="text-[var(--accent-blue)]">Full-Stack</span>,{' '}
-                  <span className="text-[var(--accent-blue)]">Algorithms</span>,{' '}
-                  <span className="text-[var(--accent-blue)]">ML / AI</span>.
+              {/* Engineering thesis: active work, not a finished product */}
+              <div>
+                <div className="flex items-center gap-2 text-[var(--accent-blue)] mb-2">
+                  <span className="shrink-0">➜</span>
+                  <span className="break-words">{ui.projectCmd}</span>
+                </div>
+                <div className="pl-4 border-l border-[var(--border-default)] break-words">
+                  <p className="mb-1 text-[var(--accent-purple)] font-semibold">{ui.currentProjectTitle}</p>
+                  <p className="text-[var(--text-primary)] leading-relaxed">{ui.currentProjectText}</p>
+                </div>
+              </div>
+
+              {/* Technologies */}
+              <div className="pl-4 border-l border-[var(--border-default)]">
+                <p className="mb-2 text-[var(--text-secondary)]">{ui.focusLabel}:</p>
+                <div className="flex flex-wrap gap-2">
+                  {mainTechnologies.map((technology) => (
+                    <span
+                      key={technology}
+                      className="rounded border border-[var(--accent-blue)]/50 bg-[var(--bg-tertiary)] px-2 py-1 text-[var(--accent-blue)]"
+                    >
+                      {technology}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Selected public projects */}
+              <div>
+                <div className="flex items-center gap-2 text-[var(--accent-blue)] mb-2">
+                  <span className="shrink-0">➜</span>
+                  <span className="break-words">{ui.recentCmd}</span>
+                </div>
+                <div className="flex flex-wrap gap-2 pl-4 border-l border-[var(--border-default)]">
+                  {selectedProjects.map((project) => (
+                    <a
+                      key={project.name}
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded border border-[var(--border-default)] px-2 py-1.5 text-[var(--text-primary)] transition-colors hover:border-[var(--accent-purple)] hover:text-[var(--accent-purple)]"
+                      aria-label={`${project.name} — GitHub`}
+                    >
+                      {project.name}
+                      <ExternalLink className="h-3 w-3 shrink-0" />
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

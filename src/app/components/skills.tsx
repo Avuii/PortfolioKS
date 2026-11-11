@@ -1,15 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView } from 'motion/react';
 import {
+  Bot,
   BrainCircuit,
+  Building2,
   Code2,
   Database,
+  FlaskConical,
+  GitBranch,
+  Laptop2,
+  Languages,
   Layers3,
   MonitorSmartphone,
   Palette,
   Settings,
   ShieldCheck,
-  AppWindow,
+  Terminal,
   type LucideIcon
 } from 'lucide-react';
 
@@ -23,12 +29,18 @@ type UsedInItem = {
 };
 
 type ModuleKey =
+  | 'languages'
   | 'backend'
-  | 'frontend'
-  | 'ml'
-  | 'databases'
-  | 'desktop'
   | 'security'
+  | 'frontend'
+  | 'databases'
+  | 'ml'
+  | 'testing'
+  | 'devops'
+  | 'enterprise'
+  | 'scripting'
+  | 'aiTools'
+  | 'ides'
   | 'algorithms'
   | 'creative';
 
@@ -46,133 +58,87 @@ type SkillModule = {
   description: { en: string; pl: string };
 };
 
+// Public repositories linked from the skills panel.
+// Internal work and the private engineering thesis do not have invented GitHub links.
 const projects = {
-  nearEarth: {
-    label: { en: 'NearEarth', pl: 'NearEarth' },
-    href: 'https://github.com/Avuii/NearEarth'
-  },
-  eurpln: {
-    label: { en: 'EUR/PLN Tracker', pl: 'EUR/PLN Tracker' },
-    href: 'https://github.com/Avuii/EUR-PLN-Tracker'
-  },
-  careQuest: {
-    label: { en: 'CareQuest', pl: 'CareQuest' },
-    href: 'https://github.com/Avuii/CareQuest'
-  },
-  parkingFlow: {
-    label: { en: 'Parking Flow', pl: 'Parking Flow' },
-    href: 'https://github.com/Avuii/ParkingFlow'
-  },
-  reactCalculator: {
-    label: { en: 'React Scientific Calculator', pl: 'React Scientific Calculator' },
-    href: 'https://github.com/Avuii/react-scientific-calculator'
-  },
-  mediaRent: {
-    label: { en: 'MediaRent', pl: 'MediaRent' },
-    href: 'https://github.com/Avuii/MediaRent'
-  },
-  fractalAnimation: {
-    label: { en: 'Qt Fractal Animation', pl: 'Qt Fractal Animation' },
-    href: 'https://github.com/Avuii/FractalAnimation'
-  },
-  qtCalculator: {
-    label: { en: 'Qt Scientific Calculator', pl: 'Qt Scientific Calculator' },
-    href: 'https://github.com/Avuii/ScientificCalculator'
-  },
-  appliedCrypto: {
-    label: { en: 'Applied Cryptography Lab', pl: 'Applied Cryptography Lab' },
-    href: 'https://github.com/Avuii/applied-cryptography-lab'
-  },
-  documind: {
-    label: { en: 'DocuMind-AI', pl: 'DocuMind-AI' },
-    href: 'https://github.com/Avuii/DocuMind-AI'
-  },
-  conway: {
-    label: { en: "Conway's Game of Life", pl: 'Conway Game of Life' },
-    href: 'https://github.com/Avuii/ConwayGameOfLife'
-  },
-  social: {
-    label: { en: 'Social Networks', pl: 'Social Networks' },
-    href: 'https://github.com/Avuii/Social-Networks'
-  },
-  banknote: {
-    label: { en: 'Banknote Authentication', pl: 'Banknote Authentication' },
-    href: 'https://github.com/Avuii/Banknote-Authentication'
-  },
-  iris: {
-    label: { en: 'IRIS (PyTorch)', pl: 'IRIS (PyTorch)' },
-    href: 'https://github.com/Avuii/IRIS'
-  },
-  som: {
-    label: { en: 'SOM WTA/WTM', pl: 'SOM WTA/WTM' },
-    href: 'https://github.com/Avuii/SOM-WTA-WTM-PyTorch'
-  },
-  fourier: {
-    label: { en: 'Fourier Transform', pl: 'Transformata Fouriera' },
-    href: 'https://github.com/Avuii/Fourier-Transform-Signal-Processing'
-  },
-  fuzzy: {
-    label: { en: 'Fuzzy Logic', pl: 'Logika rozmyta' },
-    href: 'https://github.com/Avuii/Fuzzy-Logic'
-  },
-  traffic: {
-    label: { en: 'Urban Traffic Simulator', pl: 'Urban Traffic Simulator' },
-    href: 'https://github.com/Avuii/Urban-Traffic-Simulator'
-  },
-  grib: {
-    label: { en: 'GRIB1 Decoder', pl: 'Dekoder GRIB1' },
-    href: 'https://github.com/Avuii/GRIB1-388-Decoder'
-  },
-  lz77: {
-    label: { en: 'LZ77', pl: 'LZ77' },
-    href: 'https://github.com/Avuii/LZ77'
-  },
-  huffman: {
-    label: { en: 'Huffman Compression', pl: 'Kompresja Huffmana' },
-    href: 'https://github.com/Avuii/Huffman-text-compression'
-  },
-  plane: {
-    label: { en: 'Plane & Wind Simulator', pl: 'Plane & Wind Simulator' },
-    href: 'https://github.com/Avuii/PlaneAndWindSimulator'
-  },
-  snow: {
-    label: { en: 'SnowGlobe', pl: 'SnowGlobe' },
-    href: 'https://github.com/Avuii/SnowGlobe'
-  },
-  coffecrime: {
-    label: { en: 'CoffeCrime', pl: 'CoffeCrime' },
-    href: 'https://github.com/Avuii/CoffeCrime'
-  },
-  xor: {
-    label: { en: 'XOR Classification', pl: 'Klasyfikacja XOR' },
-    href: 'https://github.com/Avuii/XOR-Classification-with-MLP'
-  },
-  ac: {
-    label: { en: 'AC Letter Recognition', pl: 'Rozpoznawanie liter A/C' },
-    href: 'https://github.com/Avuii/AC-letter-recognition'
-  },
-  demon: {
-    label: { en: 'DemonCreutz Ising2D', pl: 'DemonCreutz Ising2D' },
-    href: 'https://github.com/Avuii/DemonCreutz-Ising2D'
-  },
-  algorithmsRepo: {
-    label: { en: 'Algorithms', pl: 'Algorytmy' },
-    href: 'https://github.com/Avuii/Algorithms'
-  },
-  portfolioKs: {
-    label: { en: 'PortfolioKS', pl: 'PortfolioKS' },
-    href: 'https://github.com/Avuii/PortfolioKS'
-  }
+  nearEarth: { label: { en: 'NearEarth', pl: 'NearEarth' }, href: 'https://github.com/Avuii/NearEarth' },
+  trackMyCv: { label: { en: 'TrackMyCV', pl: 'TrackMyCV' }, href: 'https://github.com/Avuii/TrackMyCV' },
+  stockPriceBot: { label: { en: 'StockPriceBot', pl: 'StockPriceBot' }, href: 'https://github.com/Avuii/StockPriceBot' },
+  parkingFlow: { label: { en: 'ParkingFlow', pl: 'ParkingFlow' }, href: 'https://github.com/Avuii/ParkingFlow' },
+  reactCalculator: { label: { en: 'React Scientific Calculator', pl: 'React Scientific Calculator' }, href: 'https://github.com/Avuii/react-scientific-calculator' },
+  mediaRent: { label: { en: 'MediaRent', pl: 'MediaRent' }, href: 'https://github.com/Avuii/MediaRent' },
+  fractalAnimation: { label: { en: 'FractalAnimation', pl: 'FractalAnimation' }, href: 'https://github.com/Avuii/FractalAnimation' },
+  eurpln: { label: { en: 'EUR/PLN Tracker', pl: 'EUR/PLN Tracker' }, href: 'https://github.com/Avuii/EUR-PLN-Tracker' },
+  careQuest: { label: { en: 'CareQuest', pl: 'CareQuest' }, href: 'https://github.com/Avuii/CareQuest' },
+  documind: { label: { en: 'DocuMind-AI', pl: 'DocuMind-AI' }, href: 'https://github.com/Avuii/DocuMind-AI' },
+  conway: { label: { en: "Conway's Game of Life", pl: 'Conway Game of Life' }, href: 'https://github.com/Avuii/ConowayGameOfLife' },
+  social: { label: { en: 'Social Networks', pl: 'Social Networks' }, href: 'https://github.com/Avuii/Social-Networks' },
+  banknote: { label: { en: 'Banknote Authentication', pl: 'Banknote Authentication' }, href: 'https://github.com/Avuii/Banknote-Authentication' },
+  iris: { label: { en: 'IRIS (PyTorch)', pl: 'IRIS (PyTorch)' }, href: 'https://github.com/Avuii/IRIS' },
+  som: { label: { en: 'SOM WTA/WTM', pl: 'SOM WTA/WTM' }, href: 'https://github.com/Avuii/SOM-WTA-WTM-PyTorch' },
+  fourier: { label: { en: 'Fourier Transform', pl: 'Transformata Fouriera' }, href: 'https://github.com/Avuii/Fourier-Transform-Signal-Processing' },
+  fuzzy: { label: { en: 'Fuzzy Logic', pl: 'Logika rozmyta' }, href: 'https://github.com/Avuii/Fuzzy-Logic' },
+  traffic: { label: { en: 'Urban Traffic Simulator', pl: 'Urban Traffic Simulator' }, href: 'https://github.com/Avuii/Urban-Traffic-Simulator' },
+  grib: { label: { en: 'GRIB1 Decoder', pl: 'Dekoder GRIB1' }, href: 'https://github.com/Avuii/GRIB1-388-Decoder' },
+  lz77: { label: { en: 'LZ77', pl: 'LZ77' }, href: 'https://github.com/Avuii/LZ77' },
+  huffman: { label: { en: 'Huffman Compression', pl: 'Kompresja Huffmana' }, href: 'https://github.com/Avuii/Huffman-text-compression' },
+  plane: { label: { en: 'Plane & Wind Simulator', pl: 'Plane & Wind Simulator' }, href: 'https://github.com/Avuii/PlaneAndWindSimulator' },
+  snow: { label: { en: 'SnowGlobe', pl: 'SnowGlobe' }, href: 'https://github.com/Avuii/SnowGlobe' },
+  coffecrime: { label: { en: 'CoffeCrime', pl: 'CoffeCrime' }, href: 'https://github.com/Avuii/CoffeCrime' },
+  xor: { label: { en: 'XOR Classification', pl: 'Klasyfikacja XOR' }, href: 'https://github.com/Avuii/XOR-Classification-with-MLP' },
+  ac: { label: { en: 'AC Letter Recognition', pl: 'Rozpoznawanie liter A/C' }, href: 'https://github.com/Avuii/AC-letter-recognition' },
+  demon: { label: { en: 'DemonCreutz Ising2D', pl: 'DemonCreutz Ising2D' }, href: 'https://github.com/Avuii/DemonCreutz-Ising2D' },
+  algorithmsRepo: { label: { en: 'Algorithms', pl: 'Algorytmy' }, href: 'https://github.com/Avuii/Algorithms' },
+  portfolioKs: { label: { en: 'PortfolioKS', pl: 'PortfolioKS' }, href: 'https://github.com/Avuii/PortfolioKS' },
+  portfolioOld2: { label: { en: 'KatarzynaStanczyk', pl: 'KatarzynaStanczyk' }, href: 'https://github.com/Avuii/KatarzynaStanczyk' },
+  portfolioOld1: { label: { en: 'portfolio', pl: 'portfolio' }, href: 'https://github.com/Avuii/portfolio' }
 } as const;
 
 const deheusWork: UsedInItem = {
-  label: { en: 'De Heus internal apps', pl: 'Aplikacje wewnętrzne De Heus' }
+  label: { en: 'De Heus · internal business apps', pl: 'De Heus · aplikacje biznesowe' }
 };
 
+const ksefThesis: UsedInItem = {
+  label: { en: 'KSeF Manager · engineering thesis', pl: 'KSeF Manager · praca inżynierska' }
+};
+
+const devWorkflow: UsedInItem = {
+  label: { en: 'Daily development workflow', pl: 'Codzienna praca programistyczna' }
+};
+
+const universityProjects: UsedInItem = {
+  label: { en: 'University & portfolio projects', pl: 'Projekty uczelniane i portfolio' }
+};
+
+// The ratings retain the original terminal scan aesthetic and are editable self-assessments.
 const modules: SkillModule[] = [
   {
+    key: 'languages',
+    label: { en: 'Programming Languages', pl: 'Języki programowania' },
+    shortLabel: { en: 'Languages', pl: 'Języki' },
+    score: 9,
+    icon: Languages,
+    colorClass: 'text-[var(--accent-indigo)]',
+    glowClass: 'shadow-[0_0_24px_rgba(124,134,255,0.18)]',
+    accentClass: 'border-[var(--accent-indigo)]/50',
+    items: [
+      'C#',
+      'C++',
+      'Python',
+      'TypeScript',
+      'JavaScript',
+      'PHP',
+      'Pascal',
+    ],
+    usedIn: [projects.nearEarth, projects.mediaRent, projects.fractalAnimation, projects.reactCalculator, projects.trackMyCv],
+    description: {
+      en: 'I work across typed backend and frontend languages as well as C++ algorithmic programs, Python workflows, and university projects.',
+      pl: 'Pracuję z językami typowanymi po stronie backendu i frontendu, a także z C++ w projektach algorytmicznych i Pythonem w analizie danych.'
+    }
+  },
+  {
     key: 'backend',
-    label: { en: 'Backend & APIs', pl: 'Backend i API' },
+    label: { en: 'Backend & Frameworks', pl: 'Backend i frameworki' },
     shortLabel: { en: 'Backend', pl: 'Backend' },
     score: 10,
     icon: Layers3,
@@ -180,30 +146,49 @@ const modules: SkillModule[] = [
     glowClass: 'shadow-[0_0_24px_rgba(57,197,207,0.18)]',
     accentClass: 'border-[var(--accent-cyan)]/50',
     items: [
-      'C#',
       '.NET',
       'ASP.NET Core',
       'Entity Framework Core',
+      'LINQ',
       'REST API',
-      'Swagger / OpenAPI',
-      'SignalR',
-      'FastAPI'
+      'Blazor',
+      'Node.js',
+      'FastAPI',
+      'WPF',
+      'Qt',
+      'ONNX Runtime (.NET)',
     ],
-    usedIn: [
-      projects.parkingFlow,
-      projects.documind,
-      projects.eurpln,
-      projects.conway,
-      deheusWork
-    ],
+    usedIn: [projects.nearEarth, projects.trackMyCv, projects.parkingFlow, projects.documind, projects.conway, deheusWork],
     description: {
-      en: 'I build APIs, backend logic, real-time features, DTO-based data flows, service integrations and business-oriented application backends in .NET and Python.',
-      pl: 'Tworzę API, logikę backendową, funkcje czasu rzeczywistego, przepływy danych oparte o DTO, integracje usług oraz backendy aplikacji biznesowych w .NET i Pythonie.'
+      en: 'I design .NET services, REST APIs, data models, and enterprise application logic. I also build desktop tools and integrate external systems.',
+      pl: 'Projektuję usługi .NET, REST API, modele danych i logikę aplikacji biznesowych. Tworzę także narzędzia desktopowe i integruję systemy zewnętrzne.'
+    }
+  },
+  {
+    key: 'security',
+    label: { en: 'Authentication & API Security', pl: 'Uwierzytelnianie i bezpieczeństwo API' },
+    shortLabel: { en: 'API Security', pl: 'Bezpieczeństwo' },
+    score: 8,
+    icon: ShieldCheck,
+    colorClass: 'text-[var(--accent-blue)]',
+    glowClass: 'shadow-[0_0_24px_rgba(88,166,255,0.18)]',
+    accentClass: 'border-[var(--accent-blue)]/50',
+    items: [
+      'ASP.NET Identity',
+      'Cookie Authentication',
+      'Authorization',
+      'CSRF / Antiforgery',
+      'Session Management',
+    ],
+    usedIn: [ksefThesis],
+    description: {
+      en: 'I implement and test authentication, authorization, CSRF protection, and session-based access to protected API endpoints in ASP.NET Core.',
+      pl: 'Implementuję i testuję uwierzytelnianie, autoryzację, ochronę CSRF oraz dostęp do chronionych endpointów API z użyciem sesji w ASP.NET Core.'
     }
   },
   {
     key: 'frontend',
-    label: { en: 'Frontend & UI', pl: 'Frontend i UI' },
+    label: { en: 'Frontend', pl: 'Frontend' },
     shortLabel: { en: 'Frontend', pl: 'Frontend' },
     score: 9,
     icon: MonitorSmartphone,
@@ -212,64 +197,18 @@ const modules: SkillModule[] = [
     accentClass: 'border-[var(--accent-pink)]/50',
     items: [
       'React',
-      'TypeScript',
       'Angular',
-      'Blazor',
-      'Vite',
+      'HTML5',
+      'CSS3',
       'Tailwind CSS',
-      'HTML5 / CSS3',
-      'Responsive UI'
+      'Bootstrap',
+      'npm',
+      'Vite',
     ],
-    usedIn: [
-      projects.nearEarth,
-      projects.eurpln,
-      projects.careQuest,
-      projects.parkingFlow,
-      projects.reactCalculator,
-      projects.portfolioKs,
-      deheusWork
-    ],
+    usedIn: [projects.nearEarth, projects.trackMyCv, projects.parkingFlow, projects.careQuest, projects.reactCalculator, projects.portfolioKs],
     description: {
-      en: 'I create responsive interfaces, dashboards, portfolio sections and interactive app views with a focus on clarity, interaction and visual structure.',
-      pl: 'Tworzę responsywne interfejsy, dashboardy, sekcje portfolio oraz interaktywne widoki aplikacji z naciskiem na czytelność, interakcję i dobrą strukturę wizualną.'
-    }
-  },
-  {
-    key: 'ml',
-    label: { en: 'Data / ML / Analysis', pl: 'Data / ML / Analiza' },
-    shortLabel: { en: 'Data / ML', pl: 'Data / ML' },
-    score: 8,
-    icon: BrainCircuit,
-    colorClass: 'text-[var(--accent-orange)]',
-    glowClass: 'shadow-[0_0_24px_rgba(249,115,22,0.18)]',
-    accentClass: 'border-[var(--accent-orange)]/50',
-    items: [
-      'Python',
-      'NumPy',
-      'Pandas',
-      'Scikit-learn',
-      'PyTorch',
-      'statsmodels',
-      'Time Series',
-      'Forecasting',
-      'NBP API',
-      'NetworkX'
-    ],
-    usedIn: [
-      projects.eurpln,
-      projects.nearEarth,
-      projects.banknote,
-      projects.iris,
-      projects.som,
-      projects.social,
-      projects.fourier,
-      projects.xor,
-      projects.ac,
-      projects.plane
-    ],
-    description: {
-      en: 'I work on forecasting, classification, neural networks, graph analysis and experiment-driven data workflows used in academic and portfolio projects.',
-      pl: 'Pracuję nad prognozowaniem, klasyfikacją, sieciami neuronowymi, analizą grafów oraz eksperymentalnymi workflow danych w projektach uczelnianych i portfolio.'
+      en: 'I build responsive interfaces, interactive dashboards, reusable components, and usable application flows with React and Angular.',
+      pl: 'Tworzę responsywne interfejsy, interaktywne dashboardy, komponenty wielokrotnego użytku oraz czytelne przepływy użytkownika w React i Angularze.'
     }
   },
   {
@@ -285,88 +224,181 @@ const modules: SkillModule[] = [
       'SQL',
       'Microsoft SQL Server',
       'PostgreSQL',
-      'Entity Modeling',
-      'Queries',
-      'Data Persistence'
+      'Oracle SQL',
     ],
-    usedIn: [
-      projects.parkingFlow,
-      projects.documind,
-      projects.conway,
-      deheusWork
-    ],
+    usedIn: [projects.trackMyCv, projects.documind, deheusWork, ksefThesis],
     description: {
-      en: 'I use relational databases for persistence, querying, entity modeling and application data flows in web systems and internal tools.',
-      pl: 'Korzystam z relacyjnych baz danych do persystencji, zapytań, modelowania encji oraz przepływu danych w systemach webowych i narzędziach wewnętrznych.'
+      en: 'I work with relational databases, data modeling, SQL queries, persistence, and integrations between business systems and application backends.',
+      pl: 'Pracuję z relacyjnymi bazami danych, modelowaniem danych, zapytaniami SQL, persystencją oraz integracją aplikacji z systemami biznesowymi.'
     }
   },
   {
-    key: 'desktop',
-    label: { en: 'Desktop / Qt / C++', pl: 'Desktop / Qt / C++' },
-    shortLabel: { en: 'Qt / Desktop', pl: 'Qt / Desktop' },
+    key: 'ml',
+    label: { en: 'Data Science & AI/ML', pl: 'Data Science i AI/ML' },
+    shortLabel: { en: 'AI / ML', pl: 'AI / ML' },
     score: 8,
-    icon: AppWindow,
+    icon: BrainCircuit,
+    colorClass: 'text-[var(--accent-orange)]',
+    glowClass: 'shadow-[0_0_24px_rgba(249,115,22,0.18)]',
+    accentClass: 'border-[var(--accent-orange)]/50',
+    items: [
+      'NumPy',
+      'Pandas',
+      'Matplotlib',
+      'PyTorch',
+      'NetworkX',
+      'scikit-learn',
+      'statsmodels',
+      'PaddleOCR',
+      'PaddlePaddle',
+      'Tesseract OCR',
+      'PyMuPDF',
+      'Llama',
+      'Ollama',
+    ],
+    usedIn: [projects.eurpln, projects.documind, projects.banknote, projects.iris, projects.som, projects.social, projects.xor],
+    description: {
+      en: 'I explore time-series forecasting, machine learning, document processing, OCR, language models, and graph analysis in practical and academic projects.',
+      pl: 'Zajmuję się prognozowaniem szeregów czasowych, uczeniem maszynowym, przetwarzaniem dokumentów, OCR, modelami językowymi i analizą grafów.'
+    }
+  },
+  {
+    key: 'testing',
+    label: { en: 'Testing & API Tools', pl: 'Testowanie i narzędzia API' },
+    shortLabel: { en: 'Testing', pl: 'Testowanie' },
+    score: 8,
+    icon: FlaskConical,
+    colorClass: 'text-[var(--accent-green)]',
+    glowClass: 'shadow-[0_0_24px_rgba(63,185,80,0.18)]',
+    accentClass: 'border-[var(--accent-green)]/50',
+    items: [
+      'Postman',
+      'Swagger / OpenAPI',
+      'Unit Testing',
+      'Integration Testing',
+    ],
+    usedIn: [ksefThesis, projects.nearEarth],
+    description: {
+      en: 'I verify REST endpoints, authentication flows, API contracts, and application behavior with API clients and automated tests.',
+      pl: 'Weryfikuję endpointy REST, przebiegi uwierzytelniania, kontrakty API i zachowanie aplikacji przy użyciu klientów API oraz testów automatycznych.'
+    }
+  },
+  {
+    key: 'devops',
+    label: { en: 'DevOps, Workflows & CI/CD', pl: 'DevOps, workflow i CI/CD' },
+    shortLabel: { en: 'DevOps', pl: 'DevOps' },
+    score: 8,
+    icon: GitBranch,
+    colorClass: 'text-[var(--accent-cyan)]',
+    glowClass: 'shadow-[0_0_24px_rgba(57,197,207,0.18)]',
+    accentClass: 'border-[var(--accent-cyan)]/50',
+    items: [
+      'Git',
+      'GitHub',
+      'GitHub Actions',
+      'Bitbucket',
+      'Forgejo',
+      'Docker',
+      'Docker Compose',
+      'Jira',
+    ],
+    usedIn: [projects.portfolioKs, ksefThesis, deheusWork, projects.nearEarth],
+    description: {
+      en: 'I use version control, pull-request workflows, Docker environments, CI/CD automation, and issue tracking to organize development.',
+      pl: 'Korzystam z kontroli wersji, przeglądów zmian, środowisk Docker, automatyzacji CI/CD i narzędzi do zarządzania zadaniami.'
+    }
+  },
+  {
+    key: 'enterprise',
+    label: { en: 'Enterprise Systems & ERP', pl: 'Systemy biznesowe i ERP' },
+    shortLabel: { en: 'Enterprise', pl: 'ERP' },
+    score: 8,
+    icon: Building2,
     colorClass: 'text-[var(--accent-purple)]',
     glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
     accentClass: 'border-[var(--accent-purple)]/50',
     items: [
-      'C++',
-      'Qt Widgets',
-      'Desktop Apps',
-      'Event-driven UI',
-      'Signals & Slots',
-      'Fractals',
-      'Scientific Tools',
-      'Rental Management UI'
+      'Comarch ERP XL',
+      'ERP Extensions',
+      'Comarch Hydra',
     ],
-    usedIn: [
-      projects.mediaRent,
-      projects.fractalAnimation,
-      projects.qtCalculator,
-      projects.traffic,
-      projects.grib,
-      projects.lz77,
-      projects.huffman
-    ],
+    usedIn: [deheusWork],
     description: {
-      en: 'I build desktop applications in C++ and Qt, including management tools, scientific calculators, fractal animation and event-driven interfaces.',
-      pl: 'Tworzę aplikacje desktopowe w C++ i Qt, w tym narzędzia zarządzania, kalkulatory naukowe, animacje fraktali oraz interfejsy oparte o zdarzenia.'
+      en: 'During my De Heus internship, I worked on internal business solutions and ERP-related functionality, including extensions and data integration.',
+      pl: 'Podczas stażu w De Heus pracowałam nad aplikacjami wewnętrznymi i funkcjonalnościami ERP, w tym rozszerzeniami oraz integracją danych.'
     }
   },
   {
-    key: 'security',
-    label: { en: 'Cybersecurity Foundations', pl: 'Podstawy cyberbezpieczeństwa' },
-    shortLabel: { en: 'Security', pl: 'Security' },
-    score: 7,
-    icon: ShieldCheck,
-    colorClass: 'text-[var(--accent-red)]',
-    glowClass: 'shadow-[0_0_24px_rgba(248,81,73,0.18)]',
-    accentClass: 'border-[var(--accent-red)]/50',
+    key: 'scripting',
+    label: { en: 'Scripting & Automation', pl: 'Skrypty i automatyzacja' },
+    shortLabel: { en: 'Scripting', pl: 'Skrypty' },
+    score: 8,
+    icon: Terminal,
+    colorClass: 'text-[var(--accent-orange)]',
+    glowClass: 'shadow-[0_0_24px_rgba(249,115,22,0.18)]',
+    accentClass: 'border-[var(--accent-orange)]/50',
     items: [
-      'Cryptography',
-      'Data Protection',
-      'Hashing',
-      'Symmetric Encryption',
-      'Asymmetric Encryption',
-      'Digital Signatures',
-      'Access Control',
-      'IAM Interest',
-      'Secure Software Mindset'
+      'PowerShell',
+      'Bash',
+      'Batch',
+      'Linux',
     ],
-    usedIn: [
-      projects.appliedCrypto,
-      projects.documind,
-      projects.nearEarth,
-      deheusWork
-    ],
+    usedIn: [projects.portfolioKs, ksefThesis, universityProjects],
     description: {
-      en: 'I am developing a security-oriented mindset through cryptography, data protection, access control and IAM-related topics, while using my developer background to understand application security from the inside.',
-      pl: 'Rozwijam security mindset przez kryptografię, ochronę danych, kontrolę dostępu i tematy związane z IAM, wykorzystując doświadczenie developerskie do rozumienia bezpieczeństwa aplikacji od środka.'
+      en: 'I use shell scripting and command-line tooling to automate repetitive tasks, work with projects, and manage development environments.',
+      pl: 'Wykorzystuję skrypty powłoki i narzędzia wiersza poleceń do automatyzacji powtarzalnych zadań oraz pracy ze środowiskami programistycznymi.'
+    }
+  },
+  {
+    key: 'aiTools',
+    label: { en: 'AI Development Tools', pl: 'Narzędzia AI w programowaniu' },
+    shortLabel: { en: 'AI Tools', pl: 'Narzędzia AI' },
+    score: 8,
+    icon: Bot,
+    colorClass: 'text-[var(--accent-purple)]',
+    glowClass: 'shadow-[0_0_24px_rgba(188,140,255,0.18)]',
+    accentClass: 'border-[var(--accent-purple)]/50',
+    items: [
+      'ChatGPT',
+      'OpenAI Codex',
+      'Claude',
+      'Claude Code',
+      'Gemini',
+      'GitHub Copilot',
+      'Cursor',
+    ],
+    usedIn: [devWorkflow],
+    description: {
+      en: 'I use AI-assisted development tools to support code exploration, research, prototyping, and review, while verifying generated output.',
+      pl: 'Korzystam z narzędzi AI wspierających analizę kodu, research, prototypowanie i przeglądy, weryfikując wygenerowane rozwiązania.'
+    }
+  },
+  {
+    key: 'ides',
+    label: { en: 'IDEs & Development Tools', pl: 'IDE i narzędzia programistyczne' },
+    shortLabel: { en: 'IDEs', pl: 'IDE' },
+    score: 9,
+    icon: Laptop2,
+    colorClass: 'text-[var(--accent-blue)]',
+    glowClass: 'shadow-[0_0_24px_rgba(88,166,255,0.18)]',
+    accentClass: 'border-[var(--accent-blue)]/50',
+    items: [
+      'Visual Studio',
+      'Visual Studio Code',
+      'JetBrains Rider',
+      'PyCharm',
+      'CLion',
+      'LaTeX',
+    ],
+    usedIn: [universityProjects, deheusWork],
+    description: {
+      en: 'I work with IDEs for .NET, C++, Python and frontend development, and I use LaTeX for technical and academic documents.',
+      pl: 'Pracuję w środowiskach IDE dla .NET, C++, Pythona i frontendu oraz używam LaTeX-a do dokumentacji technicznej i akademickiej.'
     }
   },
   {
     key: 'algorithms',
-    label: { en: 'Algorithms', pl: 'Algorytmy' },
+    label: { en: 'Algorithms & Computer Science', pl: 'Algorytmy i informatyka' },
     shortLabel: { en: 'Algorithms', pl: 'Algorytmy' },
     score: 8,
     icon: Code2,
@@ -380,26 +412,19 @@ const modules: SkillModule[] = [
       'Compression Algorithms',
       'Signal Processing',
       'Parsing / Binary Formats',
-      'CLI Applications'
+      'CLI Applications',
+      'Fractals & Simulation',
     ],
-    usedIn: [
-      projects.algorithmsRepo,
-      projects.grib,
-      projects.lz77,
-      projects.huffman,
-      projects.fourier,
-      projects.plane,
-      projects.fuzzy
-    ],
+    usedIn: [projects.algorithmsRepo, projects.grib, projects.lz77, projects.huffman, projects.fourier, projects.plane, projects.fractalAnimation, projects.mediaRent, projects.traffic],
     description: {
-      en: 'I build algorithmic and systems-oriented projects in C++, including compression, signal processing, simulation and work with structured binary data.',
-      pl: 'Tworzę projekty algorytmiczne i systemowe w C++, obejmujące kompresję, przetwarzanie sygnałów, symulacje oraz pracę ze strukturalnymi danymi binarnymi.'
+      en: 'I develop algorithmic projects in C++, from data structures and compression to simulation, signal processing, and binary data formats.',
+      pl: 'Tworzę projekty algorytmiczne w C++ — od struktur danych i kompresji po symulacje, przetwarzanie sygnałów i formaty binarne.'
     }
   },
   {
     key: 'creative',
-    label: { en: 'Creative / Design / 3D', pl: 'Creative / Design / 3D' },
-    shortLabel: { en: 'Creative', pl: 'Creative' },
+    label: { en: 'Design, 3D & Game Development', pl: 'Design, 3D i tworzenie gier' },
+    shortLabel: { en: 'Design / 3D', pl: 'Design / 3D' },
     score: 7,
     icon: Palette,
     colorClass: 'text-[var(--accent-slate)]',
@@ -410,21 +435,15 @@ const modules: SkillModule[] = [
       'Canva',
       'UI / UX Design',
       'Three.js',
-      '3ds Max',
+      'Godot Engine',
       'AutoCAD',
+      '3ds Max',
       'Aseprite',
-      'Godot'
     ],
-    usedIn: [
-      projects.portfolioKs,
-      projects.nearEarth,
-      projects.careQuest,
-      projects.snow,
-      projects.coffecrime
-    ],
+    usedIn: [projects.nearEarth, projects.careQuest, projects.portfolioKs, projects.snow, projects.coffecrime],
     description: {
-      en: 'I use creative tools for UI concepts, portfolio visuals, interactive web visuals, prototyping and selected 3D or game-oriented work.',
-      pl: 'Korzystam z narzędzi kreatywnych do konceptów UI, wizualizacji portfolio, interaktywnych form webowych, prototypowania oraz wybranych prac 3D i game-dev.'
+      en: 'I combine engineering with visual design, interactive 3D experiences, UI prototyping, and occasional game-oriented creative work.',
+      pl: 'Łączę programowanie z projektowaniem interfejsów, interaktywnymi wizualizacjami 3D, prototypowaniem UI i projektami kreatywnymi.'
     }
   }
 ];
@@ -444,6 +463,7 @@ function buildBar(value: number, max = 10) {
 
 export function Skills({ language }: SkillsProps) {
   const containerRef = useRef<HTMLElement | null>(null);
+  const moduleListRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.35 });
   const hasStartedRef = useRef(false);
   const cancelledRef = useRef(false);
@@ -529,15 +549,14 @@ export function Skills({ language }: SkillsProps) {
 
         setVisibleLines((prev) => Math.max(prev, moduleIndex + 1));
         setSelectedKey(module.key);
-
-        await sleep(120);
+        await sleep(65);
 
         let current = 0;
 
         while (current < module.score) {
           if (cancelledRef.current) return;
 
-          const step = Math.random() > 0.78 ? 2 : 1;
+          const step = Math.random() > 0.6 ? 3 : 2;
           current = Math.min(module.score, current + step);
 
           setScores((prev) => {
@@ -546,10 +565,10 @@ export function Skills({ language }: SkillsProps) {
             return next;
           });
 
-          await sleep(randomBetween(70, 125));
+          await sleep(randomBetween(30, 55));
         }
 
-        await sleep(randomBetween(140, 220));
+        await sleep(randomBetween(50, 90));
       }
 
       if (dotsIntervalId) {
@@ -576,6 +595,14 @@ export function Skills({ language }: SkillsProps) {
     };
   }, [isInView, ui.command]);
 
+  // Keep newly scanned modules in view without increasing the page height.
+  useEffect(() => {
+    if (phase !== 'scanning' || visibleLines < 7) return;
+    const list = moduleListRef.current;
+    if (!list) return;
+    list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
+  }, [phase, visibleLines]);
+
   const cursorVisible = phase === 'typing';
 
   return (
@@ -596,12 +623,12 @@ export function Skills({ language }: SkillsProps) {
           </div>
         </motion.div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)]"
+            className="min-w-0 overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)]"
           >
             <div className="flex items-center gap-2 border-b border-[var(--border-default)] bg-[var(--bg-tertiary)] px-4 py-3 sm:px-5">
               <span className="h-3 w-3 rounded-full bg-[var(--accent-red)]" />
@@ -633,7 +660,7 @@ export function Skills({ language }: SkillsProps) {
                 )}
               </div>
 
-              <div className="space-y-3 sm:space-y-2.5">
+              <div ref={moduleListRef} className="max-h-[620px] space-y-3 overflow-y-auto overscroll-contain pr-1 sm:max-h-[680px] sm:space-y-2.5">
                 <AnimatePresence>
                   {modules.slice(0, visibleLines).map((module, index) => {
                     const currentScore = scores[index];
@@ -655,28 +682,24 @@ export function Skills({ language }: SkillsProps) {
                             : 'border-transparent hover:border-[var(--border-default)] hover:bg-[var(--hover-overlay)]'
                         }`}
                       >
-                        <div className="hidden items-center gap-3 sm:flex">
-                          <Icon className={`h-4 w-4 ${module.colorClass}`} />
-
-                          <span className="code-font whitespace-pre text-sm text-[var(--text-primary)]">
+                        <div className="hidden min-w-0 items-center gap-3 sm:flex">
+                          <Icon className={`h-4 w-4 shrink-0 ${module.colorClass}`} />
+                          <span className="shrink-0 code-font whitespace-pre text-xs text-[var(--text-primary)] xl:text-sm">
                             {buildBar(currentScore)}
                           </span>
-
-                          <span className="code-font text-sm text-[var(--text-primary)]">
+                          <span className="min-w-0 flex-1 code-font text-xs leading-snug text-[var(--text-primary)] xl:text-sm">
                             {module.label[language]}
                           </span>
-
-                          <span className="ml-auto code-font text-xs text-[var(--text-secondary)]">
+                          <span className="ml-auto shrink-0 code-font text-xs text-[var(--text-secondary)]">
                             {currentScore}/10
                           </span>
                         </div>
 
                         <div className="sm:hidden">
-                          <div className="mb-2 flex items-center justify-between gap-3">
-                            <div className="flex items-center gap-2">
-                              <Icon className={`h-4 w-4 ${module.colorClass}`} />
-
-                              <span className="code-font text-xs text-[var(--text-primary)]">
+                          <div className="mb-2 flex min-w-0 items-center justify-between gap-3">
+                            <div className="min-w-0 flex items-center gap-2">
+                              <Icon className={`h-4 w-4 shrink-0 ${module.colorClass}`} />
+                              <span className="min-w-0 code-font text-xs leading-snug text-[var(--text-primary)]">
                                 {module.label[language]}
                               </span>
                             </div>
@@ -712,7 +735,7 @@ export function Skills({ language }: SkillsProps) {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)]"
+            className="min-w-0 overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-secondary)]"
           >
             <div className="border-b border-[var(--border-default)] bg-[var(--bg-tertiary)] px-4 py-3 sm:px-5">
               <div className="code-font text-xs text-[var(--text-secondary)] sm:text-sm">
