@@ -192,44 +192,6 @@ export function About({ language }: AboutProps) {
                   <p className="text-[var(--text-primary)] leading-relaxed">{ui.currentProjectText}</p>
                 </div>
               </div>
-
-              {/* Technologies */}
-              <div className="pl-4 border-l border-[var(--border-default)]">
-                <p className="mb-2 text-[var(--text-secondary)]">{ui.focusLabel}:</p>
-                <div className="flex flex-wrap gap-2">
-                  {mainTechnologies.map((technology) => (
-                    <span
-                      key={technology}
-                      className="rounded border border-[var(--accent-blue)]/50 bg-[var(--bg-tertiary)] px-2 py-1 text-[var(--accent-blue)]"
-                    >
-                      {technology}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Selected public projects */}
-              <div>
-                <div className="flex items-center gap-2 text-[var(--accent-blue)] mb-2">
-                  <span className="shrink-0">➜</span>
-                  <span className="break-words">{ui.recentCmd}</span>
-                </div>
-                <div className="flex flex-wrap gap-2 pl-4 border-l border-[var(--border-default)]">
-                  {selectedProjects.map((project) => (
-                    <a
-                      key={project.name}
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded border border-[var(--border-default)] px-2 py-1.5 text-[var(--text-primary)] transition-colors hover:border-[var(--accent-purple)] hover:text-[var(--accent-purple)]"
-                      aria-label={`${project.name} — GitHub`}
-                    >
-                      {project.name}
-                      <ExternalLink className="h-3 w-3 shrink-0" />
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
