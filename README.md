@@ -269,7 +269,14 @@ The current `package.json` does **not** define automated unit-test, end-to-end-t
 
 ## License
 
+Copyright © 2026 [Avuii](https://github.com/Avuii).
+All rights reserved.
 
+The source code, original design, and content of this
+portfolio may not be copied, modified, redistributed,
+or used commercially without prior written permission.
+
+See the [LICENSE](LICENSE) file for details.
 
 ---
 
